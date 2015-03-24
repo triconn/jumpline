@@ -40,8 +40,15 @@
   "author": "triconn",
   "license": "",
   "devDependencies": {
+    "blanket": "^1.1.6",
     "code": "^1.3.0",
     "mocha": "^2.2.1",
     "supertest": "^0.15.0"
+  },
+  "config": {
+    "blanket": {
+      "pattern": ["*.js"],
+      "data-cover-never": ["node_modules", "test"]
+    }
   }
 }
