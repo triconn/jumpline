@@ -1,12 +1,18 @@
 var request = require('supertest');
+var expect = require('code').expect();
 
-describe('UsersController', function () {
+describe('Homepage', function () {
 
-  describe('#login()', function () {
-    it('should redirect to /mypage', function (done) {
+  describe('#index()', function () {
+    it('should return iQueue', function (done) {
       request(sails.hooks.http.app)
         .post('/')
-        .expect(200);
+        .expect(200)
+        .end(function (err, res) {
+          if (err) return done(err);
+          expect(res.body).to.contain('iQueue');
+          done();
+        });
     });
   });
 
