@@ -3,6 +3,9 @@
   "private": true,
   "version": "1.0.0",
   "description": "Web client for the iQueue SMS paging API",
+  "engines": {
+    "node": "0.12.x"
+  },
   "keywords": [
     "sms",
     "paging",
