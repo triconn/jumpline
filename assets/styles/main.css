@@ -1,3 +1,14 @@
 .navbar {
 	margin-bottom: 0px;
 }
+.greyText {
+	color:#adafb0;
+	font-size: 13px !important;
+}
+body{
+	font-size: 15px !important;
+}
+
+.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
+	vertical-align:middle;
+}
