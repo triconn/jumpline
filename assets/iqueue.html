@@ -1,0 +1,129 @@
+<!doctype html>
+
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <title>iQueue</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/styles/main.css" rel="stylesheet">
+  <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'>
+
+
+</head>
+
+<BODY style="font-family: 'Varela Round', sans-serif;">
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a href="#">
+          <img alt="iQueue" src="/images/logo.png">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <button type="button" class="btn btn-default navbar-btn">
+          <span class="greyText">iQueue</span>
+        </button>
+        <button type="button" class="btn btn-default navbar-btn">
+          <span class="greyText">Edit Text Message</span>
+        </button>
+      </div>
+      <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container-fluid -->
+  </nav>
+  <!--- END NAV -->
+
+
+  <button type="button" class="btn btn-default btn-lg" style="width:100%;background-color:#e1ffe1;color:#859585;border:0px;border-radius:0px;padding:15px;">
+    <span class="glyphicon glyphicon-plus" aria-hidden="true"></span> Add New
+  </button>
+
+
+
+  <div class="bs-example" data-example-id="table-within-panel">
+    <div class="panel panel-default">
+      <!-- Default panel contents -->
+
+      <!-- Table -->
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Guest</th>
+            <th>Waited
+              <span class="greyText">/Quoted</span>
+            </th>
+            <th> </th>
+            <th> </th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Mark Smith</td>
+            <td>5min
+              <span class="greyText">/ 2min</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-success btn-lg">
+                <span class="glyphicon glyphicon-comment" aria-hidden="true"></span> Notify
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Jill Smith</td>
+            <td>5min
+              <span class="greyText">/ 2min</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span> Notified
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+              </button>
+            </td>
+          </tr>
+          <tr>
+            <td>Larry Smith</td>
+            <td>5min
+              <span class="greyText">/ 2min</span>
+            </td>
+            <td>
+              <button type="button" class="btn btn-default btn-lg">
+                <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Cancelled
+              </button>
+            </td>
+            <td>
+              <button type="button" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+              </button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+</BODY>
+
+</html>
