@@ -22,7 +22,7 @@ module.exports = React.createClass({
     }];
 
     guestData.forEach(function (guest) {
-      rows.push(<GuestTableEntry guest={guest} />);
+      rows.push(<GuestTableEntry key={guest.id} guest={guest} />);
     });
 
     return (

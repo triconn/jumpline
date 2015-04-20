@@ -1,15 +1,20 @@
+// Libraries
 var React = require('react');
-var Nav = require('./Nav.jsx');
-var AddGuest = require('./AddGuest.jsx');
+
+// React components
+var AddGuestButton = require('./AddGuestButton.jsx');
+var AddGuestModal = require('./AddGuestModal.jsx');
 var GuestTable = require('./GuestTable.jsx');
+var Nav = require('./Nav.jsx');
 
 module.exports = React.createClass({
   render: function() {
     return (
-      <div className="Main">
+      <div>
         <Nav />
-        <AddGuest />
+        <AddGuestButton />
         <GuestTable />
+        <AddGuestModal />
       </div>
     );
   }

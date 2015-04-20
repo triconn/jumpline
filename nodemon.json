@@ -6,5 +6,5 @@
     ".tmp",
     "views/layout.ejs"
   ],
-  "ext": "js json html htm css ejs less txt"
+  "ext": "js json jsx html htm css ejs less txt"
 }
