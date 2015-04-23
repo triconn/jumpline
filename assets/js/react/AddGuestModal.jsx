@@ -15,6 +15,16 @@ module.exports = React.createClass({
 
     } else {
       // TODO: send request to the server
+
+      // update state
+      this.props.addGuest({
+        'id': this.props.totalGuests + 1,
+        'guest': name,
+        'waited': '7',
+        'quoted': '10'
+      });
+
+      // cleanup
       this.clearForm();
       $('#AddGuestModal').modal('hide');
     }

@@ -7,10 +7,9 @@ module.exports = React.createClass({
     return (
       <div className="bs-example" data-example-id="table-within-panel">
         <div className="panel panel-default">
-
           <table className="table table-striped">
             <GuestTableTitle />
-            <GuestTableEntries />
+            <GuestTableEntries guests={this.props.guests} />
           </table>
         </div>
       </div>
