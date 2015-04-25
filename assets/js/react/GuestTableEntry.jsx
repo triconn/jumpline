@@ -12,12 +12,12 @@ module.exports = React.createClass({
           <span className="greyText">/ {entry.quoted}min</span>
         </td>
         <td>
-          <button type="button" className="btn btn-success btn-lg">
+          <button type="button" className="btn btn-success btn-default">
             <span className="glyphicon glyphicon-comment" aria-hidden="true"></span> Notify
           </button>
         </td>
         <td>
-          <button type="button" className="btn btn-info btn-lg">
+          <button type="button" className="btn btn-info btn-default">
             <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Done
           </button>
         </td>
