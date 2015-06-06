@@ -14,25 +14,24 @@ module.exports = React.createClass({
       console.error('Phone has no value');
 
     } else {
-      // TODO: send request to the server
 
       // update state
       this.props.addGuest({
-        'id': this.props.totalGuests + 1,
-        'guest': name,
-        'waited': '7',
-        'quoted': '10'
+        'name': name,
+        'estimate': '10'
       });
 
       // cleanup
       this.clearForm();
       $('#AddGuestModal').modal('hide');
+      $('.btn-add-guest').blur();
     }
   },
 
   clearForm: function() {
     React.findDOMNode(this.refs.name).value = '';
     React.findDOMNode(this.refs.phone).value = '';
+    $('.btn-add-guest').blur();
   },
 
   render: function() {
@@ -59,7 +58,7 @@ module.exports = React.createClass({
                   <br />
 
                   <div className="form-group">
-                    <input ref="name" type="text" className="form-control input-lg" placeholder="Name" />
+                    <input id="addGuestName" ref="name" type="text" className="form-control input-lg" placeholder="Name" />
                   </div>
                   <div className="form-group">
                     <input ref="phone" type="text" className="form-control input-lg" placeholder="Phone Number" />

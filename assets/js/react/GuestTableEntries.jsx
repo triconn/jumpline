@@ -8,8 +8,8 @@ module.exports = React.createClass({
     var rows = [];
 
     this.props.guests.forEach(function (guest) {
-      rows.push(<GuestTableEntry key={guest.id} guest={guest} />);
-    });
+      rows.push(<GuestTableEntry key={guest.id} guest={guest} now={this.props.now} />);
+    }.bind(this));
 
     return (
       <tbody>

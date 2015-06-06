@@ -9,7 +9,7 @@ module.exports = React.createClass({
         <div className="panel panel-default">
           <table className="table table-striped">
             <GuestTableTitle />
-            <GuestTableEntries guests={this.props.guests} />
+            <GuestTableEntries guests={this.props.guests} now={this.props.now} />
           </table>
         </div>
       </div>
