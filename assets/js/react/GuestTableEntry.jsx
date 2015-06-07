@@ -11,6 +11,10 @@ module.exports = React.createClass({
     var millis = this.props.now - entered;
     // convert to minutes and round down
     var waited = Math.floor(millis/1000/60);
+    // fix #1 where waited shows as -1 when  server time is slightly ahead of client time
+    if (waited < 0) {
+      waited = 0;
+    }
 
     return (
       <tr>
