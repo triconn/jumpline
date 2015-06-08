@@ -1,7 +1,7 @@
 {
   "name": "iqueue",
   "private": true,
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Web client for the iQueue SMS paging API",
   "engines": {
     "node": "0.12.x"
@@ -32,6 +32,7 @@
     "react": "^0.13.1",
     "sails": "~0.11.0",
     "sails-disk": "^0.10.8",
+    "twilio": "^2.2.1",
     "waterline": "^0.10.23"
   },
   "scripts": {

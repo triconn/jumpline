@@ -34,7 +34,8 @@ module.exports.routes = {
 
   '/': {
     view: 'index'
-  }
+  },
+  'post /guest/:id/notify': 'GuestController.notify'
 
   /***************************************************************************
   *                                                                          *

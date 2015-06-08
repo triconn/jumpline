@@ -43,5 +43,13 @@ module.exports = {
       type: 'datetime'
     }
 
+  },
+
+  notify: function (options, cb) {
+
+    Guest.findOne(options.id).exec(function (err, result) {
+      if (err) return cb(err);
+
+    });
   }
 };
