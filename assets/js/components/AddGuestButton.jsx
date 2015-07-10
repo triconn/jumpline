@@ -3,7 +3,7 @@ var React = require('react');
 module.exports = React.createClass({
 
   focusOnNameInput: function() {
-    $('#addGuestName').focus();
+    document.getElementById('addGuestName').focus();
   },
 
   render: function() {

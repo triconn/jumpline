@@ -1,11 +1,13 @@
 var React = require('react');
+var QueueActions = require('../actions/QueueActions.js');
 
 module.exports = React.createClass({
 
-  handleAddGuest: function(e) {
+  _addGuest: function(e) {
 
     var name = React.findDOMNode(this.refs.name).value.trim();
     var phone = React.findDOMNode(this.refs.phone).value.trim();
+    var phoneRegex = /^\d{10}$/; //Phone must be 10 numeric digits only
 
     if (!name) {
       console.error('Name has no value');
@@ -13,13 +15,19 @@ module.exports = React.createClass({
     } else if (!phone) {
       console.error('Phone has no value');
 
+    } else if (!phone.match(phoneRegex)) {
+      console.error('Phone must be 10 digits (0-9)');
+
     } else {
 
-      // update state
-      this.props.addGuest({
+      const newGuest = {
         'name': name,
+        'phone': phone,
         'estimate': '10'
-      });
+      };
+      console.log('Adding Guest: ' + JSON.stringify(newGuest));
+      // update state
+      QueueActions.addGuest(newGuest);
 
       // cleanup
       this.clearForm();
@@ -76,7 +84,7 @@ module.exports = React.createClass({
               <div className="row">
               <div className="col-md-10 col-md-offset-1">
 
-                <button type="button" className="btn btn-primary btn-lg" aria-label="Add" onClick={this.handleAddGuest}>
+                <button type="button" className="btn btn-primary btn-lg" aria-label="Add" onClick={this._addGuest}>
                   <span className="glyphicon glyphicon-plus" aria-hidden="true"></span>
                   &nbsp;Add
                 </button>
