@@ -1,5 +1,13 @@
-# iQueue Web Client
+# iQueue
 
-Web client for the iQueue SMS paging API
+An SMS paging API and web client
 
-a [Sails](http://sailsjs.org) application
+#### Quick Start
+
+```
+git clone https://github.com/triconn/iqueue.git
+cd iqueue
+npm install
+npm start
+```
+

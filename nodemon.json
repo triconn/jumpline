@@ -3,8 +3,7 @@
   "ignore": [
     ".git",
     "node_modules/**/node_modules",
-    ".tmp",
-    "views/layout.ejs"
+    "assets/*"
   ],
-  "ext": "js json jsx html htm css ejs less txt"
+  "ext": "js json jsx html htm css"
 }
