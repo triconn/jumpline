@@ -1,0 +1,12 @@
+web:
+  image: node:0.12-onbuild
+  links:
+    - db
+  ports:
+    - '8000:8000'
+  volumes:
+    - .:/usr/src/app
+  command: npm run dev
+db:
+  image: mongo
+

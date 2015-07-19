@@ -40,3 +40,4 @@ module.exports = React.createClass({
     this.setState(QueueStore.getQueue());
   }
 });
+
