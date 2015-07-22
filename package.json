@@ -24,9 +24,10 @@
   },
   "scripts": {
     "start": "node server.js",
+    "build": "webpack -p --progress",
     "debug": "node debug server.js",
-    "test": "eclint check *",
-    "dev": "nodemon -w $PWD"
+    "lint": "eclint check *",
+    "dev": "webpack --progress --colors --watch & nodemon"
   },
   "main": "server.js",
   "repository": {

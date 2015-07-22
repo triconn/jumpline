@@ -1,4 +1,4 @@
-# iQueue
+![iQueue](https://raw.githubusercontent.com/wiki/triconn/iqueue/iQueue-logo.png)
 
 An SMS paging API and web client
 
