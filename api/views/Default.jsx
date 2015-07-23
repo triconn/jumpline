@@ -1,11 +1,13 @@
 // Default layout template
 var React = require('react');
+var Cache = require('../../config/cache.js');
 
 var Default = React.createClass({
 
   render: function() {
 
-    var title = "iQueue";
+    var title = 'iQueue';
+    var jsBundle = 'js/bundle-' + Cache.bust() + '.js';
 
     return(
       <html>
@@ -23,7 +25,7 @@ var Default = React.createClass({
         <div id="main"></div>
         <script src="http://code.jquery.com/jquery-2.1.3.min.js"></script>
         <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-        <script src="js/bundle.js"></script>
+        <script src={jsBundle}></script>
       </body>
       </html>
     );

@@ -1,13 +1,15 @@
 // Create a basic Hapi.js server
 var Hapi = require('hapi');
+var requireDir = require('require-directory');
+var Config = requireDir(module, './config');
 var dateFormat = require('dateformat');
 var format = "dd mmm HH:MM:ss";
 
 // Basic Hapi.js connection stuff
 var server = new Hapi.Server();
 server.connection({
-  host: '0.0.0.0',
-  port: 8000
+  host: Config.env.getServer().host,
+  port: Config.env.getServer().port
 });
 
 // Add the React-rendering view engine
@@ -16,31 +18,19 @@ server.views({
       jsx: require('hapi-react-views')
   },
   relativeTo: __dirname,
-  path: 'views'
+  path: 'api/views'
 });
 
 // Add a route to serve static assets (CSS, JS, IMG)
-server.route({
-  method: 'GET',
-  path: '/{param*}',
-  handler: {
-    directory: {
-      path: 'assets',
-      index: ['index.html']
-    }
-  }
-});
+server.route(Config.routes);
 
-// Add main app route
-server.route({
-  method: 'GET',
-  path: '/',
-  handler: {
-    view: 'Default'
-  }
-});
+// Register plugins
+server.register(Config.plugins, function(err) {
 
-server.start(function() {
-  console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
+  // Start the server
+  server.start(function() {
+
+    console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
+  });
 });
 

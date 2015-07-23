@@ -1,42 +1,38 @@
 var QueueServerActions = require('../actions/QueueServerActions.js');
-var base = window.location.protocol;
-var getGuestsUrl = base + '/guest';
-var postGuestUrl = base + '/guest';
+var request = require('superagent');
+
+var getGuestsUrl = '/guests';
+var postGuestUrl = '/guests';
 
 module.exports = {
 
   add: function(guest) {
-    $.ajax({
-      url: postGuestUrl,
-      type: 'POST',
-      data: guest,
-      success: function (createdGuest) {
 
-        // if adding guest to server was successful
-        console.log('Created guest: ' + JSON.stringify(createdGuest));
-        QueueServerActions.receiveAddGuest(createdGuest);
-      },
+    request.post(postGuestUrl)
+    .set('Content-Type', 'application/json')
+    .send({ guest: guest })
+    .end(function(err, res) {
+      if(err) return console.error(err);
 
-      error: function (err) {
-
-        console.error(err);
-      }
+      console.log('Created guest: ' + JSON.stringify(res.body));
+      QueueServerActions.receiveAddGuest(res.body.guest);
 
     });
 
   },
 
   get: function() {
-    console.log('location ' + window.location.protocol);
-    $.get({
-      url: getGuestsUrl,
-      success: function(guests) {
-        QueueServerActions.receiveGetGuests(guests.body);
-      },
-      error: function(err) {
-        console.error(err);
-      }
+
+    request.get(getGuestsUrl)
+    .set('Accept', 'application/json')
+    .end(function(err, res) {
+      if(err) return console.error(err);
+
+      console.log('All guests: ' + JSON.stringify(res.body.guests));
+      QueueServerActions.receiveGetGuests(res.body.guests);
+
     });
+
   }
 };
 
