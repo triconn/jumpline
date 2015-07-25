@@ -22467,7 +22467,8 @@
 	    if(this.state.guests) {
 
 	      this.state.guests.forEach(function (guest) {
-	        rows.push(React.createElement(GuestTableEntry, {key: guest.id, guest: guest}));
+
+	        rows.push(React.createElement(GuestTableEntry, {key: guest.id, guest: guest, pollInterval: 5000}));
 	      });
 	    }
 
@@ -22521,12 +22522,13 @@
 
 	    case QueueConstants.ADD_GUEST_RESPONSE:
 	      _queue.guests.push(payload.action.guest);
-	      console.log('Guest Added: ' + JSON.stringify(payload.action.guest));
 	      QueueStore.emit(CHANGE_EVENT);
 	      break;
 
 	    case QueueConstants.GET_GUESTS_RESPONSE:
-	      _queue.guests.push(payload.action.guests);
+	      payload.action.guests.forEach(function(guest) {
+	        _queue.guests.push(guest);
+	      });
 	      QueueStore.emit(CHANGE_EVENT);
 	      break;
 
@@ -22899,24 +22901,25 @@
 
 	module.exports = React.createClass({displayName: "module.exports",
 
+	  getInitialState: function() {
+
+	    return {
+	      waited: 0
+	    }
+	  },
+
+	  componentDidMount: function() {
+	    this._tick();
+	    setInterval(this._tick, this.props.pollInterval);
+	  },
+
 	  render: function() {
 
 	    var g = this.props.guest;
-	    var entered = new Date(g.createdAt);
-	    // get the difference in milliseconds between when the customer was created
-	    // and now
-	    var millis = this.props.now - entered;
-	    // convert to minutes and round down
-	    var waited = Math.floor(millis/1000/60);
-	    // fix #1 where waited shows as -1 when  server time is slightly ahead of client time
-	    if (waited < 0) {
-	      waited = 0;
-	    }
-
 	    return (
 	      React.createElement("tr", null, 
 	        React.createElement("td", null, g.name), 
-	        React.createElement("td", null, waited, "min", 
+	        React.createElement("td", null, this.state.waited, "min", 
 	          React.createElement("span", {className: "greyText"}, "/ ", g.estimate, "min")
 	        ), 
 	        React.createElement("td", null, 
@@ -22931,8 +22934,20 @@
 	        )
 	      )
 	    );
+	  },
+
+	  _tick: function() {
+
+	    var now = new Date();
+	    var created = new Date(this.props.guest.createdAt);
+	    var milliseconds = now - created;
+	    var minutes = Math.floor(milliseconds/60000);
+
+	    this.setState({ waited: minutes });
 	  }
+
 	});
+
 
 
 /***/ },

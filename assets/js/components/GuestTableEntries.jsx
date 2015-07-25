@@ -25,7 +25,8 @@ module.exports = React.createClass({
     if(this.state.guests) {
 
       this.state.guests.forEach(function (guest) {
-        rows.push(<GuestTableEntry key={guest.id} guest={guest} />);
+
+        rows.push(<GuestTableEntry key={guest.id} guest={guest} pollInterval={5000} />);
       });
     }
 

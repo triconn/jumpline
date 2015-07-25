@@ -30,12 +30,13 @@ Dispatcher.register(function(payload) {
 
     case QueueConstants.ADD_GUEST_RESPONSE:
       _queue.guests.push(payload.action.guest);
-      console.log('Guest Added: ' + JSON.stringify(payload.action.guest));
       QueueStore.emit(CHANGE_EVENT);
       break;
 
     case QueueConstants.GET_GUESTS_RESPONSE:
-      _queue.guests.push(payload.action.guests);
+      payload.action.guests.forEach(function(guest) {
+        _queue.guests.push(guest);
+      });
       QueueStore.emit(CHANGE_EVENT);
       break;
 

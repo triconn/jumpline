@@ -2,24 +2,25 @@ var React = require('react');
 
 module.exports = React.createClass({
 
+  getInitialState: function() {
+
+    return {
+      waited: 0
+    }
+  },
+
+  componentDidMount: function() {
+    this._tick();
+    setInterval(this._tick, this.props.pollInterval);
+  },
+
   render: function() {
 
     var g = this.props.guest;
-    var entered = new Date(g.createdAt);
-    // get the difference in milliseconds between when the customer was created
-    // and now
-    var millis = this.props.now - entered;
-    // convert to minutes and round down
-    var waited = Math.floor(millis/1000/60);
-    // fix #1 where waited shows as -1 when  server time is slightly ahead of client time
-    if (waited < 0) {
-      waited = 0;
-    }
-
     return (
       <tr>
         <td>{g.name}</td>
-        <td>{waited}min
+        <td>{this.state.waited}min
           <span className="greyText">/ {g.estimate}min</span>
         </td>
         <td>
@@ -34,5 +35,17 @@ module.exports = React.createClass({
         </td>
       </tr>
     );
+  },
+
+  _tick: function() {
+
+    var now = new Date();
+    var created = new Date(this.props.guest.createdAt);
+    var milliseconds = now - created;
+    var minutes = Math.floor(milliseconds/60000);
+
+    this.setState({ waited: minutes });
   }
+
 });
+
