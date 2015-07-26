@@ -1,6 +1,6 @@
-FROM centos
+FROM centos:6
 
-RUN yum update -y && yum install -y gcc-c++
+RUN yum update -y && yum clean all && yum install -y gcc-c++ tar
 
 WORKDIR /tmp
 RUN curl -o node-v0.12.7-linux-x64.tar.gz https://nodejs.org/dist/v0.12.7/node-v0.12.7-linux-x64.tar.gz
