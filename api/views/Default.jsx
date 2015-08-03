@@ -19,6 +19,7 @@ var Default = React.createClass({
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"></link>
         <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'></link>
         <link rel="stylesheet" href="/styles/main.css"></link>
+        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"></link>
 
       </head>
       <body style={{fontFamily: ['Varela Round', 'sans-serif']}}>
