@@ -36,5 +36,8 @@ module.exports = [{
       events: { log: '*', request: '*', response: '*', error: '*' }
     }]
   }
+}, {
+
+  register: require('lout')
 }];
 
