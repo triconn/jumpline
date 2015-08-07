@@ -10,6 +10,10 @@ module.exports = [{
   method: 'POST',
   path: '/guests',
   config: controllers.guests.create
+}, {
+  method: 'PATCH',
+  path: '/guests/{id}/notify',
+  config: controllers.guests.notify
 },
 
   // Non-controller paths
