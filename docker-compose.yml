@@ -6,6 +6,10 @@ web:
     - '8000:8000'
   volumes:
     - .:/usr/src/app
+  environment:
+    - TWILIO_ACCOUNT_SID
+    - TWILIO_AUTH_TOKEN
+    - TWILIO_NUMBER
   command: npm run dev
 db:
   image: mongo
