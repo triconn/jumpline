@@ -12,6 +12,7 @@ export TWILIO_NUMBER=5551234567
 git clone https://github.com/triconn/iqueue.git
 cd iqueue
 npm install
+npm build
 npm start
 ```
 

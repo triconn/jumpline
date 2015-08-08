@@ -103,6 +103,6 @@ npm-debug.log
 nbproject
 .idea
 .node_history
-assets/js/bundle.js
+assets/js/bundle-*.js
 
 .tmp
