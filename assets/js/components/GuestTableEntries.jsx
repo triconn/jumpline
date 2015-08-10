@@ -26,7 +26,10 @@ module.exports = React.createClass({
 
       this.state.guests.forEach(function (guest) {
 
-        rows.push(<GuestTableEntry key={guest.id} guest={guest} pollInterval={5000} />);
+        rows.push(<GuestTableEntry
+          key={guest.id}
+          guest={guest}
+          pollInterval={5000} />);
       });
     }
 
@@ -38,7 +41,10 @@ module.exports = React.createClass({
   },
 
   _onChange: function() {
+
     this.setState(QueueStore.getQueue());
+
   }
+
 });
 

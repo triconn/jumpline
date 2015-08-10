@@ -29,13 +29,35 @@ Dispatcher.register(function(payload) {
   switch(payload.action.type) {
 
     case QueueConstants.ADD_GUEST_RESPONSE:
+      //add new guest to end of the list
       _queue.guests.push(payload.action.guest);
       QueueStore.emit(CHANGE_EVENT);
       break;
 
     case QueueConstants.GET_GUESTS_RESPONSE:
-      payload.action.guests.forEach(function(guest) {
-        _queue.guests.push(guest);
+      //replace current guest queue with response
+      _queue.guests = payload.action.guests;
+      QueueStore.emit(CHANGE_EVENT);
+      break;
+
+    case QueueConstants.NOTIFY_GUEST_RESPONSE:
+      //find notified guest and replace with response
+      _queue.guests.map(function(guest) {
+        if(guest.id !== payload.action.guest.id) {
+          return guest;
+        } else {
+          return payload.action.guest;
+        };
+      });
+      QueueStore.emit(CHANGE_EVENT);
+      break;
+
+    case QueueConstants.COMPLETE_GUEST_RESPONSE:
+      //remove completed guest from queue
+      _queue.guests.map(function(guest) {
+        if(guest.id !== action.guest.id) {
+          return guest;
+        };
       });
       QueueStore.emit(CHANGE_EVENT);
       break;

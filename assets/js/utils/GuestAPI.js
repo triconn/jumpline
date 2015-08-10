@@ -1,14 +1,15 @@
 var QueueServerActions = require('../actions/QueueServerActions.js');
 var request = require('superagent');
 
-var getGuestsUrl = '/guests';
-var postGuestUrl = '/guests';
+var completeGuestUrl = '/guests/{id}/notify';
 
 module.exports = {
 
   add: function(guest) {
 
-    request.post(postGuestUrl)
+    var addGuestUrl = '/guests';
+
+    request.post(addGuestUrl)
     .set('Content-Type', 'application/json')
     .send({ guest: guest })
     .end(function(err, res) {
@@ -23,6 +24,8 @@ module.exports = {
 
   get: function() {
 
+    var getGuestsUrl = '/guests';
+
     request.get(getGuestsUrl)
     .set('Accept', 'application/json')
     .end(function(err, res) {
@@ -33,6 +36,23 @@ module.exports = {
 
     });
 
+  },
+
+  notify: function(id) {
+
+    var notifyGuestUrl = '/guests/' + id + '/notify';
+
+    request.patch(notifyGuestUrl)
+    .set('Accept', 'application/json')
+    .end(function(err, res) {
+      if(err) return console.error(err);
+
+      console.log('Notified guest: ' + JSON.stringify(res.body.guest));
+      QueueServerActions.receiveNotifyGuest(res.body.guest);
+
+    });
+
   }
+
 };
 

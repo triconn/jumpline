@@ -19,6 +19,7 @@ npm start
 #### Development
 
 ```
+# Run the commands above up to and including `npm install`
 npm run dev
 ```
 

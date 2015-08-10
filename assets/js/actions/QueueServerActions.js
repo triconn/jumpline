@@ -15,6 +15,14 @@ module.exports = {
       type: QueueConstants.GET_GUESTS_RESPONSE,
       guests: guests
     });
+  },
+
+  receiveNotifyGuest: function(guest) {
+    Dispatcher.handleServerAction({
+      type: QueueConstants.NOTIFY_GUEST_RESPONSE,
+      guest: guest
+    });
   }
+
 };
 

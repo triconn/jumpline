@@ -19,6 +19,21 @@ module.exports = {
     });
 
     GuestAPI.get();
+  },
+
+  notifyGuest: function(id) {
+    Dispatcher.handleViewAction({
+      type: QueueConstants.NOTIFY_GUEST
+    });
+
+    GuestAPI.notify(id);
+  },
+
+  completeGuest: function(id) {
+    Dispatcher.handleViewAction({
+      type: QueueConstants.COMPLETE_GUEST
+    });
   }
+
 };
 

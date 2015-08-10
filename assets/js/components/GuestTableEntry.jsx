@@ -1,4 +1,5 @@
 var React = require('react');
+var NotifyButton = require('./GuestTableEntryNotify.jsx');
 
 module.exports = React.createClass({
 
@@ -16,17 +17,17 @@ module.exports = React.createClass({
 
   render: function() {
 
-    var g = this.props.guest;
     return (
       <tr>
-        <td>{g.name}</td>
+        <td>{this.props.guest.name}</td>
         <td>{this.state.waited}min
-          <span className="greyText">/ {g.estimate}min</span>
+          <span className="greyText">/ {this.props.guest.estimate}min</span>
         </td>
         <td>
-          <button type="button" className="btn btn-success btn-default">
-            <span className="glyphicon glyphicon-comment" aria-hidden="true"></span> Notify
-          </button>
+          <NotifyButton
+            id={this.props.guest.id}
+            status={this.props.guest.status}
+          />
         </td>
         <td>
           <button type="button" className="btn btn-info btn-default">
@@ -44,8 +45,17 @@ module.exports = React.createClass({
     var milliseconds = now - created;
     var minutes = Math.floor(milliseconds/60000);
 
-    this.setState({ waited: minutes });
-  }
+    //account from any server/client clock offset
+    if(minutes > 0) {
 
+      this.setState({ waited: minutes });
+
+    } else {
+
+      this.setState({ waited: 0 });
+
+    };
+
+  }
 });
 
