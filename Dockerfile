@@ -10,8 +10,9 @@ ENV PATH $PATH:/opt/node-v0.12.7-linux-x64/bin
 
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
-ADD . /usr/src/app
+ADD package.json /usr/src/app/
 RUN npm install
+ADD . /usr/src/app
 RUN npm build
 
 EXPOSE 8000
