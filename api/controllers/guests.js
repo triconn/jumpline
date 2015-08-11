@@ -14,6 +14,12 @@ var GuestValidationObject = {
   estimatedAt: Joi.date().iso()
 };
 
+var NotifyGuestValidationObject = GuestValidationObject;
+NotifyGuestValidationObject.status = Joi.any().allow('notified');
+
+var CompleteGuestValidationObject = GuestValidationObject;
+CompleteGuestValidationObject.status = Joi.any().allow('completed');
+
 module.exports = {
 
   index: {
@@ -22,7 +28,9 @@ module.exports = {
 
       var Guests = request.model.guests;
 
-      Guests.find().then(function(guests) {
+      Guests.find({
+        status: { '!': 'completed' }
+      }).then(function(guests) {
 
         var result = {
           guests: guests
@@ -81,7 +89,7 @@ module.exports = {
       .exec(function(err, guest) {
 
         if(err) return reply(Boom.badRequest(err));
-        if(guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+        if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
 
         //send text message
         Twilio.sendNotification({
@@ -101,7 +109,7 @@ module.exports = {
           .exec(function(err, guest) {
 
             if(err) return reply(Boom.badRequest(err));
-            if(guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+            if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
 
             // return updated guest
             reply({ guest: guest[0] });
@@ -119,7 +127,42 @@ module.exports = {
     },
     response: {
       schema: Joi.object().keys({
-        guest: GuestValidationObject
+        guest: NotifyGuestValidationObject
+      })
+    }
+  },
+
+  complete: {
+    description: 'Mark guest as completed',
+    handler: function(request, reply) {
+
+      var Guests = request.model.guests;
+
+      //update guest status to completed
+      Guests.update({
+        id: request.params.id
+      }, {
+        status: 'completed'
+      })
+      .exec(function(err, guest) {
+
+        if(err) return reply(Boom.badRequest(err));
+        if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+
+        // return updated guest
+        reply({ guest: guest[0] });
+
+      });
+
+    },
+    validate: {
+      params: {
+        id: Joi.number()
+      }
+    },
+    response: {
+      schema: Joi.object().keys({
+        guest: CompleteGuestValidationObject
       })
     }
   }

@@ -14,7 +14,12 @@ module.exports = [{
   method: 'PATCH',
   path: '/guests/{id}/notify',
   config: controllers.guests.notify
+}, {
+  method: 'PATCH',
+  path: '/guests/{id}/complete',
+  config: controllers.guests.complete
 },
+
 
   // Non-controller paths
 {
