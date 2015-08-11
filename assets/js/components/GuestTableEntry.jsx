@@ -12,7 +12,11 @@ module.exports = React.createClass({
 
   componentDidMount: function() {
     this._tick();
-    setInterval(this._tick, this.props.pollInterval);
+    this.interval = setInterval(this._tick, this.props.pollInterval);
+  },
+
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
   },
 
   render: function() {
