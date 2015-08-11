@@ -42,7 +42,7 @@ Dispatcher.register(function(payload) {
 
     case QueueConstants.NOTIFY_GUEST_RESPONSE:
       //find notified guest and replace with response
-      _queue.guests.map(function(guest) {
+      _queue.guests = _queue.guests.map(function(guest) {
         if(guest.id !== payload.action.guest.id) {
           return guest;
         } else {
