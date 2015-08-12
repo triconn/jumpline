@@ -54,10 +54,8 @@ Dispatcher.register(function(payload) {
 
     case QueueConstants.COMPLETE_GUEST_RESPONSE:
       //remove completed guest from queue
-      _queue.guests.map(function(guest) {
-        if(guest.id !== action.guest.id) {
-          return guest;
-        };
+      _queue.guests = _queue.guests.filter(function(guest) {
+        return guest.id !== payload.action.guest.id;
       });
       QueueStore.emit(CHANGE_EVENT);
       break;

@@ -22,7 +22,15 @@ module.exports = {
       type: QueueConstants.NOTIFY_GUEST_RESPONSE,
       guest: guest
     });
+  },
+
+  receiveCompleteGuest: function(guest) {
+    Dispatcher.handleServerAction({
+      type: QueueConstants.COMPLETE_GUEST_RESPONSE,
+      guest: guest
+    });
   }
+
 
 };
 

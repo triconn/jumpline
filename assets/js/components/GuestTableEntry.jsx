@@ -1,5 +1,6 @@
 var React = require('react');
 var NotifyButton = require('./GuestTableEntryNotify.jsx');
+var QueueActions = require('../actions/QueueActions.js');
 
 module.exports = React.createClass({
 
@@ -34,12 +35,20 @@ module.exports = React.createClass({
           />
         </td>
         <td>
-          <button type="button" className="btn btn-info btn-default">
+          <button type="button"
+            onClick={this._complete}
+            className="btn btn-info btn-default">
             <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Done
           </button>
         </td>
       </tr>
     );
+  },
+
+  _complete: function() {
+
+    QueueActions.completeGuest(this.props.guest.id);
+
   },
 
   _tick: function() {

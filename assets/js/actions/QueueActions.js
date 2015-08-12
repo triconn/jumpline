@@ -33,6 +33,8 @@ module.exports = {
     Dispatcher.handleViewAction({
       type: QueueConstants.COMPLETE_GUEST
     });
+
+    GuestAPI.complete(id);
   }
 
 };

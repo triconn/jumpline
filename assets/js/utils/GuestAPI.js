@@ -52,6 +52,22 @@ module.exports = {
 
     });
 
+  },
+
+  complete: function(id) {
+
+    var completeGuestUrl = '/guests/' + id + '/complete';
+
+    request.patch(completeGuestUrl)
+    .set('Accept', 'application/json')
+    .end(function(err, res) {
+      if(err) return console.error(err);
+
+      console.log('Completed guest: ' + JSON.stringify(res.body.guest));
+      QueueServerActions.receiveCompleteGuest(res.body.guest);
+
+    });
+
   }
 
 };
