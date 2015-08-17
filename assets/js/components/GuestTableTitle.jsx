@@ -7,7 +7,7 @@ module.exports = React.createClass({
         <tr>
           <th>Guest</th>
           <th>Waited
-            <span className="greyText">/Quoted</span>
+            <span className="greyText">/ Quoted</span>
           </th>
           <th> </th>
           <th> </th>
