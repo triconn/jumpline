@@ -1,4 +1,5 @@
 var React = require('react');
+require('../../styles/components/AddGuestButton.css');
 
 module.exports = React.createClass({
 

@@ -47,9 +47,11 @@
   "license": "Apache-2.0",
   "devDependencies": {
     "browser-sync-webpack-plugin": "^0.2.0",
+    "css-loader": "^0.16.0",
     "eclint": "^0.2.6",
     "jsx-loader": "^0.13.2",
     "nodemon": "^1.3.7",
+    "style-loader": "^0.12.3",
     "webpack": "^1.10.3"
   }
 }

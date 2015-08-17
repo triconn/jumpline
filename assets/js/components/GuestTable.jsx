@@ -1,6 +1,6 @@
 var React = require('react');
-var GuestTableTitle = require('./GuestTableTitle.jsx');
 var GuestTableEntries = require('./GuestTableEntries.jsx');
+require('../../styles/components/GuestTable.css');
 
 module.exports = React.createClass({
   render: function() {
@@ -8,7 +8,16 @@ module.exports = React.createClass({
       <div className="bs-example" data-example-id="table-within-panel">
         <div className="panel panel-default">
           <table className="table table-striped">
-            <GuestTableTitle />
+            <thead>
+              <tr>
+                <th>Guest</th>
+                <th>Waited
+                  <span className="greyText">/ Quoted</span>
+                </th>
+                <th> </th>
+                <th> </th>
+              </tr>
+            </thead>
             <GuestTableEntries />
           </table>
         </div>

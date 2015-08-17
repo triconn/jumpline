@@ -1,0 +1,11 @@
+/* CSS styles for the AddGuestButton component */
+.btn-add-guest {
+  width: 100%;
+  background-color: #e1ffe1;
+  color: #859585;
+  border: 0px;
+  border-radius: 0px;
+  padding: 15px;
+  outline: none;
+}
+

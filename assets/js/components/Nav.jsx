@@ -1,4 +1,5 @@
 var React = require('react');
+require('../../styles/components/Nav.css');
 
 module.exports = React.createClass({
   render: function() {
