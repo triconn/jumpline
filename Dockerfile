@@ -1,13 +1,20 @@
 FROM centos:6
 
-RUN yum update -y && yum clean all && yum install -y gcc-c++ tar
+# Add Node.js rpm
+RUN curl -sL https://rpm.nodesource.com/setup_0.10 | bash -
 
-WORKDIR /tmp
-RUN curl -o node-v0.12.7-linux-x64.tar.gz https://nodejs.org/dist/v0.12.7/node-v0.12.7-linux-x64.tar.gz
-RUN tar xzvf node-v0.12.7-linux-x64.tar.gz
-RUN mv node-v0.12.7-linux-x64/ /opt/
-ENV PATH $PATH:/opt/node-v0.12.7-linux-x64/bin
+# Install dependencies
+RUN yum update -y && \
+  yum clean all && \
+  yum install -y \
+  gcc-c++ \
+  make \
+  nodejs
 
+# Install NPM
+RUN npm install -g npm@"^2.0.0"
+
+# Install iQueue
 RUN mkdir -p /usr/src/app
 WORKDIR /usr/src/app
 ADD package.json /usr/src/app/
