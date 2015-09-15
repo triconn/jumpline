@@ -12,20 +12,20 @@ server.connection({
   port: Config.env.getServer().port
 });
 
-// Add the React-rendering view engine
-server.views({
-  engines: {
-      jsx: require('hapi-react-views')
-  },
-  relativeTo: __dirname,
-  path: 'api/views'
-});
-
-// Add a route to serve static assets (CSS, JS, IMG)
-server.route(Config.routes);
-
 // Register plugins
 server.register(Config.plugins, function(err) {
+
+  // Add the React-rendering view engine
+  server.views({
+    engines: {
+        jsx: require('hapi-react-views')
+    },
+    relativeTo: __dirname,
+    path: 'api/views'
+  });
+
+  // Add a routes
+  server.route(Config.routes);
 
   // Start the server
   server.start(function() {

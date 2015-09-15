@@ -18,10 +18,12 @@
     "flux": "^2.0.3",
     "good": "^6.3.0",
     "good-console": "^5.0.2",
-    "hapi": "^8.8.0",
+    "hapi": "^9.3.1",
     "hapi-react-views": "^3.0.1",
+    "hapi-swagger": "^2.0.0",
+    "inert": "^3.0.1",
     "joi": "^6.6.1",
-    "lout": "^6.2.3",
+    "lout": "^7.1.0",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "require-directory": "^2.1.1",
@@ -29,6 +31,7 @@
     "sails-mongo": "^0.11.2",
     "superagent": "^1.2.0",
     "twilio": "^2.2.1",
+    "vision": "^3.0.0",
     "waterline": "^0.10.26"
   },
   "scripts": {
@@ -46,6 +49,7 @@
   "author": "triconn",
   "license": "Apache-2.0",
   "devDependencies": {
+    "browser-sync": "^2.9.3",
     "browser-sync-webpack-plugin": "^0.2.0",
     "css-loader": "^0.16.0",
     "eclint": "^0.2.6",

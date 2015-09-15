@@ -9,6 +9,10 @@ Fs.readdirSync(Path.normalize(__dirname + '/../api/models')).forEach(function(fi
 });
 
 module.exports = [{
+  register: require('inert')
+}, {
+  register: require('vision')
+}, {
 
   register: require('dogwater'),
   options: {
