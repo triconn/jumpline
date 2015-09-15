@@ -31,6 +31,7 @@ server.register(Config.plugins, function(err) {
   server.start(function() {
 
     console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
+    console.log(dateFormat(new Date(), format) + ' - API docs available at: ' + server.info.uri + '/documentation');
   });
 });
 

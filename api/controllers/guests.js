@@ -24,6 +24,7 @@ module.exports = {
 
   index: {
     description: 'Get current guests',
+    tags: ['api'],
     handler: function(request, reply) {
 
       var Guests = request.model.guests;
@@ -48,6 +49,7 @@ module.exports = {
 
   create: {
     description: 'Create guest',
+    tags: ['api'],
     handler: function(request, reply) {
 
       var Guests = request.model.guests;
@@ -80,6 +82,7 @@ module.exports = {
 
   notify: {
     description: 'Notify guest with a text message',
+    tags: ['api'],
     handler: function(request, reply) {
 
       var Guests = request.model.guests;
@@ -134,6 +137,7 @@ module.exports = {
 
   complete: {
     description: 'Mark guest as completed',
+    tags: ['api'],
     handler: function(request, reply) {
 
       var Guests = request.model.guests;

@@ -23,7 +23,6 @@
     "hapi-swagger": "^2.0.0",
     "inert": "^3.0.1",
     "joi": "^6.6.1",
-    "lout": "^7.1.0",
     "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "require-directory": "^2.1.1",

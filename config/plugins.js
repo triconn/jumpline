@@ -42,6 +42,6 @@ module.exports = [{
   }
 }, {
 
-  register: require('lout')
+  register: require('hapi-swagger')
 }];
 
