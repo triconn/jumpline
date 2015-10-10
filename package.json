@@ -4,7 +4,7 @@
   "version": "2.0.0",
   "description": "An SMS paging API and web client",
   "engines": {
-    "node": "0.12.x"
+    "node": "0.10.x"
   },
   "keywords": [
     "sms",
@@ -34,13 +34,12 @@
     "waterline": "^0.10.26"
   },
   "scripts": {
-    "start": "node server.js",
-    "build": "webpack -p --progress --config webpack.production.config.js",
-    "debug": "node debug server.js",
-    "lint": "eslint check *",
-    "dev": "webpack --progress --colors --watch & nodemon"
+    "start": "node api/server.js",
+    "build": "webpack -p --progress --config build/webpack.production.config.js",
+    "debug": "node debug api/server.js",
+    "dev": "webpack --progress --colors --watch --config build/webpack.config.js & nodemon"
   },
-  "main": "server.js",
+  "main": "api/server.js",
   "repository": {
     "type": "git",
     "url": "git://github.com:triconn/iqueue.git"

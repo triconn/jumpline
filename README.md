@@ -12,7 +12,7 @@ export TWILIO_NUMBER=5551234567
 git clone https://github.com/triconn/iqueue.git
 cd iqueue
 npm install
-npm build
+npm run build
 npm start
 ```
 
@@ -25,5 +25,5 @@ npm run dev
 
 #### API Docs
 
-iQueue uses lout for automatic API documentation.  Start the app, and visit the `/docs` route.
+iQueue uses lout for automatic API documentation.  Start the app, and visit the `/documentation` route.
 

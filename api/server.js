@@ -21,7 +21,7 @@ server.register(Config.plugins, function(err) {
         jsx: require('hapi-react-views')
     },
     relativeTo: __dirname,
-    path: 'api/views'
+    path: 'views'
   });
 
   // Add a routes

@@ -1,6 +1,6 @@
 var Reqdir = require('require-directory');
 
-var controllers = Reqdir(module, '../api/controllers');
+var controllers = Reqdir(module, '../controllers');
 
 module.exports = [{
   method: 'GET',
@@ -26,15 +26,14 @@ module.exports = [{
   method: 'GET',
   path: '/',
   handler: {
-    view: 'Default'
+    view: 'home'
   }
 }, {
   method: 'GET',
-  path: '/{param*}',
+  path: '/static/{param*}',
   handler: {
     directory: {
-      path: 'assets',
-      index: ['index.html']
+      path: 'web/static'
     }
   }
 }];

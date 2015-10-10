@@ -3,8 +3,8 @@ var Fs = require('fs');
 
 // Get models
 var models = [];
-Fs.readdirSync(Path.normalize(__dirname + '/../api/models')).forEach(function(file) {
-  var model = require('../api/models/' + file);
+Fs.readdirSync(Path.resolve(__dirname, '../models')).forEach(function(file) {
+  var model = require('../models/' + file);
   models.push(model);
 });
 

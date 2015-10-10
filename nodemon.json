@@ -2,8 +2,8 @@
   "restartable": "rs",
   "ignore": [
     ".git",
-    "node_modules/**/node_modules",
-    "assets"
+    "node_modules/**",
+    "web"
   ],
   "ext": "js json jsx html htm css"
 }

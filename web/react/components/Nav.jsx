@@ -14,7 +14,7 @@ module.exports = React.createClass({
               <span className="icon-bar"></span>
             </button>
             <a href="#">
-              <img alt="iQueue" src="/images/logo.png" />
+              <img alt="iQueue" src="/static/images/logo.png" />
             </a>
           </div>
 

@@ -1,11 +1,12 @@
 // Webpack config file
-var Cache = require('./config/cache.js');
+var Path = require('path');
+var Cache = require('../utils/cache.js');
 var jsBundle = 'bundle-' + Cache.bust() + '.js';
 
 module.exports = {
-  entry: './assets/js/app.js',
+  entry: './web/react/app.js',
   output: {
-    path: __dirname + '/assets/js',
+    path: Path.resolve(__dirname, '../web/static/js'),
     filename: jsBundle
   },
   module: {

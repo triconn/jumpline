@@ -1,6 +1,6 @@
 // Guests that fill the queue
 
-var Env = require('../../config/env.js');
+var Env = require('../config/env.js');
 var dbConfig = Env.getDb();
 
 module.exports = {

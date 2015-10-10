@@ -1,13 +1,13 @@
 // Default layout template
 var React = require('react');
-var Cache = require('../../config/cache.js');
+var Cache = require('../../utils/cache.js');
 
 var Default = React.createClass({
 
   render: function() {
 
     var title = 'iQueue';
-    var jsBundle = 'js/bundle-' + Cache.bust() + '.js';
+    var jsBundle = '/static/js/bundle-' + Cache.bust() + '.js';
 
     return(
       <html>
@@ -18,7 +18,7 @@ var Default = React.createClass({
         <title>{title}</title>
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css" rel="stylesheet"></link>
         <link href='https://fonts.googleapis.com/css?family=Varela+Round' rel='stylesheet' type='text/css'></link>
-        <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico"></link>
+        <link rel="shortcut icon" type="image/x-icon" href="/static/images/favicon.ico"></link>
 
       </head>
       <body style={{fontFamily: ['Varela Round', 'sans-serif']}}>

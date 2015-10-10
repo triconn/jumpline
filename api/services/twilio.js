@@ -1,4 +1,4 @@
-var Env = require('../../config/env.js').getTwilio();
+var Env = require('../config/env.js').getTwilio();
 var Twilio = require('twilio')(Env.TWILIO_ACCOUNT_SID, Env.TWILIO_AUTH_TOKEN);
 
 module.exports = {
