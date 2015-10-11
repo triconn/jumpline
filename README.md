@@ -25,5 +25,5 @@ npm run dev
 
 #### API Docs
 
-iQueue uses lout for automatic API documentation.  Start the app, and visit the `/documentation` route.
+iQueue uses swagger for automatic API documentation.  Start the app, and visit the `/documentation` route.
 

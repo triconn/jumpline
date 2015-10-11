@@ -37,6 +37,7 @@ module.exports = {
           guests: guests
         };
         reply(result);
+        request.log(['guest', 'index'], { count: guests.length });
 
       });
     },
@@ -57,10 +58,14 @@ module.exports = {
       Guests.create(request.payload.guest)
       .exec(function(err, guest) {
 
-        if(err) return reply(Boom.badRequest(err));
+        if (err) {
+          request.log(['guest', 'create', 'error'], { error: err });
+          return reply(Boom.badRequest(err));
+        }
 
         reply({ guest: guest })
         .code(201);
+        request.log(['guest', 'create'], {guest: guest});
 
       });
     },
@@ -91,8 +96,24 @@ module.exports = {
       Guests.findOne(request.params.id)
       .exec(function(err, guest) {
 
-        if(err) return reply(Boom.badRequest(err));
-        if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+        if (err) {
+          request.log([
+            'guest',
+            'notify',
+            'error',
+            'find-one'
+          ], { error: err });
+          return reply(Boom.badRequest(err));
+        }
+        if (!guest || guest.length === 0) {
+          request.log([
+            'guest',
+            'notify',
+            'find-one',
+            'not-found'
+          ], { guest: { id: request.params.id } });
+          return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+        }
 
         //send text message
         Twilio.sendNotification({
@@ -100,7 +121,15 @@ module.exports = {
           phone: guest.phone
         }, function(err, message) {
 
-          if(err) return reply(Boom.badRequest(JSON.stringify(err)));
+          if (err) {
+            request.log([
+              'guest',
+              'notify',
+              'text',
+              'error'
+            ], { error: err });
+            return reply(Boom.badRequest(JSON.stringify(err)));
+          }
 
           //notification sent
           //update guest status to notified
@@ -111,11 +140,31 @@ module.exports = {
           })
           .exec(function(err, guest) {
 
-            if(err) return reply(Boom.badRequest(err));
-            if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+            if (err) {
+              request.log([
+                'guest',
+                'notify',
+                'error',
+                'update'
+              ], { error: err });
+              return reply(Boom.badRequest(err));
+            }
+            if (!guest || guest.length === 0) {
+              request.log([
+                'guest',
+                'notify',
+                'update',
+                'not-found'
+              ], { guest: { id: request.params.id } });
+              return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+            }
 
             // return updated guest
             reply({ guest: guest[0] });
+            request.log([
+              'guest',
+              'notify'
+            ], { guest: guest[0] });
 
           });
 
@@ -150,11 +199,31 @@ module.exports = {
       })
       .exec(function(err, guest) {
 
-        if(err) return reply(Boom.badRequest(err));
-        if(!guest || guest.length === 0) return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+        if (err) {
+          request.log([
+            'guest',
+            'complete',
+            'error',
+            'update'
+          ], { error: err });
+          return reply(Boom.badRequest(err));
+        }
+        if (!guest || guest.length === 0) {
+          request.log([
+            'guest',
+            'complete',
+            'update',
+            'not-found'
+          ], { guest: { id: request.params.id } });
+          return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+        }
 
         // return updated guest
         reply({ guest: guest[0] });
+        request.log([
+          'guest',
+          'complete'
+        ], { guest: guest[0] });
 
       });
 
