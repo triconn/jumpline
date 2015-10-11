@@ -1,74 +1,56 @@
-var QueueServerActions = require('../actions/QueueServerActions.js');
-var request = require('superagent');
+import { receiveAddGuest, receiveGetGuests, receiveNotifyGuest, receiveCompleteGuest } from '../actions/QueueServerActions.js';
+import request from 'superagent';
 
-var completeGuestUrl = '/guests/{id}/notify';
+export function add(guest) {
+  const addGuestUrl = '/guests';
 
-module.exports = {
+  request.post(addGuestUrl)
+  .set('Content-Type', 'application/json')
+  .send({ guest: guest })
+  .end((err, res) => {
+    if (err) return console.error(err);
 
-  add: function(guest) {
+    console.log('Created guest: ' + JSON.stringify(res.body));
+    receiveAddGuest(res.body.guest);
+  });
+}
 
-    var addGuestUrl = '/guests';
+export function get() {
+  const getGuestsUrl = '/guests';
 
-    request.post(addGuestUrl)
-    .set('Content-Type', 'application/json')
-    .send({ guest: guest })
-    .end(function(err, res) {
-      if(err) return console.error(err);
+  request.get(getGuestsUrl)
+  .set('Accept', 'application/json')
+  .end((err, res) => {
+    if (err) return console.error(err);
 
-      console.log('Created guest: ' + JSON.stringify(res.body));
-      QueueServerActions.receiveAddGuest(res.body.guest);
+    console.log('All guests: ' + JSON.stringify(res.body.guests));
+    receiveGetGuests(res.body.guests);
+  });
+}
 
-    });
+export function notify(id) {
+  const notifyGuestUrl = '/guests/' + id + '/notify';
 
-  },
+  request.patch(notifyGuestUrl)
+  .set('Accept', 'application/json')
+  .end((err, res) => {
+    if (err) return console.error(err);
 
-  get: function() {
+    console.log('Notified guest: ' + JSON.stringify(res.body.guest));
+    receiveNotifyGuest(res.body.guest);
+  });
+}
 
-    var getGuestsUrl = '/guests';
+export function complete(id) {
+  const completeGuestUrl = '/guests/' + id + '/complete';
 
-    request.get(getGuestsUrl)
-    .set('Accept', 'application/json')
-    .end(function(err, res) {
-      if(err) return console.error(err);
+  request.patch(completeGuestUrl)
+  .set('Accept', 'application/json')
+  .end((err, res) => {
+    if (err) return console.error(err);
 
-      console.log('All guests: ' + JSON.stringify(res.body.guests));
-      QueueServerActions.receiveGetGuests(res.body.guests);
-
-    });
-
-  },
-
-  notify: function(id) {
-
-    var notifyGuestUrl = '/guests/' + id + '/notify';
-
-    request.patch(notifyGuestUrl)
-    .set('Accept', 'application/json')
-    .end(function(err, res) {
-      if(err) return console.error(err);
-
-      console.log('Notified guest: ' + JSON.stringify(res.body.guest));
-      QueueServerActions.receiveNotifyGuest(res.body.guest);
-
-    });
-
-  },
-
-  complete: function(id) {
-
-    var completeGuestUrl = '/guests/' + id + '/complete';
-
-    request.patch(completeGuestUrl)
-    .set('Accept', 'application/json')
-    .end(function(err, res) {
-      if(err) return console.error(err);
-
-      console.log('Completed guest: ' + JSON.stringify(res.body.guest));
-      QueueServerActions.receiveCompleteGuest(res.body.guest);
-
-    });
-
-  }
-
-};
+    console.log('Completed guest: ' + JSON.stringify(res.body.guest));
+    receiveCompleteGuest(res.body.guest);
+  });
+}
 

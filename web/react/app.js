@@ -1,6 +1,6 @@
-var React = require('react');
-var Index = require('./components/Index.jsx');
-require('../styles/base.css');
+import React from 'react';
+import Index from './components/Index.jsx';
+import '../styles/base.css';
 
 React.render(
   React.createElement(Index),

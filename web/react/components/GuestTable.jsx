@@ -1,10 +1,12 @@
-var React = require('react');
-var GuestTableEntries = require('./GuestTableEntries.jsx');
-require('../../styles/components/GuestTable.css');
+import React from 'react';
+import GuestTableEntries from './GuestTableEntries.jsx';
+import '../../styles/components/GuestTable.css';
 
-module.exports = React.createClass({
-  render: function() {
+export default class GuestTable extends React.Component {
+
+  render() {
     return (
+
       <div className="bs-example" data-example-id="table-within-panel">
         <div className="panel panel-default">
           <table className="table table-striped">
@@ -22,6 +24,8 @@ module.exports = React.createClass({
           </table>
         </div>
       </div>
+
     );
   }
-});
+}
+

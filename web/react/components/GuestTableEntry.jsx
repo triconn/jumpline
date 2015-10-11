@@ -1,28 +1,48 @@
-var React = require('react');
-var NotifyButton = require('./GuestTableEntryNotify.jsx');
-var QueueActions = require('../actions/QueueActions.js');
+import React from 'react';
+import NotifyButton from './GuestTableEntryNotify.jsx';
+import { completeGuest } from '../actions/QueueActions.js';
 
-module.exports = React.createClass({
+export default class GuestTableEntry extends React.Component {
 
-  getInitialState: function() {
+  constructor(props) {
+    super(props);
+    this._tick = this._tick.bind(this);
+    this._complete = this._complete.bind(this);
+    this.state = {
+      waited: 0,
+    };
+  }
 
-    return {
-      waited: 0
-    }
-  },
-
-  componentDidMount: function() {
+  componentDidMount() {
     this._tick();
     this.interval = setInterval(this._tick, this.props.pollInterval);
-  },
+  }
 
-  componentWillUnmount: function() {
+  componentWillUnmount() {
     clearInterval(this.interval);
-  },
+  }
 
-  render: function() {
+  _complete() {
+    completeGuest(this.props.guest.id);
+  }
 
+  _tick() {
+    const now = new Date();
+    const created = new Date(this.props.guest.createdAt);
+    const milliseconds = now - created;
+    const minutes = Math.floor( milliseconds / 60000 );
+
+    // account from any server/client clock offset
+    if (minutes > 0) {
+      this.setState({ waited: minutes });
+    } else {
+      this.setState({ waited: 0 });
+    }
+  }
+
+  render() {
     return (
+
       <tr>
         <td>{this.props.guest.name}</td>
         <td>{this.state.waited}min
@@ -42,33 +62,13 @@ module.exports = React.createClass({
           </button>
         </td>
       </tr>
+
     );
-  },
-
-  _complete: function() {
-
-    QueueActions.completeGuest(this.props.guest.id);
-
-  },
-
-  _tick: function() {
-
-    var now = new Date();
-    var created = new Date(this.props.guest.createdAt);
-    var milliseconds = now - created;
-    var minutes = Math.floor(milliseconds/60000);
-
-    //account from any server/client clock offset
-    if(minutes > 0) {
-
-      this.setState({ waited: minutes });
-
-    } else {
-
-      this.setState({ waited: 0 });
-
-    };
-
   }
-});
+}
+
+GuestTableEntry.propTypes = {
+  guest: React.PropTypes.object,
+  pollInterval: React.PropTypes.number,
+};
 

@@ -11,6 +11,14 @@ module.exports = {
     filename: jsBundle
   },
   module: {
+    preLoaders: [
+      {
+        test: /\.js$|\.jsx$/,
+        loader: 'eslint-loader',
+        include: Path.resolve(__dirname, '../web'),
+        exclude: /bundle.*\.js$/
+      }
+    ],
     loaders: [
       {
         test: /\.js$|\.jsx$/,
@@ -19,12 +27,10 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loader: 'style-loader!css-loader'
-      },
-      {
-        test: /\.js$|\.jsx$/,
-        loader: 'eslint-loader',
-        exclude: /node_modules/
+        loaders: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ]
   },

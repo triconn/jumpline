@@ -1,50 +1,51 @@
-var React = require('react');
-var QueueStore = require('../stores/QueueStore.js');
-var QueueActions = require('../actions/QueueActions.js');
-var GuestTableEntry = require('./GuestTableEntry.jsx');
+import React from 'react';
+import QueueStore from '../stores/QueueStore.js';
+import { getGuests } from '../actions/QueueActions.js';
+import GuestTableEntry from './GuestTableEntry.jsx';
 
-module.exports = React.createClass({
+export default class GuestTableEntries extends React.Component {
 
-  getInitialState: function() {
-    return QueueStore.getQueue();
-  },
+  constructor(props) {
+    super(props);
+    this._onChange = this._onChange.bind(this);
+    this.state = QueueStore.getQueue();
+  }
 
-  componentDidMount: function() {
+  componentDidMount() {
     QueueStore.addChangeListener(this._onChange);
-    QueueActions.getGuests();
-  },
+    getGuests();
+  }
 
-  componentWillUnmount: function(){
+  componentWillUnmount() {
     QueueStore.removeChangeListener(this._onChange);
-  },
+  }
 
-  render: function () {
+  _onChange() {
+    this.setState(QueueStore.getQueue());
+  }
 
-    var rows = [];
+  render() {
+    let rows = [];
 
-    if(this.state.guests) {
-
-      this.state.guests.forEach(function (guest) {
-
-        rows.push(<GuestTableEntry
-          key={guest.id}
-          guest={guest}
-          pollInterval={5000} />);
+    if (this.state.guests) {
+      this.state.guests.forEach((guest) => {
+        rows.push(
+          <GuestTableEntry
+            key={guest.id}
+            guest={guest}
+            pollInterval={5000}
+          />
+        );
       });
     }
 
     return (
+
       <tbody>
         {rows}
       </tbody>
+
     );
-  },
-
-  _onChange: function() {
-
-    this.setState(QueueStore.getQueue());
-
   }
-
-});
+}
 

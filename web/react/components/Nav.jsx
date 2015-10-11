@@ -1,9 +1,11 @@
-var React = require('react');
-require('../../styles/components/Nav.css');
+import React from 'react';
+import '../../styles/components/Nav.css';
 
-module.exports = React.createClass({
-  render: function() {
+export default class Nav extends React.Component {
+
+  render() {
     return (
+
       <nav className="navbar navbar-default">
         <div className="container-fluid">
           <div className="navbar-header">
@@ -28,6 +30,8 @@ module.exports = React.createClass({
           </div>
         </div>
       </nav>
+
     );
   }
-});
+}
+

@@ -1,41 +1,37 @@
-var GuestAPI = require('../utils/GuestAPI.js');
-var Dispatcher = require('../dispatcher/AppDispatcher.js');
-var QueueConstants = require('../constants/QueueConstants.js');
+import { add, get, notify, complete } from '../utils/GuestAPI.js';
+import Dispatcher from '../dispatcher/AppDispatcher.js';
+import { QueueConstants } from '../constants/QueueConstants.js';
 
-module.exports = {
+export function addGuest(guest) {
+  Dispatcher.handleViewAction({
+    type: QueueConstants.ADD_GUEST,
+    guest: guest,
+  });
 
-  addGuest: function(guest) {
-    Dispatcher.handleViewAction({
-      type: QueueConstants.ADD_GUEST,
-      guest: guest
-    });
+  add(guest);
+}
 
-    GuestAPI.add(guest);
-  },
+export function getGuests() {
+  Dispatcher.handleViewAction({
+    type: QueueConstants.GET_GUESTS,
+  });
 
-  getGuests: function() {
-    Dispatcher.handleViewAction({
-      type: QueueConstants.GET_GUESTS
-    });
+  get();
+}
 
-    GuestAPI.get();
-  },
+export function notifyGuest(id) {
+  Dispatcher.handleViewAction({
+    type: QueueConstants.NOTIFY_GUEST,
+  });
 
-  notifyGuest: function(id) {
-    Dispatcher.handleViewAction({
-      type: QueueConstants.NOTIFY_GUEST
-    });
+  notify(id);
+}
 
-    GuestAPI.notify(id);
-  },
+export function completeGuest(id) {
+  Dispatcher.handleViewAction({
+    type: QueueConstants.COMPLETE_GUEST,
+  });
 
-  completeGuest: function(id) {
-    Dispatcher.handleViewAction({
-      type: QueueConstants.COMPLETE_GUEST
-    });
-
-    GuestAPI.complete(id);
-  }
-
-};
+  complete(id);
+}
 

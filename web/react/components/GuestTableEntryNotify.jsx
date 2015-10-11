@@ -1,46 +1,58 @@
-var React = require('react');
-var QueueActions = require('../actions/QueueActions.js');
+import React from 'react';
+import { notifyGuest } from '../actions/QueueActions.js';
 
-module.exports = React.createClass({
+export default class GuestTableEntryNotify extends React.Component {
 
-  render: function() {
+  constructor(props) {
+    super(props);
+    this._notify = this._notify.bind(this);
+  }
 
-    var text, glyph, disabled;
+  _notify() {
+    notifyGuest(this.props.id);
+  }
 
-    switch(this.props.status) {
+  render() {
+    let disabled;
+    let glyph;
+    let text;
 
-      case 'new':
-        text = 'Notify';
-        glyph = 'comment';
-        disabled = false;
-        break;
+    switch (this.props.status) {
 
-      case 'notified':
-        text = 'Notified';
-        glyph = 'ok';
-        disabled = true;
-        break;
-    };
+    case 'new':
+      text = 'Notify';
+      glyph = 'comment';
+      disabled = false;
+      break;
+
+    case 'notified':
+      text = 'Notified';
+      glyph = 'ok';
+      disabled = true;
+      break;
+
+    default:
+      // nothing
+    }
 
     return (
+
       <button type="button"
         onClick={this._notify}
         disabled={disabled}
         className="btn btn-success btn-default">
-        <span className={"glyphicon glyphicon-" + glyph}
+        <span className={'glyphicon glyphicon-' + glyph}
           aria-hidden="true">
         </span>
         &nbsp;{text}
       </button>
+
     );
-
-  },
-
-  _notify: function() {
-
-    QueueActions.notifyGuest(this.props.id);
-
   }
+}
 
-});
+GuestTableEntryNotify.propTypes = {
+  id: React.PropTypes.number,
+  status: React.PropTypes.string,
+};
 

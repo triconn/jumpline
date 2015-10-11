@@ -1,23 +1,25 @@
 // Libraries
-var React = require('react');
+import React from 'react';
 
 // React components
-var AddGuestButton = require('./AddGuestButton.jsx');
-var AddGuestModal = require('./AddGuestModal.jsx');
-var GuestTable = require('./GuestTable.jsx');
-var Nav = require('./Nav.jsx');
+import AddGuestButton from './AddGuestButton.jsx';
+import AddGuestModal from './AddGuestModal.jsx';
+import GuestTable from './GuestTable.jsx';
+import Nav from './Nav.jsx';
 
-module.exports = React.createClass({
+export default class Index extends React.Component {
 
-  render: function() {
+  render() {
     return (
+
       <div>
         <Nav />
         <AddGuestButton />
         <GuestTable />
         <AddGuestModal />
       </div>
+
     );
   }
-});
+}
 
