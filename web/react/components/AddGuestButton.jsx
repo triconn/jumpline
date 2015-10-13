@@ -3,7 +3,8 @@ import '../../styles/components/AddGuestButton.css';
 
 export default class AddGuestButton extends React.Component {
 
-  focusOnNameInput() {
+  _handleClick() {
+    $('#AddGuestModal').modal(); // eslint-disable-line no-undef
     document.getElementById('addGuestName').focus();
   }
 
@@ -13,9 +14,7 @@ export default class AddGuestButton extends React.Component {
       <button
         type="button"
         className="btn-add-guest btn btn-default btn-lg"
-        data-toggle="modal"
-        data-target="#AddGuestModal"
-        onClick={this.focusOnNameInput}>
+        onClick={this._handleClick}>
         <span
           className="glyphicon glyphicon-plus"
           aria-hidden="true">

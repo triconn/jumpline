@@ -1,7 +1,7 @@
 {
   "name": "iqueue",
   "private": true,
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "An SMS paging API and web client",
   "engines": {
     "node": "0.10.x"

@@ -6,6 +6,8 @@ export default class AddGuestModal extends React.Component {
   constructor(props) {
     super(props);
     this._addGuest = this._addGuest.bind(this);
+    this._catchEnter = this._catchEnter.bind(this);
+    this._clearForm = this._clearForm.bind(this);
   }
 
   _addGuest() {
@@ -31,13 +33,19 @@ export default class AddGuestModal extends React.Component {
       addGuest(newGuest);
 
       // cleanup
-      this.clearForm();
+      this._clearForm();
       $('#AddGuestModal').modal('hide'); // eslint-disable-line no-undef
       document.querySelector('.btn-add-guest').blur();
     }
   }
 
-  clearForm() {
+  _catchEnter(event) {
+    if (event.keyCode === 13) {
+      this._addGuest();
+    }
+  }
+
+  _clearForm() {
     React.findDOMNode(this.refs.name).value = '';
     React.findDOMNode(this.refs.phone).value = '';
   }
@@ -54,7 +62,7 @@ export default class AddGuestModal extends React.Component {
                 className="btn btn-default pull-right"
                 data-dismiss="modal"
                 aria-label="Close"
-                onClick={this.clearForm}>
+                onClick={this._clearForm}>
                 Close&nbsp;
                 <span
                   className="glyphicon glyphicon-remove"
@@ -76,14 +84,18 @@ export default class AddGuestModal extends React.Component {
                       ref="name"
                       type="text"
                       className="form-control input-lg"
-                      placeholder="Name" />
+                      placeholder="Name"
+                      onKeyDown={this._catchEnter}
+                    />
                   </div>
                   <div className="form-group">
                     <input
                       ref="phone"
                       type="text"
                       className="form-control input-lg"
-                      placeholder="Phone Number" />
+                      placeholder="Phone Number"
+                      onKeyDown={this._catchEnter}
+                    />
                   </div>
                 </form>
               </div>
