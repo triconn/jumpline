@@ -106,3 +106,4 @@ nbproject
 **/bundle-*.js
 
 .tmp
+coverage/

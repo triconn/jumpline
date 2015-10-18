@@ -23,7 +23,7 @@ export function get() {
   .end((err, res) => {
     if (err) return console.error(err);
 
-    console.log('All guests: ' + JSON.stringify(res.body.guests));
+    // console.log('All guests: ' + JSON.stringify(res.body.guests));
     receiveGetGuests(res.body.guests);
   });
 }
