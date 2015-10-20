@@ -1,6 +1,6 @@
 var Reqdir = require('require-directory');
 
-var controllers = Reqdir(module, '../controllers');
+var controllers = Reqdir(module, '../controllers', {exclude: /__tests__/});
 
 module.exports = [{
   method: 'GET',
