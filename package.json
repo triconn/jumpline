@@ -23,7 +23,6 @@
     "hapi-swagger": "^2.0.0",
     "inert": "^3.0.1",
     "joi": "^6.6.1",
-    "object-assign": "^3.0.0",
     "react": "^0.13.3",
     "require-directory": "^2.1.1",
     "sails-disk": "^0.10.8",
@@ -43,8 +42,15 @@
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
-    "testFileExtensions": ["es6", "js"],
-    "moduleFileExtensions": ["js", "json", "es6"]
+    "testFileExtensions": [
+      "es6",
+      "js"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "es6"
+    ]
   },
   "main": "api/server.js",
   "repository": {

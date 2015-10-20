@@ -1,5 +1,6 @@
 ![iQueue](https://raw.githubusercontent.com/wiki/triconn/iqueue/iQueue-logo.png)
 [![Build Status](https://travis-ci.org/triconn/iqueue.svg)](https://travis-ci.org/triconn/iqueue)
+[![bitHound Score](https://www.bithound.io/github/triconn/iqueue/badges/score.svg)](https://www.bithound.io/github/triconn/iqueue)
 
 An SMS paging API and web client
 
