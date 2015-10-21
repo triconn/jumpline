@@ -1,37 +1,37 @@
-import { add, get, notify, complete } from '../utils/GuestAPI.js';
+import * as iQueueApi from '../utils/iQueueApi.js';
 import Dispatcher from '../dispatcher/AppDispatcher.js';
-import { QueueConstants } from '../constants/QueueConstants.js';
+import { Actions } from '../utils/Constants.js';
 
 export function addGuest(guest) {
   Dispatcher.handleViewAction({
-    type: QueueConstants.ADD_GUEST,
+    type: Actions.ADD_GUEST,
     guest: guest,
   });
 
-  add(guest);
+  iQueueApi.addGuest(guest);
 }
 
 export function getGuests() {
   Dispatcher.handleViewAction({
-    type: QueueConstants.GET_GUESTS,
+    type: Actions.GET_GUESTS,
   });
 
-  get();
+  iQueueApi.getAllGuests();
 }
 
 export function notifyGuest(id) {
   Dispatcher.handleViewAction({
-    type: QueueConstants.NOTIFY_GUEST,
+    type: Actions.NOTIFY_GUEST,
   });
 
-  notify(id);
+  iQueueApi.notifyGuest(id);
 }
 
 export function completeGuest(id) {
   Dispatcher.handleViewAction({
-    type: QueueConstants.COMPLETE_GUEST,
+    type: Actions.COMPLETE_GUEST,
   });
 
-  complete(id);
+  iQueueApi.completeGuest(id);
 }
 

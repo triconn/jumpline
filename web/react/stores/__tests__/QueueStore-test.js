@@ -1,27 +1,26 @@
 jest.dontMock('../QueueStore.js');
-import { QueueConstants } from '../../constants/QueueConstants.js';
+import { Actions } from '../../utils/Constants.js';
 
 describe('QueueStore', () => {
-
   let AppDispatcher;
   let QueueStore;
   let callback;
 
   // mock actions
-  var actionGuestAdd = {
+  const actionGuestAdd = {
     action: {
-      type: QueueConstants.ADD_GUEST_RESPONSE,
+      type: Actions.ADD_GUEST_RESPONSE,
       guest: {
-        "name": "John Smith",
-        "phone": "5551234567",
-        "estimate": 15,
-        "status": "new",
-        "estimatedAt": "2015-10-19T00:20:41.350Z",
-        "createdAt": "2015-10-19T00:20:41.359Z",
-        "updatedAt": "2015-10-19T00:20:41.359Z",
-        "id": 60
-      }
-   }
+        'name': 'John Smith',
+        'phone': '5551234567',
+        'estimate': 15,
+        'status': 'new',
+        'estimatedAt': '2015-10-19T00:20:41.350Z',
+        'createdAt': '2015-10-19T00:20:41.359Z',
+        'updatedAt': '2015-10-19T00:20:41.359Z',
+        'id': 60,
+      },
+    }
   };
 
   beforeEach(() => {
@@ -45,6 +44,5 @@ describe('QueueStore', () => {
     expect(all.guests.length).toBe(1);
     expect(all.guests[0].name).toBe('John Smith');
   });
-
 });
 

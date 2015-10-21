@@ -29,7 +29,6 @@ export default class AddGuestModal extends React.Component {
       };
 
       // update state
-      console.log('Adding Guest: ' + JSON.stringify(newGuest));
       addGuest(newGuest);
 
       // cleanup

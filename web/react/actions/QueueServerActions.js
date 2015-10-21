@@ -1,30 +1,30 @@
 import Dispatcher from '../dispatcher/AppDispatcher.js';
-import { QueueConstants } from '../constants/QueueConstants.js';
+import { Actions } from '../utils/Constants.js';
 
 export function receiveAddGuest(guest) {
   Dispatcher.handleServerAction({
-    type: QueueConstants.ADD_GUEST_RESPONSE,
+    type: Actions.ADD_GUEST_RESPONSE,
     guest: guest,
   });
 }
 
 export function receiveGetGuests(guests) {
   Dispatcher.handleServerAction({
-    type: QueueConstants.GET_GUESTS_RESPONSE,
+    type: Actions.GET_GUESTS_RESPONSE,
     guests: guests,
   });
 }
 
 export function receiveNotifyGuest(guest) {
   Dispatcher.handleServerAction({
-    type: QueueConstants.NOTIFY_GUEST_RESPONSE,
+    type: Actions.NOTIFY_GUEST_RESPONSE,
     guest: guest,
   });
 }
 
 export function receiveCompleteGuest(guest) {
   Dispatcher.handleServerAction({
-    type: QueueConstants.COMPLETE_GUEST_RESPONSE,
+    type: Actions.COMPLETE_GUEST_RESPONSE,
     guest: guest,
   });
 }
