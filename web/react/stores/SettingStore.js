@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
-import { Actions, Defaults } from '../utils/Constants.js';
+import { Actions, Defaults, ViewFilters } from '../utils/Constants.js';
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';

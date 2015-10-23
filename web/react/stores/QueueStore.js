@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatcher/AppDispatcher.js';
-import { Actions } from '../utils/Constants.js';
+import { Actions, ViewFilters } from '../utils/Constants.js';
 import { EventEmitter } from 'events';
 
 const CHANGE_EVENT = 'change';
@@ -52,9 +52,12 @@ AppDispatcher.register((payload) => {
     break;
 
   case Actions.COMPLETE_GUEST_RESPONSE:
-    // remove completed guest from queue
-    _queue.guests = _queue.guests.filter((guest) => {
-      return guest.id !== payload.action.guest.id;
+    // find completed guest and replace with response
+    _queue.guests = _queue.guests.map((guest) => {
+      if (guest.id !== payload.action.guest.id) {
+        return guest;
+      }
+      return payload.action.guest;
     });
     QueueStore.emit(CHANGE_EVENT);
     break;

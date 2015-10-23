@@ -1,5 +1,5 @@
 jest.dontMock('../SettingStore.js');
-import { Actions, Defaults } from '../../utils/Constants.js';
+import { Actions, Defaults, ViewFilters } from '../../utils/Constants.js';
 
 describe('SettingStore', () => {
   let AppDispatcher;
