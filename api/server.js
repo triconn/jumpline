@@ -1,4 +1,5 @@
 // Create a basic Hapi.js server
+require('babel/register')({});
 var Hapi = require('hapi');
 var requireDir = require('require-directory');
 var Config = requireDir(module, './config');

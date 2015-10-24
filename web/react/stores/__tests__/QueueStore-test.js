@@ -53,9 +53,11 @@ describe('QueueStore', () => {
     }
   };
 
-  AppDispatcher = require('../../dispatcher/AppDispatcher.js');
-  QueueStore = require('../QueueStore.js');
-  callback = AppDispatcher.register.mock.calls[0][0];
+  beforeEach(() => {
+    AppDispatcher = require('../../dispatcher/AppDispatcher.js');
+    QueueStore = require('../QueueStore.js');
+    callback = AppDispatcher.register.mock.calls[0][0];
+  });
 
   it('registers a callback with the dispatcher', () => {
     expect(AppDispatcher.register.mock.calls.length).toBe(1);
@@ -63,7 +65,7 @@ describe('QueueStore', () => {
 
   it('initializes with no guests in the queue', () => {
     const all = QueueStore.getQueue();
-    expect(all.guests).toEqual({});
+    expect(all.guests).toEqual([]);
   });
 
   it('adds a new guest from server response', () => {
@@ -74,6 +76,7 @@ describe('QueueStore', () => {
   });
 
   it('notifies a guest from server response', () => {
+    callback(actionGuestAdd);
     callback(actionGuestNotify);
     const all = QueueStore.getQueue();
     expect(all.guests.length).toBe(1);
@@ -81,6 +84,7 @@ describe('QueueStore', () => {
   });
 
   it('completes a guest from server response', () => {
+    callback(actionGuestAdd);
     callback(actionGuestComplete);
     const all = QueueStore.getQueue();
     expect(all.guests.length).toBe(1);

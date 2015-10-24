@@ -27,7 +27,7 @@ module.exports = {
     tags: ['api'],
     handler: function(request, reply) {
 
-      var Guests = request.model.guests;
+      var Guests = request.collections.guests;
 
       Guests.find({
         status: { '!': 'completed' }
@@ -53,7 +53,7 @@ module.exports = {
     tags: ['api'],
     handler: function(request, reply) {
 
-      var Guests = request.model.guests;
+      var Guests = request.collections.guests;
 
       Guests.create(request.payload.guest)
       .exec(function(err, guest) {
@@ -90,7 +90,7 @@ module.exports = {
     tags: ['api'],
     handler: function(request, reply) {
 
-      var Guests = request.model.guests;
+      var Guests = request.collections.guests;
 
       //find guest
       Guests.findOne(request.params.id)
@@ -189,7 +189,7 @@ module.exports = {
     tags: ['api'],
     handler: function(request, reply) {
 
-      var Guests = request.model.guests;
+      var Guests = request.collections.guests;
 
       //update guest status to completed
       Guests.update({
