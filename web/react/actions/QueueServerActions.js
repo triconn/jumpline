@@ -1,4 +1,4 @@
-import Dispatcher from '../dispatcher/AppDispatcher.js';
+import Dispatcher from '../utils/AppDispatcher.js';
 import { Actions } from '../utils/Constants.js';
 
 export function receiveAddGuest(guest) {

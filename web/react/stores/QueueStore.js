@@ -1,4 +1,4 @@
-import AppDispatcher from '../dispatcher/AppDispatcher.js';
+import AppDispatcher from '../utils/AppDispatcher.js';
 import { Actions, ViewFilters } from '../utils/Constants.js';
 import { EventEmitter } from 'events';
 

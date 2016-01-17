@@ -1,5 +1,5 @@
 import * as iQueueApi from '../utils/iQueueApi.js';
-import Dispatcher from '../dispatcher/AppDispatcher.js';
+import Dispatcher from '../utils/AppDispatcher.js';
 import { Actions } from '../utils/Constants.js';
 
 export function addGuest(guest) {

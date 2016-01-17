@@ -54,7 +54,7 @@ describe('QueueStore', () => {
   };
 
   beforeEach(() => {
-    AppDispatcher = require('../../dispatcher/AppDispatcher.js');
+    AppDispatcher = require('../../utils/AppDispatcher.js');
     QueueStore = require('../QueueStore.js');
     callback = AppDispatcher.register.mock.calls[0][0];
   });
