@@ -22,6 +22,7 @@
     "hapi": "^11.0.2",
     "hapi-react-views": "^4.0.0",
     "hapi-swagger": "^2.0.0",
+    "immutable": "^3.7.6",
     "inert": "^3.0.1",
     "joi": "^6.6.1",
     "react": "^0.14.0",
@@ -78,6 +79,8 @@
     "jest-cli": "^0.6.1",
     "nodemon": "^1.3.7",
     "redux-devtools": "^3.0.1",
+    "redux-devtools-dock-monitor": "^1.0.1",
+    "redux-devtools-log-monitor": "^1.0.2",
     "style-loader": "^0.12.3",
     "webpack": "^1.10.3"
   }
