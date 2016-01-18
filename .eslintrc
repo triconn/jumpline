@@ -1,4 +1,4 @@
 {
-  "extends": "airbnb"
+  "extends": "eslint-config-hapi"
 }
 

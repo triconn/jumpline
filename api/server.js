@@ -1,20 +1,19 @@
 // Create a basic Hapi.js server
-require('babel/register')({});
-var Hapi = require('hapi');
-var requireDir = require('require-directory');
-var Config = requireDir(module, './config');
-var dateFormat = require('dateformat');
-var format = "dd mmm HH:MM:ss";
+require('babel-register')({});
+const Hapi = require('hapi');
+const Env = require('./config/env.js');
+const Plugins = require('./config/plugins.js');
+const Routes = require('./config/routes.js');
 
 // Basic Hapi.js connection stuff
 var server = new Hapi.Server();
 server.connection({
-  host: Config.env.getServer().host,
-  port: Config.env.getServer().port
+  host: Env.getServer().host,
+  port: Env.getServer().port
 });
 
 // Register plugins
-server.register(Config.plugins, function(err) {
+server.register(Plugins, function(err) {
 
   // Add the React-rendering view engine
   server.views({
@@ -26,13 +25,14 @@ server.register(Config.plugins, function(err) {
   });
 
   // Add a routes
-  server.route(Config.routes);
+  server.route(Routes);
 
   // Start the server
   server.start(function() {
 
-    console.log(dateFormat(new Date(), format) + ' - Server started at: ' + server.info.uri);
-    console.log(dateFormat(new Date(), format) + ' - API docs available at: ' + server.info.uri + '/documentation');
+    server.log(['info'], 'Server started at: ' + server.info.uri);
+    server.log(['info'], `API docs available at: ${server.info.uri}/documentation`);
+
   });
 });
 

@@ -26,7 +26,6 @@ module.exports = [{
 
     adapters: {
       disk: require('sails-disk'),
-      mongo: require('sails-mongo')
     }
   }
 
