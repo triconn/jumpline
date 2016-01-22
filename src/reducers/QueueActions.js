@@ -1,4 +1,4 @@
-import { Actions } from '../utils/AppConstants.js';
+import { Actions } from '../utils/constants.js';
 
 export function addGuest(guest) {
   return {
