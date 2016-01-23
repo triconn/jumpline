@@ -1,16 +1,15 @@
 import { Actions } from '../utils/constants.js';
-import { List,Map } from 'immutable';
+import { fromJS, List, Map } from 'immutable';
 
-const initialState = Map({
-  guests: List(),
-});
+// state is array of guests
+const initialState = List();
 
 export default function queueReducer(state = initialState, action) {
 
   switch (action.type) {
 
     case Action.ADD_GUEST:
-
+      return state.push(fromJS(action.guest));
   }
 
   // Default
