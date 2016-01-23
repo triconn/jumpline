@@ -1,4 +1,4 @@
-import { Actions } from '../utils/constants.js';
+import { Actions } from '../lib/constants.js';
 import { fromJS, List, Map } from 'immutable';
 
 // state is array of guests
