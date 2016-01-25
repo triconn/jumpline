@@ -1,6 +1,6 @@
 import React from 'react';
-import GuestTableEntries from './GuestTableEntries.jsx';
-import '../../styles/components/GuestTable.css';
+import GuestTableEntries from '../../web/react/components/GuestTableEntries.jsx';
+import './GuestTable.css';
 
 export default class GuestTable extends React.Component {
 

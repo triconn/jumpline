@@ -1,7 +1,7 @@
 {
   "name": "iqueue",
   "private": true,
-  "version": "2.1.1",
+  "version": "3.0.0",
   "description": "An SMS paging API and web client",
   "engines": {
     "node": ">=4.2.4",
@@ -19,7 +19,7 @@
     "boom": "^3.1.1",
     "dateformat": "^1.0.11",
     "dogwater": "^1.0.1",
-    "flux": "^2.0.3",
+    "flux": "^2.1.1",
     "good": "^6.3.0",
     "good-console": "^5.0.2",
     "hapi": "^12.1.0",
@@ -41,12 +41,17 @@
     "waterline": "^0.10.26"
   },
   "scripts": {
-    "start": "node api/server.js",
-    "build": "webpack -p --progress --config build/webpack.production.config.js",
+    "build": "webpack -p --progress --config webpack/config.js",
     "debug": "node debug api/server.js",
-    "dev": "webpack --progress --colors --watch --config build/webpack.config.js & nodemon",
-    "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx web/**",
-    "test": "jest --verbose --coverage"
+    "dev": "NODE_ENV=development npm run watch-assets -- & npm run watch-api",
+    "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx api/** src/**",
+    "start": "node api/server.js",
+    "test": "jest --verbose --coverage",
+    "test-lab": "lab -v -P '_test' -T node_modules/lab-babel -t 97 api src",
+    "watch": "nodemon -w api/ -w src/ -e js,jsx",
+    "watch-api": "nodemon -w api/ -e js,jsx",
+    "watch-assets": "webpack --progress --colors --watch --watch-aggregate-timeout 1000 --config webpack/config.js",
+    "watch-test": "npm run watch -- -x npm run test"
   },
   "jest": {
     "scriptPreprocessor": "<rootDir>/node_modules/babel-jest",
@@ -86,6 +91,7 @@
     "sass-loader": "^3.1.2",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
-    "webpack": "^1.12.11"
+    "webpack": "^1.12.11",
+    "webpack-dev-server": "^1.14.1"
   }
 }

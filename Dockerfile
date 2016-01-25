@@ -1,6 +1,24 @@
-FROM tribou/node:0.10
+FROM centos:7
 
-# Install iQueue
+# Add Node.js rpm
+RUN curl -sL https://rpm.nodesource.com/setup_4.x | bash -
+
+# Install dependencies
+RUN yum update -y && \
+  yum clean all && \
+  yum install -y \
+  gcc-c++ \
+  make \
+  nodejs
+
+# Install NPM
+RUN npm install -g npm@3
+
+# Create app folder
+RUN mkdir -p /usr/src/app
+WORKDIR /usr/src/app
+
+# Install app
 ADD package.json /usr/src/app/
 RUN npm install
 ADD . /usr/src/app

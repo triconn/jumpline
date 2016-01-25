@@ -1,19 +1,19 @@
-var Env = require('../config/env.js').getTwilio();
-var Twilio = require('twilio')(Env.TWILIO_ACCOUNT_SID, Env.TWILIO_AUTH_TOKEN);
+const Env = require('../config/env.js').getTwilio();
+const Twilio = require('twilio')(Env.TWILIO_ACCOUNT_SID, Env.TWILIO_AUTH_TOKEN);
 
-module.exports = {
+export function sendNotification(options, callback) {
 
-  sendNotification: function(options, cb) {
+  Twilio.messages.create({
+    body: options.msg,
+    to: '+1' + options.phone,
+    from: '+1' + Env.TWILIO_NUMBER,
+  },
+  (err, message) => {
 
-    Twilio.messages.create({
-      body: options.msg,
-      to: '+1' + options.phone,
-      from: '+1' + Env.TWILIO_NUMBER
-    }, function(err, message) {
-      if(err) return cb(err, null);
-      cb(null, message);
-    });
-  }
+    if(err) return callback(err, null);
 
-};
+    callback(null, message);
+  });
+}
+
 

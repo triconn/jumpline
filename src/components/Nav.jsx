@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/components/Nav.css';
+import './Nav.css';
 
 export default class Nav extends React.Component {
 
@@ -15,7 +15,7 @@ export default class Nav extends React.Component {
               <span className="icon-bar"></span>
               <span className="icon-bar"></span>
             </button>
-            <a href="#">
+            <a href="/">
               <img alt="iQueue" src="/static/images/logo.png" />
             </a>
           </div>

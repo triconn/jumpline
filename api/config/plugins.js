@@ -1,46 +1,58 @@
-var Path = require('path');
-var Fs = require('fs');
+const Dogwater = require('dogwater');
+const Fs = require('fs');
+const Good = require('good');
+const GoodConsole = require('good-console');
+const HapiSwagger = require('hapi-swagger');
+const Inert = require('inert');
+const Path = require('path');
+const SailsDisk = require('sails-disk');
+const Vision = require('vision');
 
 // Get models
-var models = [];
+let models = [];
 Fs.readdirSync(Path.resolve(__dirname, '../models')).forEach(function(file) {
-  var model = require('../models/' + file);
+  let model = require('../models/' + file);
   models.push(model);
 });
 
-module.exports = [{
-  register: require('inert')
-}, {
-  register: require('vision')
-}, {
-
-  register: require('dogwater'),
-  options: {
-    models: models,
-
-    connections: {
-      disk: {
-        adapter: 'disk'
-      }
+export const plugins = [
+  {
+    register: Inert,
+  },
+  {
+    register: Vision,
+  },
+  {
+    register: Dogwater,
+    options: {
+      models: models,
+      connections: {
+        disk: {
+          adapter: 'disk',
+        },
+      },
+      adapters: {
+        disk: SailsDisk,
+      },
     },
-
-    adapters: {
-      disk: require('sails-disk'),
-    }
-  }
-
-}, {
-
-  register: require('good'),
-  options: {
-    opsInterval: 5000,
-    reporters: [{
-      reporter: require('good-console'),
-      events: { log: '*', request: '*', response: '*', error: '*' }
-    }]
-  }
-}, {
-
-  register: require('hapi-swagger')
-}];
+  },
+  {
+    register: Good,
+    options: {
+      opsInterval: 5000,
+      reporters: [
+        {
+          reporter: GoodConsole,
+          events: { log: '*', request: '*', response: '*', error: '*' },
+        },
+      ],
+    },
+  },
+  {
+    register: HapiSwagger,
+    options: {
+      documentationPath: '/docs',
+    },
+  },
+];
 

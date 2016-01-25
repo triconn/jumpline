@@ -1,9 +1,9 @@
-var Boom = require('boom');
-var Joi = require('joi');
-var Twilio = require('../services/twilio.js');
+const Boom = require('boom');
+const Joi = require('joi');
+const sendNotification = require('../services/twilio.js').sendNotification;
 
 // Standard single guest object for responses
-var GuestValidationObject = {
+const GuestValidationObject = {
   id: Joi.number(),
   name: Joi.string().max(248).required(),
   phone: Joi.number().min(1111111111).max(9999999999).precision(0),
@@ -11,234 +11,233 @@ var GuestValidationObject = {
   status: Joi.any().allow('new', 'notified', 'called', 'completed', 'cancelled'),
   createdAt: Joi.date().iso(),
   updatedAt: Joi.date().iso(),
-  estimatedAt: Joi.date().iso()
+  estimatedAt: Joi.date().iso(),
 };
 
-var NotifyGuestValidationObject = GuestValidationObject;
+const NotifyGuestValidationObject = GuestValidationObject;
 NotifyGuestValidationObject.status = Joi.any().allow('notified');
 
-var CompleteGuestValidationObject = GuestValidationObject;
+const CompleteGuestValidationObject = GuestValidationObject;
 CompleteGuestValidationObject.status = Joi.any().allow('completed');
 
-module.exports = {
+export const index = {
 
-  index: {
-    description: 'Get current guests',
-    tags: ['api'],
-    handler: function(request, reply) {
+  description: 'Get current guests',
+  tags: ['api'],
+  handler: (request, reply) => {
 
-      var Guests = request.collections.guests;
+    const Guests = request.collections.guests;
 
-      Guests.find({
-        status: { '!': 'completed' }
-      }).then(function(guests) {
+    Guests.find({
+      status: { '!': 'completed' },
+    }).then((guests) => {
 
-        var result = {
-          guests: guests
-        };
-        reply(result);
-        request.log(['guest', 'index'], { count: guests.length });
+      const result = {
+        guests,
+      };
+      reply(result);
+      request.log(['guest', 'index'], { count: guests.length });
 
-      });
-    },
-    response: {
-      schema: Joi.object().keys({
-        guests: Joi.array().items(Joi.object().keys(GuestValidationObject))
-      })
-    }
+    });
   },
-
-  create: {
-    description: 'Create guest',
-    tags: ['api'],
-    handler: function(request, reply) {
-
-      var Guests = request.collections.guests;
-
-      Guests.create(request.payload.guest)
-      .exec(function(err, guest) {
-
-        if (err) {
-          request.log(['guest', 'create', 'error'], { error: err });
-          return reply(Boom.badRequest(err));
-        }
-
-        reply({ guest: guest })
-        .code(201);
-        request.log(['guest', 'create'], {guest: guest});
-
-      });
-    },
-    validate: {
-      payload: Joi.object().keys({
-        guest: {
-          name: Joi.string().max(248).required(),
-          phone: Joi.number().min(1111111111).max(9999999999).precision(0),
-          estimate: Joi.number()
-        }
-      })
-    },
-    response: {
-      schema: Joi.object().keys({
-        guest: GuestValidationObject
-      })
-    }
+  response: {
+    schema: Joi.object().keys({
+      guests: Joi.array().items(Joi.object().keys(GuestValidationObject)),
+    }),
   },
+}
 
-  notify: {
-    description: 'Notify guest with a text message',
-    tags: ['api'],
-    handler: function(request, reply) {
+export const create = {
 
-      var Guests = request.collections.guests;
+  description: 'Create guest',
+  tags: ['api'],
+  handler: (request, reply) => {
 
-      //find guest
-      Guests.findOne(request.params.id)
-      .exec(function(err, guest) {
+    const Guests = request.collections.guests;
+
+    Guests.create(request.payload.guest)
+    .exec((err, guest) => {
+
+      if (err) {
+        request.log(['guest', 'create', 'error'], { error: err });
+        return reply(Boom.badRequest(err));
+      }
+
+      reply({ guest: guest })
+      .code(201);
+      request.log(['guest', 'create'], {guest: guest});
+
+    });
+  },
+  validate: {
+    payload: Joi.object().keys({
+      guest: {
+        name: Joi.string().max(248).required(),
+        phone: Joi.number().min(1111111111).max(9999999999).precision(0),
+        estimate: Joi.number(),
+      },
+    }),
+  },
+  response: {
+    schema: Joi.object().keys({
+      guest: GuestValidationObject,
+    }),
+  },
+}
+
+export const notify = {
+
+  description: 'Notify guest with a text message',
+  tags: ['api'],
+  handler: (request, reply) => {
+
+    const Guests = request.collections.guests;
+
+    //find guest
+    Guests.findOne(request.params.id)
+    .exec((err, guest) => {
+
+      if (err) {
+        request.log([
+          'guest',
+          'notify',
+          'error',
+          'find-one',
+        ], { error: err });
+        return reply(Boom.badRequest(err));
+      }
+      if (!guest || guest.length === 0) {
+        request.log([
+          'guest',
+          'notify',
+          'find-one',
+          'not-found',
+        ], { guest: { id: request.params.id } });
+        return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+      }
+
+      //send text message
+      sendNotification({
+        msg: guest.name + ', you\'ve been notified!',
+        phone: guest.phone,
+      }, (err, message) => {
 
         if (err) {
           request.log([
             'guest',
             'notify',
+            'text',
             'error',
-            'find-one'
           ], { error: err });
-          return reply(Boom.badRequest(err));
-        }
-        if (!guest || guest.length === 0) {
-          request.log([
-            'guest',
-            'notify',
-            'find-one',
-            'not-found'
-          ], { guest: { id: request.params.id } });
-          return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
+          return reply(Boom.badRequest(JSON.stringify(err)));
         }
 
-        //send text message
-        Twilio.sendNotification({
-          msg: guest.name + ', you\'ve been notified!',
-          phone: guest.phone
-        }, function(err, message) {
+        //notification sent
+        //update guest status to notified
+        Guests.update({
+          id: request.params.id,
+        }, {
+          status: 'notified',
+        })
+        .exec((err, guest) => {
 
           if (err) {
             request.log([
               'guest',
               'notify',
-              'text',
-              'error'
+              'error',
+              'update',
             ], { error: err });
-            return reply(Boom.badRequest(JSON.stringify(err)));
+            return reply(Boom.badRequest(err));
           }
-
-          //notification sent
-          //update guest status to notified
-          Guests.update({
-            id: request.params.id
-          }, {
-            status: 'notified'
-          })
-          .exec(function(err, guest) {
-
-            if (err) {
-              request.log([
-                'guest',
-                'notify',
-                'error',
-                'update'
-              ], { error: err });
-              return reply(Boom.badRequest(err));
-            }
-            if (!guest || guest.length === 0) {
-              request.log([
-                'guest',
-                'notify',
-                'update',
-                'not-found'
-              ], { guest: { id: request.params.id } });
-              return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
-            }
-
-            // return updated guest
-            reply({ guest: guest[0] });
+          if (!guest || guest.length === 0) {
             request.log([
               'guest',
-              'notify'
-            ], { guest: guest[0] });
+              'notify',
+              'update',
+              'not-found',
+            ], { guest: { id: request.params.id } });
+            return reply(Boom.notFound(`Guest ${request.params.id} not found`));
+          }
 
-          });
+          // return updated guest
+          reply({ guest: guest[0] });
+          request.log([
+            'guest',
+            'notify',
+          ], { guest: guest[0] });
 
         });
       });
+    });
 
-    },
-    validate: {
-      params: {
-        id: Joi.number()
-      }
-    },
-    response: {
-      schema: Joi.object().keys({
-        guest: NotifyGuestValidationObject
-      })
-    }
   },
+  validate: {
+    params: {
+      id: Joi.number(),
+    },
+  },
+  response: {
+    schema: Joi.object().keys({
+      guest: NotifyGuestValidationObject,
+    }),
+  },
+}
 
-  complete: {
-    description: 'Mark guest as completed',
-    tags: ['api'],
-    handler: function(request, reply) {
+export const complete = {
 
-      var Guests = request.collections.guests;
+  description: 'Mark guest as completed',
+  tags: ['api'],
+  handler: (request, reply) => {
 
-      //update guest status to completed
-      Guests.update({
-        id: request.params.id
-      }, {
-        status: 'completed'
-      })
-      .exec(function(err, guest) {
+    const Guests = request.collections.guests;
 
-        if (err) {
-          request.log([
-            'guest',
-            'complete',
-            'error',
-            'update'
-          ], { error: err });
-          return reply(Boom.badRequest(err));
-        }
-        if (!guest || guest.length === 0) {
-          request.log([
-            'guest',
-            'complete',
-            'update',
-            'not-found'
-          ], { guest: { id: request.params.id } });
-          return reply(Boom.notFound('Guest ' + request.params.id + ' not found'));
-        }
+    //update guest status to completed
+    Guests.update({
+      id: request.params.id,
+    }, {
+      status: 'completed',
+    })
+    .exec((err, guest) => {
 
-        // return updated guest
-        reply({ guest: guest[0] });
+      if (err) {
         request.log([
           'guest',
-          'complete'
-        ], { guest: guest[0] });
-
-      });
-
-    },
-    validate: {
-      params: {
-        id: Joi.number()
+          'complete',
+          'error',
+          'update',
+        ], { error: err });
+        return reply(Boom.badRequest(err));
       }
-    },
-    response: {
-      schema: Joi.object().keys({
-        guest: CompleteGuestValidationObject
-      })
-    }
-  }
+      if (!guest || guest.length === 0) {
+        request.log([
+          'guest',
+          'complete',
+          'update',
+          'not-found',
+        ], { guest: { id: request.params.id } });
+        return reply(Boom.notFound(`Guest ${request.params.id} not found`));
+      }
 
-};
+      // return updated guest
+      reply({ guest: guest[0] });
+      request.log([
+        'guest',
+        'complete',
+      ], { guest: guest[0] });
+
+    });
+
+  },
+  validate: {
+    params: {
+      id: Joi.number(),
+    },
+  },
+  response: {
+    schema: Joi.object().keys({
+      guest: CompleteGuestValidationObject,
+    }),
+  },
+}
 

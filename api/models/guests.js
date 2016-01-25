@@ -1,23 +1,21 @@
 // Guests that fill the queue
-
-var Env = require('../config/env.js');
-var dbConfig = Env.getDb();
+const DbConfig = require('../config/env.js').getDb();
 
 module.exports = {
 
   identity: 'guests',
 
-  connection: dbConfig.connection,
+  connection: DbConfig.connection,
 
-  migrate: dbConfig.migrate,
+  migrate: DbConfig.migrate,
 
   attributes: {
     name: 'string',
     estimate: {
       type: 'integer',
-      defaultsTo: function() {
+      defaultsTo: () => {
         return 15;
-      }
+      },
     },
     phone: 'string',
     status: {
@@ -27,17 +25,17 @@ module.exports = {
         'notified',
         'called',
         'completed',
-        'cancelled'
+        'cancelled',
       ],
-      defaultsTo: 'new'
+      defaultsTo: 'new',
     },
 
     estimatedAt: {
       type: 'datetime',
-      defaultsTo: function () {
+      defaultsTo: () => {
         return new Date();
-      }
-    }
-  }
+      },
+    },
+  },
 };
 

@@ -1,14 +1,53 @@
+require('babel-register');
 // Webpack config file
-var Path = require('path');
-var BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-var Cache = require('../utils/cache.js');
-var jsBundle = 'bundle-' + Cache.bust() + '.js';
+const Path = require('path');
+const Webpack = require('webpack');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const jsBundle = require('../src/lib/utils.js').getJsBundle();
+
+// Setup default vars
+var entry = [
+  './src/iqueue.js',
+];
+var plugins = [
+];
+
+console.log('NODE_ENV:', process.env.NODE_ENV);
+
+// Add development plugins
+if (process.env.NODE_ENV === 'development') {
+
+  // entry.unshift(
+  //   'webpack-dev-server/client?http://0.0.0.0:3000',
+  //   'Webpack/hot/only-dev-server'
+  // );
+  plugins.unshift(
+    // new Webpack.HotModuleReplacementPlugin()
+    new BrowserSyncPlugin({
+      proxy: 'localhost:8000',
+      ghostMode: false,
+    })
+  );
+}
+
+// Add production/test plugins
+else {
+
+  plugins.unshift(
+    new Webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    })
+  );
+}
 
 module.exports = {
-  entry: './web/react/app.js',
+  entry: entry,
   output: {
-    path: Path.resolve(__dirname, '../web/static/js'),
     filename: jsBundle,
+    path: Path.resolve(__dirname, '../static/js'),
+    publicPath: '/static/',
   },
 	module: {
     loaders: [
@@ -55,11 +94,6 @@ module.exports = {
   sassConfig: {
     precision: 8,
   },
-  plugins: [
-    new BrowserSyncPlugin({
-      proxy: 'localhost:8000',
-      ghostMode: false,
-    }),
-  ],
+  plugins: plugins,
 };
 

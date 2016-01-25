@@ -1,40 +1,44 @@
-var Reqdir = require('require-directory');
+// All the API and static routes
+const GuestController = require('../controllers/guests.js');
 
-var controllers = Reqdir(module, '../controllers', {exclude: /__tests__/});
+export const routes = [
+  {
+    method: 'GET',
+    path: '/guests',
+    config: GuestController.index,
+  },
+  {
+    method: 'POST',
+    path: '/guests',
+    config: GuestController.create,
+  },
+  {
+    method: 'PATCH',
+    path: '/guests/{id}/notify',
+    config: GuestController.notify,
+  },
+  {
+    method: 'PATCH',
+    path: '/guests/{id}/complete',
+    config: GuestController.complete,
+  },
 
-module.exports = [{
-  method: 'GET',
-  path: '/guests',
-  config: controllers.guests.index
-}, {
-  method: 'POST',
-  path: '/guests',
-  config: controllers.guests.create
-}, {
-  method: 'PATCH',
-  path: '/guests/{id}/notify',
-  config: controllers.guests.notify
-}, {
-  method: 'PATCH',
-  path: '/guests/{id}/complete',
-  config: controllers.guests.complete
-},
-
-
-  // Non-controller paths
-{
-  method: 'GET',
-  path: '/',
-  handler: {
-    view: 'home'
-  }
-}, {
-  method: 'GET',
-  path: '/static/{param*}',
-  handler: {
-    directory: {
-      path: 'web/static'
-    }
-  }
-}];
+    // Non-controller paths
+  {
+    method: 'GET',
+    path: '/',
+    handler: {
+      view: 'index',
+    },
+  },
+  {
+    method: 'GET',
+    path: '/static/{param*}',
+    handler: {
+      directory: {
+        path: 'static',
+      },
+    },
+  },
+];
 
