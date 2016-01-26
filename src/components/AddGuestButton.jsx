@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../styles/components/AddGuestButton.css';
+import './AddGuestButton.css';
 
 export default class AddGuestButton extends React.Component {
 
