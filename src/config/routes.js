@@ -28,7 +28,7 @@ export const routes = [
     method: 'GET',
     path: '/',
     handler: {
-      view: 'index',
+      view: 'Html',
     },
   },
   {

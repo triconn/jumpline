@@ -1,6 +1,6 @@
 const Boom = require('boom');
 const Joi = require('joi');
-const sendNotification = require('../services/twilio.js').sendNotification;
+const sendNotification = require('../helpers/twilio.js').sendNotification;
 
 // Standard single guest object for responses
 const GuestValidationObject = {

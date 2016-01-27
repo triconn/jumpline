@@ -7,7 +7,7 @@ const jsBundle = require('../src/lib/utils.js').getJsBundle();
 
 // Setup default vars
 var entry = [
-  './src/iqueue.js',
+  './src/index.browser.js',
 ];
 var plugins = [
 ];

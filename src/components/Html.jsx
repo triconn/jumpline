@@ -1,13 +1,13 @@
 // Default layout template
-const React = require('react');
-const jsBundle = require('../../src/lib/utils.js').getJsBundle();
+import React from 'react';
+import { getJsBundle } from '../../src/lib/utils.js';
 
 export default class Index extends React.Component {
 
   render() {
 
     const title = 'iQueue';
-    const jsBundlePath = `/static/js/${jsBundle}`;
+    const jsBundlePath = `/static/js/${getJsBundle()}`;
     return (
 
       <html>

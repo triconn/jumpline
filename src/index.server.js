@@ -2,6 +2,7 @@
 require('babel-register');
 const Hapi = require('hapi');
 const HapiReactViews = require('hapi-react-views');
+const Path = require('path');
 const Plugins = require('./config/plugins.js').plugins;
 const Routes = require('./config/routes.js').routes;
 const ServerConnection = require('./config/env.js').getServerConnection();
@@ -19,7 +20,7 @@ server.register(Plugins, (err) => {
         jsx: HapiReactViews,
     },
     relativeTo: __dirname,
-    path: 'views',
+    path: 'components',
   });
 
   // Add a routes
