@@ -107,3 +107,4 @@ nbproject
 .tmp
 coverage/
 *.swp
+.env
