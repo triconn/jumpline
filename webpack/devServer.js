@@ -1,4 +1,5 @@
-require('babel-register')({});
+require('babel-register');
+require('babel-polyfill');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
 const config = require('./config.js');

@@ -1,4 +1,5 @@
 require('babel-register');
+require('babel-polyfill');
 // Webpack config file
 const Path = require('path');
 const Webpack = require('webpack');
