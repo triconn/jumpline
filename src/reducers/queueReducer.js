@@ -8,7 +8,7 @@ export default function queueReducer(state = initialState, action) {
 
   switch (action.type) {
 
-    case Action.ADD_GUEST:
+    case Actions.ADD_GUEST:
       return state.push(fromJS(action.guest));
   }
 

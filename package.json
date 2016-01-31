@@ -30,6 +30,7 @@
     "immutable": "^3.7.6",
     "inert": "^3.0.1",
     "joi": "^7.2.1",
+    "key-mirror": "^1.0.1",
     "react": "^0.14.6",
     "react-dom": "^0.14.6",
     "react-redux": "^4.0.6",
@@ -45,7 +46,7 @@
   "scripts": {
     "build": "webpack -p --progress --config webpack/config.js",
     "debug": "node debug src/index.server.js",
-    "dev": "NODE_ENV=development npm run watch-assets -- & npm run watch-api",
+    "dev": "NODE_ENV=development npm run watch-assets -- & npm start",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "start": "node src/index.server.js",
     "test": "lab -v -P '_test' -T node_modules/lab-babel -t 97 src",
