@@ -1,23 +1,33 @@
-// server actions end in _RESPONSE
-export const Actions = {
-  ADD_GUEST: 'ADD_GUEST',
-  ADD_GUEST_RESPONSE: 'ADD_GUEST_RESPONSE',
-  COMPLETE_GUEST: 'COMPLETE_GUEST',
-  COMPLETE_GUEST_RESPONSE: 'COMPLETE_GUEST_RESPONSE',
-  GET_GUESTS: 'GET_GUESTS',
-  GET_GUESTS_RESPONSE: 'GET_GUESTS_RESPONSE',
-  NOTIFY_GUEST: 'NOTIFY_GUEST',
-  NOTIFY_GUEST_RESPONSE: 'NOTIFY_GUEST_RESPONSE',
-  SET_VIEW: 'SET_VIEW',
-  UPDATE_NOTIFY_MESSAGE: 'UPDATE_NOTIFY_MESSAGE',
-};
+import KeyMirror from 'key-mirror';
+
+export const Actions = KeyMirror({
+
+  ADD_GUEST_REQUEST: null,
+  ADD_GUEST_SUCCESS: null,
+  ADD_GUEST_FAILURE: null,
+
+  COMPLETE_GUEST_REQUEST: null,
+  COMPLETE_GUEST_SUCCESS: null,
+  COMPLETE_GUEST_FAILURE: null,
+
+  GET_GUESTS_REQUEST: null,
+  GET_GUESTS_SUCCESS: null,
+  GET_GUESTS_FAILURE: null,
+
+  NOTIFY_GUEST_REQUEST: null,
+  NOTIFY_GUEST_SUCCESS: null,
+  NOTIFY_GUEST_FAILURE: null,
+
+  SET_VIEW: null,
+  UPDATE_NOTIFY_MESSAGE: null,
+
+});
 
 export const Defaults = {
   DEFAULT_NOTIFY_MESSAGE: 'You have been notified!',
 };
 
-export const ViewFilters = {
-  CURRENT_GUESTS: 'CURRENT_GUESTS',
-  COMPLETED_GUESTS: 'COMPLETED_GUESTS',
-};
-
+export const ViewFilters = KeyMirror({
+  CURRENT_GUESTS: null,
+  COMPLETED_GUESTS: null,
+});
