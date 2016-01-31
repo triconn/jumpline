@@ -5,6 +5,7 @@ const Path = require('path');
 const Webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const jsBundle = require('../src/lib/utils.js').getJsBundle();
+const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 // Setup default vars
 var entry = [
@@ -27,7 +28,8 @@ if (process.env.NODE_ENV === 'development') {
     new BrowserSyncPlugin({
       proxy: 'localhost:8000',
       ghostMode: false,
-    })
+    }),
+    new NpmInstallPlugin()
   );
 }
 
@@ -55,7 +57,7 @@ module.exports = {
       {
         test: /\.js$|\.jsx$/,
         exclude: /node_modules/,
-        loader: 'babel',
+        loader: 'babel-loader',
         query: {
           cacheDirectory: true,
           presets: ['es2015', 'react'],
@@ -63,32 +65,32 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ['style', 'css'],
+        loaders: ['style-loader', 'css-loader'],
       },
       {
         test: /\.scss$/,
-        loaders: ['style', 'css', 'sass'],
+        loaders: ['style-loader', 'css-loader', 'sass-loader'],
       },
       // Configure loading font files, svg, etc
       {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff',
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
         test: /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/font-woff',
+        loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
       {
         test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=application/octet-stream',
+        loader: 'url-loader?limit=10000&mimetype=application/octet-stream',
       },
       {
         test: /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file',
+        loader: 'file-loader',
       },
       {
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url?limit=10000&mimetype=image/svg+xml',
+        loader: 'url-loader?limit=10000&mimetype=image/svg+xml',
       },
     ],
   },
