@@ -5,6 +5,16 @@ import './GuestTable.css';
 
 const GuestTable = (props) => {
 
+  const rows = props.queue.map((guest, index) => {
+    return (
+      <GuestTableEntry
+        key={guest.id}
+        guest={guest}
+        pollInterval={props.pollInterval}
+      />
+    );
+  });
+
   return (
 
     <div className="bs-example" data-example-id="table-within-panel">
@@ -21,9 +31,7 @@ const GuestTable = (props) => {
             </tr>
           </thead>
           <tbody>
-            {/*
-            <GuestTableEntries />
-            */}
+            {rows}
           </tbody>
         </table>
       </div>

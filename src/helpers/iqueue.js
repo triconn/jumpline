@@ -11,14 +11,14 @@ export default class iQueue {
 
       request.post(`/guests`)
       .set('Content-Type', 'application/json')
-      .send({ guest: guest })
+      .send({ guest, })
       .end((err, res) => {
 
         if (err) {
           return reject(err);
         }
 
-        log('Created guest:', JSON.stringify(res.body));
+        log('Created guest:', res.body);
         return resolve(res.body);
       });
 
@@ -27,17 +27,23 @@ export default class iQueue {
   }
 
   completeGuest(id) {
-    request.patch(`/guests/${id}/complete`)
-    .set('Accept', 'application/json')
-    .end((err, res) => {
 
-      if (err) {
-        throw err;
-      }
+    return new Promise((resolve, reject) => {
 
-      log('Completed guest: ' + JSON.stringify(res.body));
-      return res.body;
+      request.patch(`/guests/${id}/complete`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+
+        if (err) {
+          throw err;
+        }
+
+        log('Completed guest:', res.body);
+        return res.body;
+      });
+
     });
+
   }
 
   getGuests() {
@@ -52,6 +58,7 @@ export default class iQueue {
           return reject(err);
         }
 
+        log('Got guests:', res.body);
         return resolve(res.body);
       });
 
@@ -60,16 +67,22 @@ export default class iQueue {
   }
 
   notifyGuest(id) {
-    request.patch(`/guests/${id}/notify`)
-    .set('Accept', 'application/json')
-    .end((err, res) => {
 
-      if (err) {
-        throw err;
-      }
+    return new Promise((resolve, reject) => {
 
-      log('Notified guest: ' + JSON.stringify(res.body));
-      return res.body;
+      request.patch(`/guests/${id}/notify`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+
+        if (err) {
+          return reject(err);
+        }
+
+        log('Notified guest:', res.body);
+        return resolve(res.body);
+      });
+
     });
+
   }
 }

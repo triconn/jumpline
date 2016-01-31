@@ -8,9 +8,10 @@ export function addGuestRequest() {
   };
 }
 
-export function addGuestSuccess() {
+export function addGuestSuccess(guest) {
   return {
     type: Actions.ADD_GUEST_SUCCESS,
+    guest,
   };
 }
 
@@ -30,7 +31,7 @@ export function addGuest(guest) {
     return new iQueue().addGuest(guest)
     .then(body => {
 
-      dispatch(addGuestSuccess());
+      dispatch(addGuestSuccess(body.guest));
 
     })
     .catch(error => {
