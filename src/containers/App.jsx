@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addGuest, getGuests } from '../reducers/queueActions.js';
 
-//import AddGuestButton from '../components/AddGuestButton.jsx';
-// import AddGuestModal from './AddGuestModal.jsx';
+import AddGuestButton from '../components/AddGuestButton.jsx';
+import AddGuestModal from '../components/AddGuestModal.jsx';
 import GuestTable from '../components/GuestTable.jsx';
 import Nav from '../components/Nav.jsx';
 
@@ -19,15 +19,14 @@ class App extends React.Component {
 
       <div>
         <Nav />
-        {/*
-          <AddGuestButton />
-          */}
-          <GuestTable
-            queue={this.props.queue}
-          />
-          {/*
-            <AddGuestModal />
-            */}
+        <AddGuestButton />
+        <GuestTable
+          pollInterval={5000}
+          queue={this.props.queue}
+        />
+        <AddGuestModal
+          addGuest={this.props.addGuest}
+        />
       </div>
 
     );
@@ -35,17 +34,17 @@ class App extends React.Component {
 }
 
 // Redux boilerplate
+function mapStateToProps(state) {
+  return {
+    queue: state.queue
+  }
+}
+
 function mapDispatchToProps(dispatch) {
   return bindActionCreators({
     addGuest,
     getGuests,
   }, dispatch);
-}
-
-function mapStateToProps(state) {
-  return {
-    queue: state.queue
-  }
 }
 
 // Inject state and dispatch function into App props

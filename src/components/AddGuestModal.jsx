@@ -1,5 +1,5 @@
 import React from 'react';
-import { addGuest } from '../actions/QueueActions.js';
+import ReactDOM from 'react-dom';
 
 export default class AddGuestModal extends React.Component {
 
@@ -11,8 +11,8 @@ export default class AddGuestModal extends React.Component {
   }
 
   _addGuest() {
-    const name = React.findDOMNode(this.refs.name).value.trim();
-    const phone = React.findDOMNode(this.refs.phone).value.trim();
+    const name = ReactDOM.findDOMNode(this.refs.name).value.trim();
+    const phone = ReactDOM.findDOMNode(this.refs.phone).value.trim();
     const phoneRegex = /^\d{10}$/; // Phone must be 10 numeric digits only
 
     if (!name) {
@@ -29,7 +29,7 @@ export default class AddGuestModal extends React.Component {
       };
 
       // update state
-      addGuest(newGuest);
+      this.props.addGuest(newGuest);
 
       // cleanup
       this._clearForm();
@@ -45,8 +45,8 @@ export default class AddGuestModal extends React.Component {
   }
 
   _clearForm() {
-    React.findDOMNode(this.refs.name).value = '';
-    React.findDOMNode(this.refs.phone).value = '';
+    ReactDOM.findDOMNode(this.refs.name).value = '';
+    ReactDOM.findDOMNode(this.refs.phone).value = '';
   }
 
   render() {
