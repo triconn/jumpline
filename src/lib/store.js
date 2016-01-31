@@ -3,7 +3,9 @@ import thunk from 'redux-thunk';
 import rootReducer from '../reducers/index.js';
 
 const createStoreWithMiddleware = applyMiddleware(
-  thunk,
+  thunk
 )(createStore);
 
-export default const store = createStoreWithMiddleware(rootReducer);
+const store = createStoreWithMiddleware(rootReducer);
+
+export default store;

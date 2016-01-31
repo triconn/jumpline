@@ -5,6 +5,8 @@ import { combineReducers } from 'redux';
 import queue from './queueReducer.js';
 
 // The root reducer which combines all others
-export default const rootReducer = combineReducers({
+const rootReducer = combineReducers({
   queue,
 });
+
+export default rootReducer;

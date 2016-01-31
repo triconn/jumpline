@@ -5,7 +5,7 @@ const Path = require('path');
 const Webpack = require('webpack');
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const jsBundle = require('../src/lib/utils.js').getJsBundle();
-const NpmInstallPlugin = require('npm-install-webpack-plugin');
+//const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 // Setup default vars
 var entry = [
@@ -28,8 +28,8 @@ if (process.env.NODE_ENV === 'development') {
     new BrowserSyncPlugin({
       proxy: 'localhost:8000',
       ghostMode: false,
-    }),
-    new NpmInstallPlugin()
+    })
+    //new NpmInstallPlugin()
   );
 }
 

@@ -6,18 +6,24 @@ const log = Debug('iq:iqueue');
 export default class iQueue {
 
   addGuest(guest) {
-    request.post(`/guests`)
-    .set('Content-Type', 'application/json')
-    .send({ guest: guest })
-    .end((err, res) => {
 
-      if (err) {
-        throw err;
-      }
+    return new Promise((resolve, reject) => {
 
-      log('Created guest:', JSON.stringify(res.body));
-      return res.body;
+      request.post(`/guests`)
+      .set('Content-Type', 'application/json')
+      .send({ guest: guest })
+      .end((err, res) => {
+
+        if (err) {
+          return reject(err);
+        }
+
+        log('Created guest:', JSON.stringify(res.body));
+        return resolve(res.body);
+      });
+
     });
+
   }
 
   completeGuest(id) {
@@ -34,17 +40,23 @@ export default class iQueue {
     });
   }
 
-  getAllGuests() {
-    request.get(`/guests`)
-    .set('Accept', 'application/json')
-    .end((err, res) => {
+  getGuests() {
 
-      if (err) {
-        throw err;
-      }
+    return new Promise((resolve, reject) => {
 
-      return res.body;
+      request.get(`/guests`)
+      .set('Accept', 'application/json')
+      .end((err, res) => {
+
+        if (err) {
+          return reject(err);
+        }
+
+        return resolve(res.body);
+      });
+
     });
+
   }
 
   notifyGuest(id) {
