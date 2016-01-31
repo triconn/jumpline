@@ -24,4 +24,3 @@ export default class AddGuestButton extends React.Component {
     );
   }
 }
-

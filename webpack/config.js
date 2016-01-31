@@ -56,7 +56,7 @@ module.exports = {
     loaders: [
       {
         test: /\.js$|\.jsx$/,
-        exclude: /node_modules/,
+        exclude: /node_modules|\.swp$/,
         loader: 'babel-loader',
         query: {
           cacheDirectory: true,
@@ -99,4 +99,3 @@ module.exports = {
   },
   plugins: plugins,
 };
-

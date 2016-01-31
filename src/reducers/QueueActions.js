@@ -27,4 +27,3 @@ export function completeGuest(id) {
     guest,
   };
 }
-

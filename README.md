@@ -28,4 +28,3 @@ npm run dev
 #### API Docs
 
 iQueue uses swagger for automatic API documentation.  Start the app, and visit the `/documentation` route.
-

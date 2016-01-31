@@ -34,4 +34,3 @@ server.register(Plugins, (err) => {
     server.log(['info'], `API docs available at: ${server.info.uri}/docs`);
   });
 });
-

@@ -7,4 +7,3 @@ const createStoreWithMiddleware = applyMiddleware(
 )(createStore);
 
 export default const store = createStoreWithMiddleware(rootReducer);
-

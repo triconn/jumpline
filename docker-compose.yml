@@ -11,4 +11,3 @@ web:
   command: npm start
 db:
   image: mongo
-

@@ -15,5 +15,3 @@ export function sendNotification(options, callback) {
     callback(null, message);
   });
 }
-
-

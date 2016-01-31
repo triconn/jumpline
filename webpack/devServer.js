@@ -15,4 +15,3 @@ new WebpackDevServer(webpack(config), {
   console.log('env:', process.env.NODE_ENV);
   console.log('Listening at localhost:3000');
 });
-

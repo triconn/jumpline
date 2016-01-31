@@ -8,4 +8,3 @@ import queue from './queueReducer.js';
 export default const rootReducer = combineReducers({
   queue,
 });
-
