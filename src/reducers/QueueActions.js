@@ -104,15 +104,17 @@ export function notifyGuestFailure(error) {
 }
 
 
-export function completeGuestRequest() {
+export function completeGuestRequest(id) {
   return {
     type: Actions.COMPLETE_GUEST_REQUEST,
+    id,
   };
 }
 
-export function completeGuestSuccess() {
+export function completeGuestSuccess(id) {
   return {
     type: Actions.COMPLETE_GUEST_SUCCESS,
+    id,
   };
 }
 
@@ -121,4 +123,24 @@ export function completeGuestFailure(error) {
     type: Actions.COMPLETE_GUEST_FAILURE,
     error,
   };
+}
+
+export function completeGuest(id) {
+
+  return dispatch => {
+
+    dispatch(completeGuestRequest(id));
+
+    return new iQueue().completeGuest(id)
+    .then(body => {
+
+      dispatch(completeGuestSuccess(id));
+
+    })
+    .catch(error => {
+
+      dispatch(addGuestFailure(error));
+
+    });
+  }
 }
