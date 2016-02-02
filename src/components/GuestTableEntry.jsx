@@ -1,8 +1,11 @@
 import React from 'react';
-import NotifyButton from './GuestTableEntryNotify.jsx';
-import { completeGuest } from '../actions/QueueActions.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { completeGuest } from '../reducers/queueActions.js';
+//import NotifyButton from './GuestTableEntryNotify.jsx';
+//import { completeGuest } from '../actions/QueueActions.js';
 
-export default class GuestTableEntry extends React.Component {
+class GuestTableEntry extends React.Component {
 
   constructor(props) {
     super(props);
@@ -23,7 +26,7 @@ export default class GuestTableEntry extends React.Component {
   }
 
   _complete() {
-    completeGuest(this.props.guest.id);
+    this.props.completeGuest(this.props.guest.id);
   }
 
   _tick() {
@@ -49,16 +52,22 @@ export default class GuestTableEntry extends React.Component {
           <span className="greyText">/ {this.props.guest.estimate}min</span>
         </td>
         <td>
-          <NotifyButton
+          {/*
+            <NotifyButton
             id={this.props.guest.id}
             status={this.props.guest.status}
           />
+          */}
         </td>
         <td>
-          <button type="button"
+          <button
+            type="button"
             onClick={this._complete}
             className="btn btn-info btn-default">
-            <span className="glyphicon glyphicon-check" aria-hidden="true"></span> Done
+            <span
+              className="glyphicon glyphicon-check"
+              aria-hidden="true"></span>
+            Done
           </button>
         </td>
       </tr>
@@ -72,3 +81,10 @@ GuestTableEntry.propTypes = {
   pollInterval: React.PropTypes.number,
 };
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    completeGuest,
+  }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(GuestTableEntry);

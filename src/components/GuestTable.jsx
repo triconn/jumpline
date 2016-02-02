@@ -1,6 +1,6 @@
 import React from 'react';
 
-//import GuestTableEntries from '../../web/react/components/GuestTableEntries.jsx';
+import GuestTableEntry from './GuestTableEntry.jsx';
 import './GuestTable.css';
 
 const GuestTable = (props) => {
@@ -8,7 +8,7 @@ const GuestTable = (props) => {
   const rows = props.queue.map((guest, index) => {
     return (
       <GuestTableEntry
-        key={guest.id}
+        key={index}
         guest={guest}
         pollInterval={props.pollInterval}
       />
