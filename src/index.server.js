@@ -4,13 +4,13 @@ require('babel-polyfill');
 const Hapi = require('hapi');
 const HapiReactViews = require('hapi-react-views');
 const Path = require('path');
-const Plugins = require('./config/plugins.js').plugins;
+const Plugins = require('./config/plugins.js').default;
 const Routes = require('./config/routes.js').routes;
-const ServerConnection = require('./config/env.js').getServerConnection();
+const getServerConnection = require('./config/env.js').getServerConnection;
 
 // Basic Hapi.js connection stuff
 const server = new Hapi.Server();
-server.connection(ServerConnection);
+server.connection(getServerConnection());
 
 // Register plugins
 server.register(Plugins, (err) => {
@@ -30,6 +30,7 @@ server.register(Plugins, (err) => {
   // Start the server
   server.start(() => {
 
+    server.log(['info'], `NODE_ENV: ${process.env.NODE_ENV}`);
     server.log(['info'], `Server started at: ${server.info.uri}`);
     server.log(['info'], `API docs available at: ${server.info.uri}/docs`);
   });
