@@ -18,7 +18,7 @@ export default class AddGuestButton extends React.Component {
         <span
           className="glyphicon glyphicon-plus"
           aria-hidden="true">
-        </span> Add New
+        </span> Add
       </button>
 
     );

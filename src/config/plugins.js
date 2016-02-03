@@ -7,6 +7,9 @@ const Inert = require('inert');
 const Path = require('path');
 const SailsDisk = require('sails-disk');
 const Vision = require('vision');
+const Webpack = require('webpack');
+const WebpackConfig = require('./webpack.js').default;
+const WebpackPlugin = require('hapi-webpack-plugin');
 
 // Get models
 let models = [];
@@ -15,7 +18,7 @@ Fs.readdirSync(Path.resolve(__dirname, '../models')).forEach(function(file) {
   models.push(model);
 });
 
-export const plugins = [
+const plugins = [
   {
     register: Inert,
   },
@@ -54,4 +57,18 @@ export const plugins = [
       documentationPath: '/docs',
     },
   },
+  {
+    register: WebpackPlugin,
+    options: {
+      assets: {
+        //hot: true,
+        //noInfo: true,
+        //publicPath: '/static/',
+      },
+      compiler: new Webpack(WebpackConfig),
+      hot: {},
+    },
+  },
 ];
+
+export default plugins;

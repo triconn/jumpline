@@ -2,7 +2,7 @@ require('babel-register');
 require('babel-polyfill');
 const webpack = require('webpack');
 const WebpackDevServer = require('webpack-dev-server');
-const config = require('./config.js');
+const config = require('../src/config/webpack.js');
 
 new WebpackDevServer(webpack(config), {
   publicPath: config.output.publicPath,
