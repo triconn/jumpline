@@ -45,7 +45,7 @@
     "waterline": "^0.10.26"
   },
   "scripts": {
-    "build": "webpack -p --progress --config webpack/config.js",
+    "build": "webpack -p --progress --config src/config/webpack.js",
     "debug": "node debug src/index.server.js",
     "dev": "NODE_ENV=development npm run watch-assets -- & npm start",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
@@ -53,7 +53,7 @@
     "test": "lab -v -P '_test' -T node_modules/lab-babel -t 97 src",
     "watch": "nodemon -w api/ -w src/ -e js,jsx",
     "watch-api": "nodemon -w src/ -e js,jsx",
-    "watch-assets": "webpack --progress --colors --watch --watch-aggregate-timeout 1000 --config webpack/config.js",
+    "watch-assets": "webpack --progress --colors --watch --watch-aggregate-timeout 1000 --config src/config/webpack.js",
     "watch-test": "npm run watch -- -x npm run test"
   },
   "main": "src/index.server.js",
@@ -76,6 +76,7 @@
     "eslint-config-hapi": "^8.0.1",
     "eslint-plugin-hapi": "^4.0.0",
     "eslint-plugin-react": "^3.5.1",
+    "eventsource-polyfill": "^0.9.6",
     "file-loader": "^0.8.5",
     "lab": "^8.2.0",
     "lab-babel": "^1.1.1",
@@ -89,6 +90,8 @@
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",
     "webpack": "^1.12.11",
-    "webpack-dev-server": "^1.14.1"
+    "webpack-dev-middleware": "^1.5.1",
+    "webpack-dev-server": "^1.14.1",
+    "webpack-hot-middleware": "^2.6.4"
   }
 }
