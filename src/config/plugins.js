@@ -8,7 +8,7 @@ const Path = require('path');
 const SailsDisk = require('sails-disk');
 const Vision = require('vision');
 const Webpack = require('webpack');
-const WebpackConfig = require('./webpack.js').default;
+const WebpackConfig = require('./webpack.js');
 const WebpackPlugin = require('hapi-webpack-plugin');
 
 // Get models
@@ -62,8 +62,9 @@ const plugins = [
     options: {
       assets: {
         //hot: true,
-        //noInfo: true,
-        //publicPath: '/static/',
+        historyApiFallback: true,
+        noInfo: true,
+        publicPath: WebpackConfig.output.publicPath,
       },
       compiler: new Webpack(WebpackConfig),
       hot: {},

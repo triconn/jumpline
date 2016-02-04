@@ -1,9 +1,8 @@
 require('babel-register');
-require('babel-polyfill');
 // Webpack config file
 const Path = require('path');
 const Webpack = require('webpack');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+//const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const getJsBundle = require('../lib/utils.js').getJsBundle();
 //const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
@@ -31,15 +30,17 @@ if (process.env.NODE_ENV === 'development') {
   };
 }
 
-const config = {
+module.exports = {
     devtool: 'cheap-module-eval-source-map',
     entry: [
-      'webpack-dev-server/client?http://0.0.0.0:8000',
-      'webpack/hot/only-dev-server',
+      'eventsource-polyfill',
+      'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000',
+      //'webpack/hot/only-dev-server',
       // 'webpack-hot-middleware/client',
       './src/index.browser.js',
     ],
     plugins: [
+      new Webpack.optimize.OccurenceOrderPlugin(),
       new Webpack.HotModuleReplacementPlugin(),
       new Webpack.NoErrorsPlugin(),
       // new BrowserSyncPlugin({
@@ -55,7 +56,7 @@ const config = {
   output: {
     filename: getJsBundle,
     path: Path.resolve(__dirname, '../../static/js'),
-    publicPath: '/static/',
+    publicPath: '/static/js/',
   },
 	module: {
     loaders: [
@@ -67,12 +68,6 @@ const config = {
           cacheDirectory: true,
           presets: ['es2015', 'react'],
         },
-      },
-      {
-        test: /\.js$|\.jsx$/,
-        exclude: /node_modules|\.swp$/,
-        loader: 'react-hot-loader',
-        include: 'src',
       },
       {
         test: /\.css$/,
@@ -122,5 +117,3 @@ const config = {
   //   }),
   // ],
 };
-
-export default config;

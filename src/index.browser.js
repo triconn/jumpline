@@ -2,15 +2,21 @@ import Debug from 'debug';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import store from './lib/store.js';
+import configureStore from './lib/store.js';
 
 import App from './containers/App.jsx';
 import './index.css';
+
+if (module.hot) {
+  module.hot.accept();
+}
 
 const log = {
   iq: Debug('iq'),
   store: Debug('iq:store'),
 };
+
+const store = configureStore();
 
 // Show debug example
 log.iq(`Debug logging available on the following channels:
