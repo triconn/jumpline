@@ -22,7 +22,7 @@ export default function configureStore(initialState) {
 	if (module.hot) {
     log('Module is hot!');
     module.hot.accept('../reducers', () => {
-      const nextRootReducer = require('../reducers/index.js');
+      const nextRootReducer = require('../reducers/index.js').default;
       store.replaceReducer(nextRootReducer);
     });
   }
