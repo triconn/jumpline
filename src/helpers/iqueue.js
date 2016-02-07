@@ -35,11 +35,11 @@ export default class iQueue {
       .end((err, res) => {
 
         if (err) {
-          throw err;
+          return reject(err);
         }
 
         log('Completed guest:', res.body);
-        return res.body;
+        return resolve(res.body);
       });
 
     });

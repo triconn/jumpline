@@ -22,8 +22,9 @@ const GuestTable = (props) => {
         <table className="table table-striped">
           <thead>
             <tr>
-              <th>Person</th>
-              <th>Waited
+              <th>Guest</th>
+              <th>
+                Waited
                 <span className="greyText">/ Quoted</span>
               </th>
               <th> </th>

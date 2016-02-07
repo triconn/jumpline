@@ -1,6 +1,8 @@
+import Debug from 'debug';
 import { Actions } from '../lib/constants.js';
 import iQueue from '../helpers/iqueue.js';
 
+const log = Debug('iq:queueActions');
 
 export function addGuestRequest() {
   return {
@@ -72,7 +74,8 @@ export function getGuests() {
     return new iQueue().getGuests()
     .then(body => {
 
-      dispatch(getGuestsSuccess(body));
+      log(`getGuests result`, body.guests);
+      dispatch(getGuestsSuccess(body.guests));
 
     })
     .catch(error => {
@@ -84,15 +87,17 @@ export function getGuests() {
 }
 
 
-export function notifyGuestRequest() {
+export function notifyGuestRequest(id) {
   return {
     type: Actions.NOTIFY_GUEST_REQUEST,
+    id,
   };
 }
 
-export function notifyGuestSuccess() {
+export function notifyGuestSuccess(guest) {
   return {
     type: Actions.NOTIFY_GUEST_SUCCESS,
+    guest,
   };
 }
 
@@ -103,6 +108,27 @@ export function notifyGuestFailure(error) {
   };
 }
 
+export function notifyGuest(id) {
+
+  return dispatch => {
+
+    dispatch(notifyGuestRequest(id));
+
+    return new iQueue().notifyGuest(id)
+    .then(body => {
+
+      log(`notifyGuest result`, body.guest);
+      dispatch(notifyGuestSuccess(body.guest));
+
+    })
+    .catch(error => {
+
+      dispatch(notifyGuestFailure(error));
+
+    });
+  }
+}
+
 
 export function completeGuestRequest(id) {
   return {
@@ -111,10 +137,10 @@ export function completeGuestRequest(id) {
   };
 }
 
-export function completeGuestSuccess(id) {
+export function completeGuestSuccess(guest) {
   return {
     type: Actions.COMPLETE_GUEST_SUCCESS,
-    id,
+    guest,
   };
 }
 
@@ -134,12 +160,13 @@ export function completeGuest(id) {
     return new iQueue().completeGuest(id)
     .then(body => {
 
-      dispatch(completeGuestSuccess(id));
+      log(`completeGuest result`, body.guest);
+      dispatch(completeGuestSuccess(body.guest));
 
     })
     .catch(error => {
 
-      dispatch(addGuestFailure(error));
+      dispatch(completeGuestFailure(error));
 
     });
   }
