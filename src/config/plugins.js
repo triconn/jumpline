@@ -61,7 +61,7 @@ const plugins = [
     register: WebpackPlugin,
     options: {
       assets: {
-        //hot: true,
+        hot: true,
         historyApiFallback: true,
         noInfo: true,
         publicPath: WebpackConfig.output.publicPath,
