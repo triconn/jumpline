@@ -57,6 +57,8 @@ const plugins = [
       documentationPath: '/docs',
     },
   },
+
+  // TODO: only use HMR in development
   {
     register: WebpackPlugin,
     options: {
