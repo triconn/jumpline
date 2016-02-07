@@ -2,8 +2,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { completeGuest } from '../reducers/queueActions.js';
-//import NotifyButton from './GuestTableEntryNotify.jsx';
-//import { completeGuest } from '../actions/QueueActions.js';
+import GuestNotifyButton from './GuestNotifyButton.jsx';
 
 class GuestTableEntry extends React.Component {
 
@@ -26,12 +25,12 @@ class GuestTableEntry extends React.Component {
   }
 
   _complete() {
-    this.props.completeGuest(this.props.guest.id);
+    this.props.completeGuest(this.props.guest.get('id'));
   }
 
   _tick() {
     const now = new Date();
-    const created = new Date(this.props.guest.createdAt);
+    const created = new Date(this.props.guest.get('createdAt'));
     const milliseconds = now - created;
     const minutes = Math.floor( milliseconds / 60000 );
 
@@ -47,17 +46,21 @@ class GuestTableEntry extends React.Component {
     return (
 
       <tr>
-        <td>{this.props.guest.name}</td>
-        <td>{this.state.waited}min
-          <span className="greyText">/ {this.props.guest.estimate}min</span>
+        <td>
+          {this.props.guest.get('name')}
         </td>
         <td>
-          {/*
-            <NotifyButton
-            id={this.props.guest.id}
-            status={this.props.guest.status}
+          {this.state.waited}min
+          <span
+            className="greyText">/
+            {this.props.guest.get('estimate')}min
+          </span>
+        </td>
+        <td>
+          <GuestNotifyButton
+            id={this.props.guest.get('id')}
+            status={this.props.guest.get('status')}
           />
-          */}
         </td>
         <td>
           <button
@@ -66,7 +69,8 @@ class GuestTableEntry extends React.Component {
             className="btn btn-info btn-default">
             <span
               className="glyphicon glyphicon-check"
-              aria-hidden="true"></span>
+              aria-hidden="true">
+            </span>
             Done
           </button>
         </td>

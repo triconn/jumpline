@@ -1,7 +1,9 @@
 import React from 'react';
-import { notifyGuest } from '../actions/QueueActions.js';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { notifyGuest } from '../reducers/queueActions.js';
 
-export default class GuestTableEntryNotify extends React.Component {
+export default class GuestNotifyButton extends React.Component {
 
   constructor(props) {
     super(props);
@@ -9,7 +11,7 @@ export default class GuestTableEntryNotify extends React.Component {
   }
 
   _notify() {
-    notifyGuest(this.props.id);
+    this.props.notifyGuest(this.props.id);
   }
 
   render() {
@@ -17,22 +19,19 @@ export default class GuestTableEntryNotify extends React.Component {
     let glyph;
     let text;
 
-    switch (this.props.status) {
+    if (this.props.status === 'new') {
 
-    case 'new':
       text = 'Notify';
       glyph = 'comment';
       disabled = false;
-      break;
 
-    case 'notified':
+    }
+    else if (this.props.status === 'notified'
+      || this.props.status === 'completed') {
+
       text = 'Notified';
       glyph = 'ok';
       disabled = true;
-      break;
-
-    default:
-      // nothing
     }
 
     return (
@@ -51,8 +50,15 @@ export default class GuestTableEntryNotify extends React.Component {
   }
 }
 
-GuestTableEntryNotify.propTypes = {
+GuestNotifyButton.propTypes = {
   id: React.PropTypes.number,
   status: React.PropTypes.string,
 };
 
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({
+    notifyGuest,
+  }, dispatch);
+}
+
+export default connect(null, mapDispatchToProps)(GuestNotifyButton);
