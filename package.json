@@ -45,9 +45,10 @@
     "waterline": "^0.10.26"
   },
   "scripts": {
-    "build": "webpack -p --progress --config src/config/webpack.js",
+    "build": "webpack -p --progress --config src/config/webpack.production.js",
+    "build-dev": "webpack --progress --colors --config src/config/webpack.js",
     "debug": "node debug src/index.server.js",
-    "dev": "NODE_ENV=development npm run watch-assets -- & npm start",
+    "dev": "export NODE_ENV=development; npm run build-dev -- && npm start",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "start": "node src/index.server.js",
     "test": "lab -v -P '_test' -T node_modules/lab-babel -t 97 src",
@@ -59,7 +60,7 @@
   "main": "src/index.server.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com:triconn/iqueue.git"
+    "url": "https://github.com/triconn/iqueue.git"
   },
   "author": "triconn",
   "license": "Apache-2.0",

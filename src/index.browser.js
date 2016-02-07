@@ -2,7 +2,7 @@ import Debug from 'debug';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
-import configureStore from './lib/store.js';
+import configureStore from './lib/configureStore.js';
 
 import App from './containers/App.jsx';
 import './index.css';
@@ -22,11 +22,7 @@ const store = configureStore();
 log.iq(`Debug logging available on the following channels:
        iq
        iq:store`);
-
-// Debug store state changes
-store.subscribe(() => {
-  log.store(JSON.stringify(store.getState(), {}, 1));
-});
+log.iq(`Debug channels enabled: '${localStorage.debug}'`);
 
 ReactDOM.render(
   React.createElement(Provider, { store }, React.createElement(App)),
