@@ -32,6 +32,11 @@ server.register(Plugins, (err) => {
 
     server.log(['info'], `NODE_ENV: ${process.env.NODE_ENV}`);
     server.log(['info'], `Server started at: ${server.info.uri}`);
-    server.log(['info'], `API docs available at: ${server.info.uri}/docs`);
+
+    // Only log hapi-swagger if in development
+    if (process.env.NODE_ENV === 'development') {
+      server.log(['info'], `API docs available at: ${server.info.uri}/docs`);
+    }
+
   });
 });
