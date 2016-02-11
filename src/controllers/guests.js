@@ -28,9 +28,7 @@ export const index = {
 
     const Guests = request.collections.guests;
 
-    Guests.find({
-      status: { '!': 'completed' },
-    }).then((guests) => {
+    Guests.find().then((guests) => {
 
       const result = {
         guests,

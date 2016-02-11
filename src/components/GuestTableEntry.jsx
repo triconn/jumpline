@@ -43,6 +43,8 @@ class GuestTableEntry extends React.Component {
   }
 
   render() {
+    const disabled = this.props.guest.get('status') === 'completed';
+
     return (
 
       <tr>
@@ -65,6 +67,7 @@ class GuestTableEntry extends React.Component {
         <td>
           <button
             type="button"
+            disabled={disabled}
             onClick={this._complete}
             className="btn btn-info btn-default">
             <span
