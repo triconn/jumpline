@@ -1,0 +1,10 @@
+/* Base CSS styles used across multiple modules */
+
+.greyText {
+  color: #adafb0;
+  font-size: 13px !important;
+}
+body {
+  font-size: 15px !important;
+  font-family: 'Varela Round', sans-serif;
+}
