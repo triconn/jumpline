@@ -108,3 +108,4 @@ nbproject
 coverage/
 *.swp
 .env
+*.map

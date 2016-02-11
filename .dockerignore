@@ -3,4 +3,6 @@
 .gitignore
 .tmp
 node_modules
-
+*.map
+.travis.yml
+.eslintrc

@@ -5,36 +5,35 @@ const Webpack = require('webpack');
 const getJsBundle = require('../lib/utils.js').getJsBundle();
 
 module.exports = {
-    entry: [
-      'eventsource-polyfill',
-      './src/index.browser.js',
-    ],
-    plugins: [
-      new Webpack.optimize.OccurenceOrderPlugin(),
-      // new Webpack.DefinePlugin({
-      //   'process.env': {
-      //     'NODE_ENV': JSON.stringify('production'),
-      //   },
-      // }),
-      new Webpack.optimize.UglifyJsPlugin({
-        compress: {
-          warnings: false,
-        },
-      }),
-    ],
+  devtool: 'source-map',
+  entry: [
+    './src/index.browser.js',
+  ],
   output: {
     filename: getJsBundle,
     path: Path.resolve(__dirname, '../../static/js'),
     publicPath: '/static/js/',
   },
+  plugins: [
+    new Webpack.optimize.OccurenceOrderPlugin(),
+    new Webpack.DefinePlugin({
+      'process.env': {
+        'NODE_ENV': JSON.stringify('production'),
+      },
+    }),
+    new Webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    }),
+  ],
 	module: {
     loaders: [
       {
         test: /\.js$|\.jsx$/,
-        exclude: /node_modules|\.swp$/,
+        exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          cacheDirectory: true,
           presets: ['es2015', 'react'],
         },
       },
@@ -69,8 +68,12 @@ module.exports = {
       },
     ],
   },
+	resolve: {
+    root: [
+      Path.resolve('../../src'),
+    ],
+  },
   sassConfig: {
     precision: 8,
   },
 };
-

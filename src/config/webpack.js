@@ -1,14 +1,15 @@
 require('babel-register');
 // Webpack config file
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+const Config = require('./webpack.production.js');
 const Path = require('path');
 const Webpack = require('webpack');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
+
 const getJsBundle = require('../lib/utils.js').getJsBundle();
 //const NpmInstallPlugin = require('npm-install-webpack-plugin');
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
-  //devtool: 'eval',
   entry: [
     './src/index.browser.js',
   ],
@@ -18,7 +19,6 @@ module.exports = {
     publicPath: '/static/js/',
   },
   plugins: [
-    //new Webpack.optimize.OccurenceOrderPlugin(),
     new Webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('development'),
@@ -29,11 +29,6 @@ module.exports = {
       ghostMode: false,
     }),
     // new NpmInstallPlugin(),
-    // new Webpack.optimize.UglifyJsPlugin({
-    //   compress: {
-    //     warnings: false,
-    //   },
-    // }),
   ],
 	module: {
     loaders: [
