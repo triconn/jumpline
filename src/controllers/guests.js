@@ -28,7 +28,13 @@ export const index = {
 
     const Guests = request.collections.guests;
 
-    Guests.find().then((guests) => {
+    Guests.find()
+    .exec((err, guests) => {
+
+      if (err) {
+        request.log(['guest', 'index', 'error'], { error: err });
+        return reply(Boom.badRequest(err));
+      }
 
       const result = {
         guests,
