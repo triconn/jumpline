@@ -1,11 +1,11 @@
 import { Actions } from '../lib/constants.js';
-import { fromJS, List, Map } from 'immutable';
+import { fromJS, List } from 'immutable';
 import Debug from 'debug';
 
 const log = Debug('iq:queueReducer');
 
 // state is array of guests
-const initialState = List();
+const initialState = new List();
 
 export default function queueReducer(state = initialState, action) {
 
@@ -55,6 +55,7 @@ export default function queueReducer(state = initialState, action) {
 
   }
 
+  // TODO: use global error reducer to catch all failure actions
   if (action.error) {
     log('error:', action.error);
   }

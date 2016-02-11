@@ -18,16 +18,17 @@ export const Actions = KeyMirror({
   NOTIFY_GUEST_SUCCESS: null,
   NOTIFY_GUEST_FAILURE: null,
 
-  SET_VIEW: null,
+  SET_QUEUE_FILTER: null,
   UPDATE_NOTIFY_MESSAGE: null,
-
 });
 
-export const Defaults = {
+export const DefaultSettings = {
   DEFAULT_NOTIFY_MESSAGE: 'You have been notified!',
+  DEFAULT_QUEUE_FILTER: 'CURRENT_GUESTS',
 };
 
-export const ViewFilters = KeyMirror({
+export const QueueFilters = KeyMirror({
+  ALL_GUESTS: null,
   CURRENT_GUESTS: null,
   COMPLETED_GUESTS: null,
 });

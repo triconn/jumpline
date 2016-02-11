@@ -1,12 +1,16 @@
+import Debug from 'debug';
 import React from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { addGuest, getGuests } from '../reducers/queueActions.js';
+import { QueueFilters } from '../lib/constants.js';
 
 import AddGuestButton from '../components/AddGuestButton.jsx';
 import AddGuestModal from '../components/AddGuestModal.jsx';
 import GuestTable from '../components/GuestTable.jsx';
 import Nav from '../components/Nav.jsx';
+
+const log = Debug('iq:App');
 
 class App extends React.Component {
 
@@ -33,10 +37,31 @@ class App extends React.Component {
   }
 }
 
+// Set queue filter
+const getFilteredQueue = (queue, filter) => {
+
+  if (filter.get('queueFilter') === QueueFilters.ALL_GUESTS) {
+    return queue;
+  }
+  else if (filter.get('queueFilter') === QueueFilters.CURRENT_GUESTS) {
+    return queue.filter((guest) => {
+      return guest.get('status') !== 'completed';
+    });
+  }
+  else if (filter.get('queueFilter') === QueueFilters.COMPLETED_GUESTS) {
+    return queue.filter((guest) => {
+      return guest.get('status') === 'completed';
+    });
+  }
+  else {
+    return queue;
+  }
+}
+
 // Redux boilerplate
 function mapStateToProps(state) {
   return {
-    queue: state.queue
+    queue: getFilteredQueue(state.queue, state.queueFilter),
   }
 }
 
