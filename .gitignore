@@ -104,6 +104,7 @@ nbproject
 .idea
 .node_history
 **/bundle-*.js
-
 .tmp
 coverage/
+*.swp
+.env
