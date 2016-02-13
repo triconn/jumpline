@@ -29,12 +29,7 @@ export const index = {
     const Guests = request.collections.guests;
 
     Guests.find()
-    .exec((err, guests) => {
-
-      if (err) {
-        request.log(['guest', 'index', 'error'], { error: err });
-        return reply(Boom.badRequest(err));
-      }
+    .then((guests) => {
 
       const result = {
         guests,
@@ -42,8 +37,15 @@ export const index = {
       reply(result);
       request.log(['guest', 'index'], { count: guests.length });
 
+    })
+    .catch((err) => {
+
+      request.log(['guest', 'index', 'error'], { error: err });
+      return reply(Boom.badRequest(err));
+
     });
   },
+
   response: {
     schema: Joi.object().keys({
       guests: Joi.array().items(Joi.object().keys(GuestValidationObject)),
@@ -60,19 +62,21 @@ export const create = {
     const Guests = request.collections.guests;
 
     Guests.create(request.payload.guest)
-    .exec((err, guest) => {
-
-      if (err) {
-        request.log(['guest', 'create', 'error'], { error: err });
-        return reply(Boom.badRequest(err));
-      }
+    .then((guest) => {
 
       reply({ guest: guest })
       .code(201);
       request.log(['guest', 'create'], {guest: guest});
 
+    })
+    .catch((err) => {
+
+      request.log(['guest', 'create', 'error'], { error: err });
+      return reply(Boom.badRequest(err));
+
     });
   },
+
   validate: {
     payload: Joi.object().keys({
       guest: {
@@ -82,6 +86,7 @@ export const create = {
       },
     }),
   },
+
   response: {
     schema: Joi.object().keys({
       guest: GuestValidationObject,
