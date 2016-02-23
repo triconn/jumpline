@@ -24,19 +24,19 @@ export function addGuestFailure(error) {
   };
 }
 
-export function addGuest(guest) {
+export function addGuest(newGuestQuery) {
 
-  return dispatch => {
+  return (dispatch) => {
 
     dispatch(addGuestRequest());
 
-    return new iQueue().addGuest(guest)
-    .then(body => {
+    return new iQueue().query(newGuestQuery)
+    .then((body) => {
 
-      dispatch(addGuestSuccess(body.guest));
+      dispatch(addGuestSuccess(body.data.addGuest));
 
     })
-    .catch(error => {
+    .catch((error) => {
 
       dispatch(addGuestFailure(error));
 
@@ -65,20 +65,20 @@ export function getGuestsFailure(error) {
   };
 }
 
-export function getGuests() {
+export function getGuests(getGuestsQuery) {
 
-  return dispatch => {
+  return (dispatch) => {
 
     dispatch(getGuestsRequest());
 
-    return new iQueue().getGuests()
-    .then(body => {
+    return new iQueue().query(getGuestsQuery)
+    .then((body) => {
 
-      log(`getGuests result`, body.guests);
-      dispatch(getGuestsSuccess(body.guests));
+      log(`getGuests result`, body.data.guests);
+      dispatch(getGuestsSuccess(body.data.guests));
 
     })
-    .catch(error => {
+    .catch((error) => {
 
       dispatch(getGuestsFailure(error));
 
@@ -110,18 +110,18 @@ export function notifyGuestFailure(error) {
 
 export function notifyGuest(id) {
 
-  return dispatch => {
+  return (dispatch) => {
 
     dispatch(notifyGuestRequest(id));
 
     return new iQueue().notifyGuest(id)
-    .then(body => {
+    .then((body) => {
 
       log(`notifyGuest result`, body.guest);
       dispatch(notifyGuestSuccess(body.guest));
 
     })
-    .catch(error => {
+    .catch((error) => {
 
       dispatch(notifyGuestFailure(error));
 
@@ -153,7 +153,7 @@ export function completeGuestFailure(error) {
 
 export function completeGuest(id) {
 
-  return dispatch => {
+  return (dispatch) => {
 
     dispatch(completeGuestRequest(id));
 

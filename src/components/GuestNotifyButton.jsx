@@ -51,7 +51,7 @@ export default class GuestNotifyButton extends React.Component {
 }
 
 GuestNotifyButton.propTypes = {
-  id: React.PropTypes.number,
+  id: React.PropTypes.string,
   status: React.PropTypes.string,
 };
 

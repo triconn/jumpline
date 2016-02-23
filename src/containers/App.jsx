@@ -15,7 +15,21 @@ const log = Debug('iq:App');
 class App extends React.Component {
 
   componentDidMount() {
-    this.props.getGuests();
+    this.props.getGuests(`"
+      {
+        guests {
+          id,
+          name,
+          phone,
+          estimate,
+          size,
+          status,
+          estimatedAt,
+          createdAt,
+          updatedAt,
+        }
+      }
+    "`);
   }
 
   render() {
@@ -58,10 +72,18 @@ const getFilteredQueue = (queue, filter) => {
   }
 }
 
+// Set queue sort
+const getSortedQueue = (queue) => {
+
+  return queue.sort((a, b) => {
+    return new Date(b.get('createdAt')) - new Date(a.get('createdAt'));
+  });
+}
+
 // Redux boilerplate
 function mapStateToProps(state) {
   return {
-    queue: getFilteredQueue(state.queue, state.queueFilter),
+    queue: getSortedQueue(getFilteredQueue(state.queue, state.queueFilter)),
   }
 }
 

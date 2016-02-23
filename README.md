@@ -7,6 +7,7 @@ An SMS paging API and web client
 #### Quick Start
 
 ```
+export IQUEUE_API_URL=https://api.example.com/graphql
 export TWILIO_ACCOUNT_SID=xxxxxxxx
 export TWILIO_AUTH_TOKEN=xxxxxxxx
 export TWILIO_NUMBER=5551234567

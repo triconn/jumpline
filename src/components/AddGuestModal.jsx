@@ -22,14 +22,27 @@ export default class AddGuestModal extends React.Component {
     } else if (!phone.match(phoneRegex)) {
       console.error('Phone must be 10 digits (0-9)');
     } else {
-      const newGuest = {
-        'name': name,
-        'phone': phone,
-        'estimate': '10',
-      };
+      const newGuestQuery = `
+        mutation M {
+          addGuest(
+            name: "${name}",
+            phone: "${phone}",
+          ) {
+            id,
+            name,
+            phone,
+            estimate,
+            size,
+            status,
+            estimatedAt,
+            createdAt,
+            updatedAt,
+          }
+        }
+      `;
 
       // update state
-      this.props.addGuest(newGuest);
+      this.props.addGuest(newGuestQuery);
 
       // cleanup
       this._clearForm();

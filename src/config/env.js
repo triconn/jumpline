@@ -3,22 +3,24 @@ const Joi = require('joi');
 
 const Variables = {
   values: {
+    IQUEUE_API_URL: process.env.IQUEUE_API_URL,
     TWILIO_ACCOUNT_SID: process.env.TWILIO_ACCOUNT_SID,
     TWILIO_AUTH_TOKEN: process.env.TWILIO_AUTH_TOKEN,
     TWILIO_NUMBER: process.env.TWILIO_NUMBER,
   },
   schemas: {
+    IQUEUE_API_URL: Joi.required(),
     TWILIO_ACCOUNT_SID: Joi.required(),
     TWILIO_AUTH_TOKEN: Joi.required(),
     TWILIO_NUMBER: Joi.number().required().min(1111111111).max(9999999999).precision(0),
   },
 };
 
-Joi.validate(Variables.values, Variables.schemas, (err, value) => {
+Joi.validate(Variables.values, Variables.schemas, (error, value) => {
 
-  if(err) {
-    console.error(err);
-    console.error('Some functionality may not be available');
+  if (error) {
+    console.error(error);
+    exit;
   };
 
 });
