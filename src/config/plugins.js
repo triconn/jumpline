@@ -1,18 +1,9 @@
-const Dogwater = require('dogwater');
 const Fs = require('fs');
 const Good = require('good');
 const GoodConsole = require('good-console');
 const Inert = require('inert');
 const Path = require('path');
-const SailsDisk = require('sails-disk');
 const Vision = require('vision');
-
-// Get models
-let models = [];
-Fs.readdirSync(Path.resolve(__dirname, '../models')).forEach(function(file) {
-  let model = require('../models/' + file);
-  models.push(model);
-});
 
 const plugins = [
   {
@@ -20,20 +11,6 @@ const plugins = [
   },
   {
     register: Vision,
-  },
-  {
-    register: Dogwater,
-    options: {
-      models: models,
-      connections: {
-        disk: {
-          adapter: 'disk',
-        },
-      },
-      adapters: {
-        disk: SailsDisk,
-      },
-    },
   },
   {
     register: Good,
