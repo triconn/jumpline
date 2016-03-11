@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  iqueue:
+    extends:
+      file: common.yml
+      service: iqueue
+    env_file: ../.env

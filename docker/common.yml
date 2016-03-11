@@ -1,0 +1,11 @@
+version: '2'
+
+
+services:
+  iqueue:
+    build:
+      context: ..
+      dockerfile: docker/Dockerfile
+    ports:
+      - '8000:8000'
+    command: npm start
