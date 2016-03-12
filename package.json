@@ -41,9 +41,10 @@
   "scripts": {
     "build": "webpack -p --progress --config src/config/webpack.production.js",
     "build-dev": "webpack --progress --colors --config src/config/webpack.js",
+    "build-staging": "docker-compose -f docker/production.yml build",
     "debug": "node debug src/index.server.js",
-    "deploy-dev": "docker-compose -f docker/development.yml up",
-    "deploy-staging": "docker-compose -f docker/production.yml up -d",
+    "deploy-dev": "docker-compose -f docker/development.yml build; docker-compose -f docker/development.yml up",
+    "deploy-staging": "npm run build-staging; docker-compose -f docker/production.yml up -d",
     "dev": "NODE_ENV=development npm run start-dev",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "start": "node src/index.server.js",
