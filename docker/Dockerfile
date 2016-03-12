@@ -1,4 +1,5 @@
 FROM centos:7
+MAINTAINER tribou
 
 # Add Node.js rpm
 RUN curl -sL https://rpm.nodesource.com/setup_4.x | bash -

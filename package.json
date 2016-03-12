@@ -1,6 +1,5 @@
 {
   "name": "iqueue",
-  "private": true,
   "version": "3.0.1",
   "description": "An SMS paging API and web client",
   "engines": {
@@ -44,6 +43,7 @@
     "build-dev": "webpack --progress --colors --config src/config/webpack.js",
     "debug": "node debug src/index.server.js",
     "deploy-dev": "docker-compose -f docker/development.yml up",
+    "deploy-staging": "docker-compose -f docker/production.yml up -d",
     "dev": "NODE_ENV=development npm run start-dev",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "start": "node src/index.server.js",
