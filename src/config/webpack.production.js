@@ -19,7 +19,6 @@ module.exports = {
     new Webpack.DefinePlugin({
       'process.env': {
         'NODE_ENV': JSON.stringify('production'),
-        'IQUEUE_API_URL': JSON.stringify(process.env.IQUEUE_API_URL),
       },
     }),
     new Webpack.optimize.UglifyJsPlugin({
