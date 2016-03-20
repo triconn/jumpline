@@ -31,4 +31,13 @@ export const routes = [
       return reply(process.env.LOADERIO_TOKEN);
     },
   },
+
+  // Catch all react-router (client-side) routes
+  {
+    method: 'GET',
+    path: '/{param*}',
+    handler: {
+      view: 'Html',
+    },
+  },
 ];
