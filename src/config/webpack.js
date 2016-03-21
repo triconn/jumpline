@@ -21,8 +21,11 @@ module.exports = {
   plugins: [
     new Webpack.DefinePlugin({
       'process.env': {
-        'NODE_ENV': JSON.stringify('development'),
+        'GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
+        'GOOGLE_CLIENT_SECRET': JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
+        'GOOGLE_REDIRECT_URL': JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
         'IQUEUE_API_URL': JSON.stringify(process.env.IQUEUE_API_URL),
+        'NODE_ENV': JSON.stringify('development'),
       },
     }),
     new BrowserSyncPlugin({

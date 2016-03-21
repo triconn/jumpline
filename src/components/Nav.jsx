@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Nav.css';
+import LogoutButton from './LogoutButton.jsx';
 
 const Nav = () => {
   return (
@@ -26,6 +27,7 @@ const Nav = () => {
           <button type="button" className="btn btn-default navbar-btn">
             <span className="greyText">Edit Text Message</span>
           </button>
+          <LogoutButton />
         </div>
       </div>
     </nav>
