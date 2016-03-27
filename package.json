@@ -51,7 +51,7 @@
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "start": "node src/index.server.js",
     "start-dev": "node -r dotenv/config src/index.server.js",
-    "test": "lab -v -P '_test' -T node_modules/lab-babel -t 97 src",
+    "test": "lab -v -P '_test' -T node_modules/lab-babel -I __core-js_shared__ -t 97 src",
     "watch": "nodemon -w src/config/ -w src/controllers/ -w src/helpers/ -w src/models/ -w src/index.server.js -e js -x npm run dev",
     "watch-test": "nodemon -w src/ -e js,jsx -x npm run test"
   },

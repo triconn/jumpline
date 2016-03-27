@@ -14,6 +14,10 @@ export const Actions = KeyMirror({
   GET_GUESTS_SUCCESS: null,
   GET_GUESTS_FAILURE: null,
 
+  LOGIN_REQUEST: null,
+  LOGIN_SUCCESS: null,
+  LOGIN_FAILURE: null,
+
   NOTIFY_GUEST_REQUEST: null,
   NOTIFY_GUEST_SUCCESS: null,
   NOTIFY_GUEST_FAILURE: null,
