@@ -5,7 +5,7 @@ const Hapi = require('hapi');
 const HapiReactViews = require('hapi-react-views');
 const Path = require('path');
 const Plugins = require('./config/plugins.js').default;
-const Routes = require('./config/routes.js').routes;
+const Routes = require('./config/routes.server.js').routes;
 const getServerConnection = require('./config/env.js').getServerConnection;
 
 // Basic Hapi.js connection stuff
