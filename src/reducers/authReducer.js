@@ -15,10 +15,16 @@ export default function authReducer(state = initialState, action) {
   switch (action.type) {
 
 
+    case Actions.LOGIN_REQUEST:
+      log('LOGIN_REQUEST:');
+      // Replace existing token with response
+      return state.set('loginInProgress', true);
+
     case Actions.LOGIN_SUCCESS:
       log('LOGIN_SUCCESS:', action.token);
       // Replace existing token with response
-      return state.set('token', action.token);
+      state.set('token', action.token);
+      return state.set('loginInProgress', false);
 
   }
 

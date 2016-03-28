@@ -1,6 +1,9 @@
+import Debug from 'debug';
 import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
+
+const log = Debug('iq:auth');
 
 export function requireAuthentication(Component) {
 
@@ -12,15 +15,16 @@ export function requireAuthentication(Component) {
     }
 
     componentWillMount() {
-      this._checkAuth(this.props.isAuthenticated);
+      this._checkAuth(this.props.auth);
     }
 
     componentWillReceiveProps(nextProps) {
-      this._checkAuth(nextProps.isAuthenticated);
+      this._checkAuth(nextProps.auth);
     }
 
-    _checkAuth(isAuthenticated) {
-      if (!isAuthenticated) {
+    _checkAuth(auth) {
+      if (auth.get('token') === '') {
+        log(`Empty auth token. Redirecting from '${this.props.location.pathname}' to '/login'`);
         this.props.dispatch(push(`/login`));
       }
     }
@@ -43,9 +47,7 @@ export function requireAuthentication(Component) {
   }
 
   const mapStateToProps = (state) => ({
-    token: state.auth.token,
-    userName: state.auth.userName,
-    isAuthenticated: state.auth.isAuthenticated,
+    auth: state.auth,
   });
 
   return connect(mapStateToProps)(AuthenticatedComponent);
