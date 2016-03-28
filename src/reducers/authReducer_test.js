@@ -14,7 +14,7 @@ import reducer from './authReducer.js';
 
 describe('auth reducer', () => {
 
-  it('inits with expected initial state', done => {
+  it('inits with expected initial state', (done) => {
     expect(
 
       reducer(undefined, {})
@@ -27,7 +27,7 @@ describe('auth reducer', () => {
     done();
   });
 
-  it('stores token on initial LOGIN_SUCCESS', done => {
+  it('stores token on initial LOGIN_SUCCESS', (done) => {
     expect(
 
       reducer(undefined, {
@@ -43,7 +43,7 @@ describe('auth reducer', () => {
     done();
   });
 
-  it('stores token on subsequent LOGIN_SUCCESS', done => {
+  it('stores token on subsequent LOGIN_SUCCESS', (done) => {
     expect(
 
       reducer(Map({

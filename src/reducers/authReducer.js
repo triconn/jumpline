@@ -23,8 +23,10 @@ export default function authReducer(state = initialState, action) {
     case Actions.LOGIN_SUCCESS:
       log('LOGIN_SUCCESS:', action.token);
       // Replace existing token with response
-      state.set('token', action.token);
-      return state.set('loginInProgress', false);
+      return state.merge({
+        loginInProgress: false,
+        token: action.token,
+      });
 
   }
 
