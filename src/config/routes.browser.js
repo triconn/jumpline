@@ -4,13 +4,13 @@ import { IndexRoute, Route } from 'react-router';
 import App from '../containers/App.jsx';
 import Login from '../containers/Login.jsx';
 import Queue from '../containers/Queue.jsx';
-import { requireAuth } from '../lib/auth.js';
+import { requireAuthentication } from '../containers/AuthenticatedComponent.jsx';
 
 const routes = (
 
   <Route path="/" component={App}>
 
-    <IndexRoute component={Queue} onEnter={requireAuth}>
+    <IndexRoute component={requireAuthentication(Queue)}>
     </IndexRoute>
 
     <Route path="login" component={Login}>

@@ -1,18 +1,19 @@
 import Debug from 'debug';
 import { applyMiddleware, createStore, compose } from 'redux';
 import thunk from 'redux-thunk';
+import { browserHistory } from 'react-router';
+import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers/index.js';
 
 const log = Debug('iq');
 
-const createStoreWithMiddleware = applyMiddleware(
-  thunk
-)(createStore);
-
 export default function configureStore(initialState) {
 
   const store = createStore(rootReducer, initialState, compose(
-    applyMiddleware(thunk),
+    applyMiddleware(
+      routerMiddleware(browserHistory),
+      thunk
+    ),
     typeof window === 'object' && typeof window.devToolsExtension !== 'undefined'
       ? window.devToolsExtension()
       : f => f
