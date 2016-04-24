@@ -1,6 +1,6 @@
 {
   "extends": [
-    "airbnb",
-    "eslint-config-hapi"
+    "tribou"
   ]
 }
+
