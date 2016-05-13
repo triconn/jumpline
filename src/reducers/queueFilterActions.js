@@ -1,7 +1,7 @@
 import Debug from 'debug';
 import { Actions } from '../lib/constants.js';
 
-const log = Debug('iq:queueFilterActions');
+const log = Debug('jl:queueFilterActions');
 
 export function setQueueFilter(queueFilter) {
   return {

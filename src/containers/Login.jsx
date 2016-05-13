@@ -2,7 +2,7 @@ import Debug from 'debug';
 import React from 'react';
 import { Link } from 'react-router';
 
-const log = Debug('iq:google');
+const log = Debug('jl:google');
 
 class Login extends React.Component {
 

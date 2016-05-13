@@ -9,7 +9,7 @@ import AddGuestButton from '../components/AddGuestButton.jsx';
 import AddGuestModal from '../components/AddGuestModal.jsx';
 import GuestTable from '../components/GuestTable.jsx';
 
-const log = Debug('iq:Queue');
+const log = Debug('jl:Queue');
 
 class Queue extends React.Component {
 

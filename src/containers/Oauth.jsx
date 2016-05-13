@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router';
 import iQueue from '../helpers/iqueue.js';
 
-const log = Debug('iq:oauth');
+const log = Debug('jl:oauth');
 
 class Oauth extends React.Component {
 

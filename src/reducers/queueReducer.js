@@ -2,7 +2,7 @@ import { Actions } from '../lib/constants.js';
 import { fromJS, List } from 'immutable';
 import Debug from 'debug';
 
-const log = Debug('iq:queueReducer');
+const log = Debug('jl:queueReducer');
 
 // state is array of guests
 const initialState = new List();

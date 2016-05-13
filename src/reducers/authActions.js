@@ -2,7 +2,7 @@ import Debug from 'debug';
 import { Actions } from '../lib/constants.js';
 import iQueue from '../helpers/iqueue.js';
 
-const log = Debug('iq:authActions');
+const log = Debug('jl:authActions');
 
 export function loginRequest() {
   return {

@@ -6,7 +6,7 @@ import {
 import { Map } from 'immutable';
 import Debug from 'debug';
 
-const log = Debug('iq:queueFilterReducer');
+const log = Debug('jl:queueFilterReducer');
 
 // state is array of guests
 const initialState = new Map({

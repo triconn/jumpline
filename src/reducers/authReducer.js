@@ -2,7 +2,7 @@ import { Actions } from '../lib/constants.js';
 import { fromJS, Map } from 'immutable';
 import Debug from 'debug';
 
-const log = Debug('iq:authReducer');
+const log = Debug('jl:authReducer');
 
 // auth is a JWT-based token property
 const initialState = new Map({

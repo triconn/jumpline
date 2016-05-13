@@ -14,8 +14,8 @@ if (module.hot) {
 }
 
 const log = {
-  iq: Debug('iq'),
-  store: Debug('iq:store'),
+  jl: Debug('jl'),
+  store: Debug('jl:store'),
 };
 
 const store = configureStore();
@@ -23,10 +23,10 @@ const store = configureStore();
 const history = syncHistoryWithStore(browserHistory, store)
 
 // Show debug example
-log.iq(`Debug logging available on the following channels:
-       iq
-       iq:store`);
-log.iq(`Debug channels enabled: '${localStorage.debug}'`);
+log.jl(`Debug logging available on the following channels:
+       jl
+       jl:store`);
+log.jl(`Debug channels enabled: '${localStorage.debug}'`);
 
 ReactDOM.render(
 

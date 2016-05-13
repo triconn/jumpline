@@ -1,7 +1,7 @@
 import Debug from 'debug';
 import request from 'superagent';
 
-const log = Debug('iq:iqueue');
+const log = Debug('jl:iqueue');
 
 export default class iQueue {
 

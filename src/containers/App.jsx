@@ -3,7 +3,7 @@ import React from 'react';
 
 import Nav from '../components/Nav.jsx';
 
-const log = Debug('iq:App');
+const log = Debug('jl:App');
 
 class App extends React.Component {
 

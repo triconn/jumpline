@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { push } from 'react-router-redux';
 
-const log = Debug('iq:auth');
+const log = Debug('jl:auth');
 
 export function requireAuthentication(Component) {
 
