@@ -1,12 +1,12 @@
-require('babel-register');
 // Webpack config file
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
-const Config = require('./webpack.production.js');
-const Path = require('path');
-const Webpack = require('webpack');
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+// const Config = require('./webpack.production.js')
+const Path = require('path')
+const Webpack = require('webpack')
+const Autoprefixer = require('autoprefixer')
 
-const getJsBundle = require('../lib/utils.js').getJsBundle();
-//const NpmInstallPlugin = require('npm-install-webpack-plugin');
+const getJsBundle = require('../lib/utils.js').getJsBundle()
+// const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 module.exports = {
   devtool: 'cheap-module-eval-source-map',
@@ -21,11 +21,11 @@ module.exports = {
   plugins: [
     new Webpack.DefinePlugin({
       'process.env': {
-        'GOOGLE_CLIENT_ID': JSON.stringify(process.env.GOOGLE_CLIENT_ID),
-        'GOOGLE_CLIENT_SECRET': JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
-        'GOOGLE_REDIRECT_URL': JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
-        'IQUEUE_API_URL': JSON.stringify(process.env.IQUEUE_API_URL),
-        'NODE_ENV': JSON.stringify('development'),
+        GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
+        GOOGLE_CLIENT_SECRET: JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
+        GOOGLE_REDIRECT_URL: JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
+        IQUEUE_API_URL: JSON.stringify(process.env.IQUEUE_API_URL),
+        NODE_ENV: JSON.stringify('development'),
       },
     }),
     new BrowserSyncPlugin({
@@ -34,7 +34,7 @@ module.exports = {
     }),
     // new NpmInstallPlugin(),
   ],
-	module: {
+  module: {
     loaders: [
       {
         test: /\.js$|\.jsx$/,
@@ -47,7 +47,7 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader'],
+        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
       },
       {
         test: /\.scss$/,
@@ -76,7 +76,14 @@ module.exports = {
       },
     ],
   },
-	resolve: {
+  postcss: function postcss () {
+
+    return [
+      Autoprefixer,
+    ]
+
+  },
+  resolve: {
     root: [
       Path.resolve('../../src'),
     ],
@@ -84,4 +91,4 @@ module.exports = {
   sassConfig: {
     precision: 8,
   },
-};
+}
