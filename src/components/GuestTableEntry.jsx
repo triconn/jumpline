@@ -42,8 +42,9 @@ class GuestTableEntry extends React.Component {
     }
   }
 
-  render() {
-    const disabled = this.props.guest.get('status') === 'completed';
+  render () {
+
+    const disabled = this.props.guest.get('status') === 'completed'
 
     return (
 
@@ -53,45 +54,50 @@ class GuestTableEntry extends React.Component {
         </td>
         <td>
           {this.state.waited}min
-          <span
-            className="greyText">/
+          <span className='greyText'>/
             {this.props.guest.get('estimate')}min
           </span>
         </td>
         <td>
           <GuestNotifyButton
-            id={this.props.guest.get('id')}
+            id={this.props.guest.get('guestId')}
             status={this.props.guest.get('status')}
           />
         </td>
         <td>
           <button
-            type="button"
+            type='button'
             disabled={disabled}
             onClick={this._complete}
-            className="btn btn-info btn-default">
+            className='btn btn-info btn-default'
+          >
             <span
-              className="glyphicon glyphicon-check"
-              aria-hidden="true">
+              className='glyphicon glyphicon-check'
+              aria-hidden='true'
+            >
             </span>
             Done
           </button>
         </td>
       </tr>
 
-    );
+    )
+
   }
+
 }
 
 GuestTableEntry.propTypes = {
   guest: React.PropTypes.object,
   pollInterval: React.PropTypes.number,
-};
-
-function mapDispatchToProps(dispatch) {
-  return bindActionCreators({
-    completeGuest,
-  }, dispatch);
 }
 
-export default connect(null, mapDispatchToProps)(GuestTableEntry);
+function mapDispatchToProps (dispatch) {
+
+  return bindActionCreators({
+    completeGuest,
+  }, dispatch)
+
+}
+
+export default connect(null, mapDispatchToProps)(GuestTableEntry)

@@ -3,9 +3,11 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 // const Config = require('./webpack.production.js')
 const Path = require('path')
 const Webpack = require('webpack')
+// PostCSS Plugins
 const Autoprefixer = require('autoprefixer')
+const PreCSS = require('precss')
 
-const getJsBundle = require('../lib/utils.js').getJsBundle()
+const { getJsBundle } = require('../lib/utils.js')
 // const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 module.exports = {
@@ -14,7 +16,7 @@ module.exports = {
     './src/index.browser.js',
   ],
   output: {
-    filename: getJsBundle,
+    filename: getJsBundle(),
     path: Path.resolve(__dirname, '../../static/js'),
     publicPath: '/static/js/',
   },
@@ -47,7 +49,11 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        loaders: ['style-loader', 'css-loader', 'postcss-loader'],
+        loaders: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+        ],
       },
       {
         test: /\.scss$/,
@@ -80,6 +86,7 @@ module.exports = {
 
     return [
       Autoprefixer,
+      PreCSS,
     ]
 
   },

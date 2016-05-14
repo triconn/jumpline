@@ -1,5 +1,5 @@
 // verify appropriate env variables are present
-const Joi = require('joi');
+const Joi = require('joi')
 
 const Variables = {
   values: {
@@ -8,22 +8,28 @@ const Variables = {
   schemas: {
     IQUEUE_API_URL: Joi.required(),
   },
-};
+}
 
 Joi.validate(Variables.values, Variables.schemas, (error, value) => {
 
   if (error) {
-    console.error(error);
-    exit;
-  };
 
-});
+    console.error(error)
+    process.exit()
+
+  }
+
+})
 
 
-export function getServerConnection() {
+export function getServerConnection () {
 
   return {
-    port: parseInt(process.env.PORT) || 8000,
+    port: parseInt(process.env.PORT, 10) || 8000,
     host: '0.0.0.0',
-  };
+    routes: {
+      cors: true,
+    },
+  }
+
 }

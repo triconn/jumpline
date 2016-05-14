@@ -1,67 +1,91 @@
-import Debug from 'debug';
-import request from 'superagent';
+import Debug from 'debug'
+import request from 'superagent'
 
-const log = Debug('jl:iqueue');
+const log = Debug('jl:iqueue')
 
 export default class iQueue {
 
-  constructor() {
+  constructor () {
+
     // Set API URL
     this.url = process.env.IQUEUE_API_URL
-      || `https://api.iqueue.io/graphql`;
+      || 'https://api.iqueue.io/graphql'
 
-    log('IQUEUE_API_URL:', this.url);
+    log('IQUEUE_API_URL:', this.url)
 
     // Bind methods
-    this.query = this.query.bind(this);
+    this.query = this.query.bind(this)
+    this._composeQuery = this._composeQuery.bind(this)
+
   }
 
 
-  query(queryString) {
+  _composeQuery (token, query, array) {
+
+    const string = `{ viewer(token: "${token}") {`
+                   + ` ${query} { ${array.join(' ')} }}}`
+    log('query:', string)
+    return string
+
+  }
+
+  /**
+   * Send a custom query to the Jumpline GraphQL API
+   *
+   * @public
+   * @param {string} queryString The GraphQL string query
+   * @returns {Promise} A Promise with the response data or error message
+   */
+  query (queryString) {
 
     return new Promise((resolve, reject) => {
+
+      const escaped = queryString.replace(/"/g, '\\"')
 
       request.post(this.url)
       .set('Content-Type', 'application/json')
-      .send(queryString)
+      .send(`{ "query": "${escaped}" }`)
       .end((error, res) => {
 
         if (error) {
-          return reject(new Error(error));
+
+          log('error:', res.body.errors)
+          return reject(res.body.errors[0].message)
+
         }
 
-        log('GraphQL response:', res.body);
-        return resolve(res.body);
-      });
+        log('GraphQL response:', res.body.data)
+        return resolve(res.body.data)
 
-    });
+      })
+
+    })
 
   }
 
 
-  addGuest(guest) {
+  addGuest (guest) {
 
     return new Promise((resolve, reject) => {
 
-      request.post(`/guests`)
+      request.post('/guests')
       .set('Content-Type', 'application/json')
-      .send({ guest, })
+      .send({ guest })
       .end((err, res) => {
 
-        if (err) {
-          return reject(err);
-        }
+        if (err) return reject(err)
 
-        log('Created guest:', res.body);
-        return resolve(res.body);
-      });
+        log('Created guest:', res.body)
+        return resolve(res.body)
 
-    });
+      })
+
+    })
 
   }
 
 
-  completeGuest(id) {
+  completeGuest (id) {
 
     return new Promise((resolve, reject) => {
 
@@ -69,41 +93,39 @@ export default class iQueue {
       .set('Accept', 'application/json')
       .end((err, res) => {
 
-        if (err) {
-          return reject(err);
-        }
+        if (err) return reject(err)
 
-        log('Completed guest:', res.body);
-        return resolve(res.body);
-      });
+        log('Completed guest:', res.body)
+        return resolve(res.body)
 
-    });
+      })
 
-  }
-
-
-  getGuests() {
-
-    return new Promise((resolve, reject) => {
-
-      request.get(`/guests`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
-
-        if (err) {
-          return reject(err);
-        }
-
-        log('Got guests:', res.body);
-        return resolve(res.body);
-      });
-
-    });
+    })
 
   }
 
 
-  notifyGuest(id) {
+  /**
+   * Get all current guests in the queue
+   *
+   * @public
+   * @param {string} ...args One or more string arguments representing
+   * the Guest attributes that should be returned
+   * @returns {Promise}
+   */
+  getGuests (...args) {
+
+    const queryString = this._composeQuery(
+      'abc123token',
+      'currentGuests',
+      args
+    )
+    return this.query(queryString)
+
+  }
+
+
+  notifyGuest (id) {
 
     return new Promise((resolve, reject) => {
 
@@ -111,15 +133,14 @@ export default class iQueue {
       .set('Accept', 'application/json')
       .end((err, res) => {
 
-        if (err) {
-          return reject(err);
-        }
+        if (err) return reject(err)
 
-        log('Notified guest:', res.body);
-        return resolve(res.body);
-      });
+        log('Notified guest:', res.body)
+        return resolve(res.body)
 
-    });
+      })
+
+    })
 
   }
 
