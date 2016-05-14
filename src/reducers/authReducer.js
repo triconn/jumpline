@@ -7,7 +7,7 @@ const log = Debug('jl:authReducer');
 // auth is a JWT-based token property
 const initialState = new Map({
   loginInProgress: false,
-  token: '',
+  token: 'im in',
 });
 
 export default function authReducer(state = initialState, action) {
