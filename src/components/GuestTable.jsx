@@ -1,7 +1,6 @@
-import React from 'react';
-
-import GuestTableEntry from './GuestTableEntry.jsx';
-import './GuestTable.css';
+import React from 'react'
+import GuestTableEntry from './GuestTableEntry.jsx'
+import styles from './GuestTable.css'
 
 const GuestTable = (props) => {
 
@@ -19,7 +18,7 @@ const GuestTable = (props) => {
 
     <div className="bs-example" data-example-id="table-within-panel">
       <div className="panel panel-default">
-        <table className="table table-striped">
+        <table className={`table table-striped ${styles.table}`}>
           <thead>
             <tr>
               <th>Guest</th>

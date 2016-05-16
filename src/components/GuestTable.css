@@ -1,4 +1,14 @@
 /* CSS styles for the GuestTable component */
-.table>tbody>tr>td, .table>tbody>tr>th, .table>tfoot>tr>td, .table>tfoot>tr>th, .table>thead>tr>td, .table>thead>tr>th {
-  vertical-align: middle;
+.table {
+
+  tbody, thead, tfoot {
+
+    tr {
+
+      td, th {
+
+        vertical-align: middle;
+      }
+    }
+  }
 }

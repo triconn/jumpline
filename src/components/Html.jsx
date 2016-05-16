@@ -2,9 +2,9 @@
 import React from 'react'
 import { getJsBundle } from '../../src/lib/utils.js'
 
-const Html = function Html () {
+const Html = function Html (props) {
 
-  const title = 'iQueue'
+  const title = props.title || 'Jumpline'
   const jsBundlePath = `/static/js/${getJsBundle()}`
   return (
 
@@ -16,7 +16,7 @@ const Html = function Html () {
         ></meta>
         <meta
           name='viewport'
-          content='width=device-width, initial-scale=1, maximum-scale=1'
+          content='width=device-width, initial-scale=1'
         ></meta>
         <title>
           {title}
@@ -57,6 +57,10 @@ const Html = function Html () {
 
   )
 
+}
+
+Html.propTypes = {
+  title: React.PropTypes.string,
 }
 
 export default Html

@@ -1,5 +1,5 @@
 // verify appropriate env variables are present
-const Joi = require('joi')
+import Joi from 'joi'
 
 const Variables = {
   values: {

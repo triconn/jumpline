@@ -46,10 +46,12 @@ class GuestNotifyButton extends React.Component {
         type='button'
         onClick={this._notify}
         disabled={disabled}
+        alt={this.props.phone}
         className='btn btn-success btn-default'
       >
         <span
           className={`glyphicon glyphicon-${glyph}`}
+          alt={this.props.phone}
           aria-hidden='true'
         >
         </span>
@@ -64,6 +66,7 @@ class GuestNotifyButton extends React.Component {
 
 GuestNotifyButton.propTypes = {
   id: React.PropTypes.string,
+  phone: React.PropTypes.string,
   notifyGuest: React.PropTypes.func,
   status: React.PropTypes.number,
 }

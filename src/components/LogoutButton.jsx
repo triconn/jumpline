@@ -1,28 +1,29 @@
-import React from 'react';
-import { Link } from 'react-router';
+import React from 'react'
+import { Link } from 'react-router'
 
 class LogoutButton extends React.Component {
 
-  _handleLogout() {
-    delete localStorage.token;
+  _handleLogout () {
+
+    // delete localStorage.token;
+
   }
 
-  render() {
-    return (
+  render () {
 
+    return (
       <button
-        className="btn btn-default"
+        className='btn btn-default'
         onClick={this._handleLogout}
       >
-        <Link
-          to={`/login`}
-        >
+        <Link to={'/login'}>
           Logout
         </Link>
       </button>
+    )
 
-    );
   }
+
 }
 
-export default LogoutButton;
+export default LogoutButton

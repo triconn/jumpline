@@ -1,5 +1,5 @@
 import React from 'react'
-import { btnAddGuest } from './AddGuestButton.css'
+import styles from './AddGuestButton.css'
 
 export default class AddGuestButton extends React.Component {
 
@@ -13,7 +13,7 @@ export default class AddGuestButton extends React.Component {
 
       <button
         type="button"
-        className={`${btnAddGuest} btn btn-default btn-lg`}
+        className={`${styles.btnAddGuest} btn btn-default btn-lg`}
         onClick={this._handleClick}>
         <span
           className="glyphicon glyphicon-plus"

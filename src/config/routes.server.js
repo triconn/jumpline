@@ -1,12 +1,46 @@
 // All the routes
+import Server from '../index.server.js'
 
-export const routes = [
+const defaultRenderOptions = {
+  runtimeOptions: {
+    docType: '<!DOCTYPE html>',
+    renderMethod: 'renderToStaticMarkup',
+  },
+}
+
+const htmlHandler = (request, reply) => {
+
+  const htmlProps = {
+    title: 'Jumpline',
+  }
+
+  Server.log(['info'], htmlProps)
+
+  return Server.render(
+    'Html',
+    htmlProps,
+    defaultRenderOptions,
+    (error, output) => {
+
+      if (error) {
+
+        Server.log(['error'], error)
+        reply(error).code(500)
+
+      }
+
+      return reply(output)
+
+    }
+  )
+
+}
+
+const routes = [
   {
     method: 'GET',
     path: '/',
-    handler: {
-      view: 'Html',
-    },
+    handler: htmlHandler,
   },
   {
     method: 'GET',
@@ -21,14 +55,18 @@ export const routes = [
     method: 'GET',
     path: `/${process.env.LOADERIO_TOKEN}/`,
     handler: (request, reply) => {
-      return reply(process.env.LOADERIO_TOKEN);
+
+      return reply(process.env.LOADERIO_TOKEN)
+
     },
   },
   {
     method: 'GET',
     path: `/${process.env.LOADERIO_TOKEN}`,
     handler: (request, reply) => {
-      return reply(process.env.LOADERIO_TOKEN);
+
+      return reply(process.env.LOADERIO_TOKEN)
+
     },
   },
 
@@ -36,8 +74,8 @@ export const routes = [
   {
     method: 'GET',
     path: '/{param*}',
-    handler: {
-      view: 'Html',
-    },
+    handler: htmlHandler,
   },
-];
+]
+
+export default routes

@@ -61,6 +61,7 @@ class GuestTableEntry extends React.Component {
         <td>
           <GuestNotifyButton
             id={this.props.guest.get('guestId')}
+            phone={this.props.guest.get('phone')}
             status={this.props.guest.get('status')}
           />
         </td>
@@ -76,7 +77,7 @@ class GuestTableEntry extends React.Component {
               aria-hidden='true'
             >
             </span>
-            Done
+            &nbsp;Done
           </button>
         </td>
       </tr>
