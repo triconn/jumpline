@@ -5,35 +5,42 @@ import Jumpline from '../helpers/iqueue.js'
 const log = Debug('jl:queueActions')
 
 export function addGuestRequest () {
+
   return {
     type: Actions.ADD_GUEST_REQUEST,
   }
+
 }
 
 export function addGuestSuccess (guest) {
+
   return {
     type: Actions.ADD_GUEST_SUCCESS,
     guest,
   }
+
 }
 
 export function addGuestFailure (error) {
+
   return {
     type: Actions.ADD_GUEST_FAILURE,
     error,
   }
+
 }
 
-export function addGuest (newGuestQuery) {
+export function addGuest (newGuest, returnFields) {
 
   return (dispatch) => {
 
     dispatch(addGuestRequest())
 
-    return new Jumpline().query(newGuestQuery)
-    .then((body) => {
+    return new Jumpline().addGuest(newGuest, returnFields)
+    .then((data) => {
 
-      dispatch(addGuestSuccess(body.data.addGuest))
+      log('addGuest result', data.addGuest)
+      dispatch(addGuestSuccess(data.addGuest))
 
     })
     .catch((error) => {
@@ -41,7 +48,9 @@ export function addGuest (newGuestQuery) {
       dispatch(addGuestFailure(error))
 
     })
+
   }
+
 }
 
 
@@ -95,38 +104,44 @@ export function getGuests (...args) {
 }
 
 
-export function notifyGuestRequest(id) {
+export function notifyGuestRequest (id) {
+
   return {
     type: Actions.NOTIFY_GUEST_REQUEST,
     id,
   }
+
 }
 
-export function notifyGuestSuccess(guest) {
+export function notifyGuestSuccess (guest) {
+
   return {
     type: Actions.NOTIFY_GUEST_SUCCESS,
     guest,
   }
+
 }
 
-export function notifyGuestFailure(error) {
+export function notifyGuestFailure (error) {
+
   return {
     type: Actions.NOTIFY_GUEST_FAILURE,
     error,
   }
+
 }
 
-export function notifyGuest(id) {
+export function notifyGuest (guestId, returnFields) {
 
   return (dispatch) => {
 
-    dispatch(notifyGuestRequest(id))
+    dispatch(notifyGuestRequest(guestId))
 
-    return new Jumpline().notifyGuest(id)
-    .then((body) => {
+    return new Jumpline().notifyGuest(guestId, returnFields)
+    .then((data) => {
 
-      log(`notifyGuest result`, body.guest)
-      dispatch(notifyGuestSuccess(body.guest))
+      log('notifyGuest result', data.notifyGuest)
+      dispatch(notifyGuestSuccess(data.notifyGuest))
 
     })
     .catch((error) => {
@@ -134,48 +149,58 @@ export function notifyGuest(id) {
       dispatch(notifyGuestFailure(error))
 
     })
+
   }
+
 }
 
 
-export function completeGuestRequest(id) {
+export function completeGuestRequest (id) {
+
   return {
     type: Actions.COMPLETE_GUEST_REQUEST,
     id,
   }
+
 }
 
-export function completeGuestSuccess(guest) {
+export function completeGuestSuccess (guest) {
+
   return {
     type: Actions.COMPLETE_GUEST_SUCCESS,
     guest,
   }
+
 }
 
-export function completeGuestFailure(error) {
+export function completeGuestFailure (error) {
+
   return {
     type: Actions.COMPLETE_GUEST_FAILURE,
     error,
   }
+
 }
 
-export function completeGuest(id) {
+export function completeGuest (guestId, returnFields) {
 
   return (dispatch) => {
 
-    dispatch(completeGuestRequest(id))
+    dispatch(completeGuestRequest(guestId))
 
-    return new Jumpline().completeGuest(id)
-    .then(body => {
+    return new Jumpline().completeGuest(guestId, returnFields)
+    .then((data) => {
 
-      log(`completeGuest result`, body.guest)
-      dispatch(completeGuestSuccess(body.guest))
+      log('completeGuest result', data.completeGuest)
+      dispatch(completeGuestSuccess(data.completeGuest))
 
     })
-    .catch(error => {
+    .catch((error) => {
 
       dispatch(completeGuestFailure(error))
 
     })
+
   }
+
 }

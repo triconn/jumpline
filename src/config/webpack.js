@@ -12,7 +12,7 @@ const PreCSS = require('precss')
 // const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 module.exports = {
-  devtool: 'cheap-module-eval-source-map',
+  devtool: 'source-map',
   entry: [
     './src/index.browser.js',
   ],

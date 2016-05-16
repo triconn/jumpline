@@ -13,18 +13,31 @@ export default class iQueue {
 
     log('IQUEUE_API_URL:', this.url)
 
+    this.token = 'abc123token'
+
     // Bind methods
     this.query = this.query.bind(this)
     this._composeQuery = this._composeQuery.bind(this)
+    this._composeMutation = this._composeMutation.bind(this)
 
   }
 
 
-  _composeQuery (token, query, array) {
+  _composeQuery (query, array) {
 
-    const string = `{ viewer(token: "${token}") {`
+    const string = `{ viewer(token: "${this.token}") {`
                    + ` ${query} { ${array.join(' ')} }}}`
-    log('query:', string)
+    return string
+
+  }
+
+  _composeMutation (query, newObject, array) {
+
+    const string = `mutation M { ${query}(`
+                        + ` token: "${this.token}"`
+                        + ` name: "${newObject.name}"`
+                        + ` phone: "${newObject.phone}") {`
+                        + ` ${array.join(' ')} } }`
     return string
 
   }
@@ -42,6 +55,7 @@ export default class iQueue {
 
       const escaped = queryString.replace(/"/g, '\\"')
 
+      log('query:', escaped)
       request.post(this.url)
       .set('Content-Type', 'application/json')
       .send(`{ "query": "${escaped}" }`)
@@ -64,43 +78,36 @@ export default class iQueue {
   }
 
 
-  addGuest (guest) {
+  addGuest (newGuest, returnFields) {
 
-    return new Promise((resolve, reject) => {
+    if (!returnFields instanceof Array) {
 
-      request.post('/guests')
-      .set('Content-Type', 'application/json')
-      .send({ guest })
-      .end((err, res) => {
+      return new Error('Second arg should be an array of return fields')
 
-        if (err) return reject(err)
-
-        log('Created guest:', res.body)
-        return resolve(res.body)
-
-      })
-
-    })
+    }
+    const queryString = 'mutation M { addGuest('
+                        + ` token: "${this.token}"`
+                        + ` name: "${newGuest.name}"`
+                        + ` phone: "${newGuest.phone}") {`
+                        + ` ${returnFields.join(' ')} } }`
+    return this.query(queryString)
 
   }
 
 
-  completeGuest (id) {
+  completeGuest (guestId, returnFields) {
 
-    return new Promise((resolve, reject) => {
+    if (!returnFields instanceof Array) {
 
-      request.patch(`/guests/${id}/complete`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
+      return new Error('Second arg should be an array of return fields')
 
-        if (err) return reject(err)
-
-        log('Completed guest:', res.body)
-        return resolve(res.body)
-
-      })
-
-    })
+    }
+    const queryString = 'mutation M { completeGuest('
+                        + ` token: "${this.token}"`
+                        + ` guestId: "${guestId}"`
+                        + ') {'
+                        + ` ${returnFields.join(' ')} } }`
+    return this.query(queryString)
 
   }
 
@@ -116,7 +123,6 @@ export default class iQueue {
   getGuests (...args) {
 
     const queryString = this._composeQuery(
-      'abc123token',
       'currentGuests',
       args
     )
@@ -125,22 +131,19 @@ export default class iQueue {
   }
 
 
-  notifyGuest (id) {
+  notifyGuest (guestId, returnFields) {
 
-    return new Promise((resolve, reject) => {
+    if (!returnFields instanceof Array) {
 
-      request.patch(`/guests/${id}/notify`)
-      .set('Accept', 'application/json')
-      .end((err, res) => {
+      return new Error('Second arg should be an array of return fields')
 
-        if (err) return reject(err)
-
-        log('Notified guest:', res.body)
-        return resolve(res.body)
-
-      })
-
-    })
+    }
+    const queryString = 'mutation M { notifyGuest('
+                        + ` token: "${this.token}"`
+                        + ` guestId: "${guestId}"`
+                        + ') {'
+                        + ` ${returnFields.join(' ')} } }`
+    return this.query(queryString)
 
   }
 

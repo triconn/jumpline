@@ -66,14 +66,14 @@ const getFilteredQueue = (queue, filter) => {
     case QueueFilters.CURRENT_GUESTS:
       return queue.filter((guest) => {
 
-        return guest.get('status') !== 'completed'
+        return guest.get('status') < 100
 
       })
 
     case QueueFilters.COMPLETED_GUESTS:
       return queue.filter((guest) => {
 
-        return guest.get('status') === 'completed'
+        return guest.get('status') === 100
 
       })
 

@@ -14,7 +14,7 @@ class GuestNotifyButton extends React.Component {
 
   _notify () {
 
-    this.props.notifyGuest(this.props.id)
+    this.props.notifyGuest(this.props.guestId, this.props.returnFields)
 
   }
 
@@ -65,9 +65,10 @@ class GuestNotifyButton extends React.Component {
 }
 
 GuestNotifyButton.propTypes = {
-  id: React.PropTypes.string,
+  guestId: React.PropTypes.string,
   phone: React.PropTypes.string,
   notifyGuest: React.PropTypes.func,
+  returnFields: React.PropTypes.array,
   status: React.PropTypes.number,
 }
 
