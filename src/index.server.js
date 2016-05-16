@@ -1,6 +1,4 @@
 // Create a basic Hapi.js server
-require('babel-register');
-require('babel-polyfill');
 const Hapi = require('hapi');
 const HapiReactViews = require('hapi-react-views');
 const Path = require('path');
@@ -40,3 +38,5 @@ server.register(Plugins, (err) => {
 
   });
 });
+
+export default server

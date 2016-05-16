@@ -1,13 +1,14 @@
 // Webpack config file
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 // const Config = require('./webpack.production.js')
 const Path = require('path')
+const { getJsBundle } = require('../lib/utils.js')
+// Webpack and plugins
 const Webpack = require('webpack')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 // PostCSS Plugins
 const Autoprefixer = require('autoprefixer')
 const PreCSS = require('precss')
 
-const { getJsBundle } = require('../lib/utils.js')
 // const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
 module.exports = {
@@ -51,7 +52,8 @@ module.exports = {
         test: /\.css$/,
         loaders: [
           'style-loader',
-          'css-loader',
+          'css-loader?modules&camelCase'
+          + '&localIdentName=[name]_[local]_[hash:base64:3]',
           'postcss-loader',
         ],
       },
