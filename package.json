@@ -3,8 +3,8 @@
   "version": "4.0.0",
   "description": "An SMS paging API and web client",
   "engines": {
-    "node": ">=4.2.4",
-    "npm": ">=3.5.2"
+    "node": ">=4.4.4 <4",
+    "npm": ">=3.5.2 <4"
   },
   "keywords": [
     "sms",
