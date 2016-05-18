@@ -9,7 +9,7 @@ export default class iQueue {
 
     // Set API URL
     this.url = process.env.IQUEUE_API_URL
-      || 'https://api.iqueue.io/graphql'
+      || 'https://api.jumpline.me/graphql'
 
     log('IQUEUE_API_URL:', this.url)
 
@@ -63,8 +63,8 @@ export default class iQueue {
 
         if (error) {
 
-          log('error:', res.body.errors)
-          return reject(res.body.errors[0].message)
+          log('error:', error)
+          return reject(error)
 
         }
 

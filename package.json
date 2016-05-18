@@ -43,7 +43,7 @@
     "vision": "^4.0.1"
   },
   "scripts": {
-    "build": "webpack -p --progress --config src/config/webpack.production.js",
+    "build": "NODE_ENV=production webpack -p --progress --config src/config/webpack.js",
     "build-dev": "webpack --progress --colors --config src/config/webpack.js",
     "build-staging": "docker-compose -f docker/production.yml build",
     "debug": "node debug src/index.bootstrap.server.js",

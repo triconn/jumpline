@@ -1,7 +1,6 @@
+require('babel-register')({})
 // Webpack config file
-// const Config = require('./webpack.production.js')
 const Path = require('path')
-const { getJsBundle } = require('../lib/utils.js')
 // Webpack and plugins
 const Webpack = require('webpack')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
@@ -9,7 +8,55 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const Autoprefixer = require('autoprefixer')
 const PreCSS = require('precss')
 
+const ENV = process.env.NODE_ENV
+const getJsBundle = require('../lib/utils.js').getJsBundle
+
 // const NpmInstallPlugin = require('npm-install-webpack-plugin')
+
+// Dev and Prod plugins
+const plugins = [
+  new Webpack.DefinePlugin({
+    'process.env': {
+      GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
+      GOOGLE_CLIENT_SECRET: JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
+      GOOGLE_REDIRECT_URL: JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
+      IQUEUE_API_URL: JSON.stringify(process.env.IQUEUE_API_URL),
+      NODE_ENV: JSON.stringify(ENV || 'development'),
+    },
+  }),
+]
+
+// Prod-only plugins
+if (ENV === 'production') {
+
+  plugins.push(
+    new Webpack.optimize.OccurenceOrderPlugin()
+  )
+  plugins.push(
+    new Webpack.optimize.UglifyJsPlugin({
+      compress: {
+        warnings: false,
+      },
+    })
+  )
+
+}
+
+// Dev-only plugins
+if (ENV === 'development') {
+
+  plugins.push(
+    new BrowserSyncPlugin({
+      proxy: 'localhost:8000',
+      ghostMode: false,
+    })
+  )
+  // plugins.push(
+  //   new NpmInstallPlugin(),
+  // )
+
+}
+
 
 module.exports = {
   devtool: 'source-map',
@@ -21,22 +68,7 @@ module.exports = {
     path: Path.resolve(__dirname, '../../static/js'),
     publicPath: '/static/js/',
   },
-  plugins: [
-    new Webpack.DefinePlugin({
-      'process.env': {
-        GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
-        GOOGLE_CLIENT_SECRET: JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
-        GOOGLE_REDIRECT_URL: JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
-        IQUEUE_API_URL: JSON.stringify(process.env.IQUEUE_API_URL),
-        NODE_ENV: JSON.stringify('development'),
-      },
-    }),
-    new BrowserSyncPlugin({
-      proxy: 'localhost:8000',
-      ghostMode: false,
-    }),
-    // new NpmInstallPlugin(),
-  ],
+  plugins,
   module: {
     loaders: [
       {
@@ -44,7 +76,7 @@ module.exports = {
         exclude: /node_modules/,
         loader: 'babel-loader',
         query: {
-          cacheDirectory: true,
+          cacheDirectory: ENV === 'development',
           presets: ['es2015', 'react'],
         },
       },
