@@ -1,13 +1,13 @@
 version: '2'
 
 services:
-  iqueue:
+  jumpline:
     extends:
       file: common.yml
-      service: iqueue
+      service: jumpline
     environment:
       NODE_ENV: production
-      IQUEUE_API_URL: https://api.iqueue.io/graphql
+      IQUEUE_API_URL: https://api-staging.jumpline.me/graphql
       LOADERIO_TOKEN: loaderio-1d5629aba788b63738b1de7b1763a39f
     #logging:
     #  driver: syslog
