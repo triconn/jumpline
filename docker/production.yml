@@ -5,12 +5,37 @@ services:
     extends:
       file: common.yml
       service: jumpline
+    build:
+      args:
+        NODE_ENV: production
+        IQUEUE_API_URL: https://api-staging.jumpline.me/graphql
     environment:
       NODE_ENV: production
-      IQUEUE_API_URL: https://api-staging.jumpline.me/graphql
-      LOADERIO_TOKEN: loaderio-1d5629aba788b63738b1de7b1763a39f
-    #logging:
-    #  driver: syslog
-    ports:
-      - "80:8000"
+      LOADERIO_TOKEN: loaderio-2d1918d75ca5246201ff93f37f2604ed
     restart: always
+
+  lb:
+    image: 'dockercloud/haproxy:1.2.1'
+    links:
+      - jumpline-a
+      - jumpline-b
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    restart: always
+
+  logspout:
+    image: 'gliderlabs/logspout'
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    restart: always
+    command: syslog://logs4.papertrailapp.com:52334
+
+  jumpline-a:
+    extends:
+      service: jumpline
+
+  jumpline-b:
+    extends:
+      service: jumpline

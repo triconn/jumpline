@@ -21,13 +21,15 @@ WORKDIR /usr/src/app
 
 # Install app
 ADD package.json /usr/src/app/
+ARG NODE_ENV
 RUN npm install
+
 
 # Add and build assets
 ADD . /usr/src/app
+ARG IQUEUE_API_URL
 RUN npm run build
 
-ENV PORT 80
-EXPOSE 80
+EXPOSE 8000
 
 CMD npm start

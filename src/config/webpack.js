@@ -3,7 +3,6 @@ require('babel-register')({})
 const Path = require('path')
 // Webpack and plugins
 const Webpack = require('webpack')
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 // PostCSS Plugins
 const Autoprefixer = require('autoprefixer')
 const PreCSS = require('precss')
@@ -45,6 +44,7 @@ if (ENV === 'production') {
 // Dev-only plugins
 if (ENV === 'development') {
 
+  const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
   plugins.push(
     new BrowserSyncPlugin({
       proxy: 'localhost:8000',
