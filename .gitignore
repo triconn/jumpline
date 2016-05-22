@@ -109,3 +109,6 @@ coverage/
 *.swp
 .env
 *.map
+src/config/assets.json
+static/dist/*
+build/*

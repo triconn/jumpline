@@ -4,6 +4,7 @@
 .tmp
 node_modules
 *.map
+*.swp
 .travis.yml
 .eslintrc
 docker

@@ -2,6 +2,8 @@ import React from 'react'
 import styles from './Nav.css'
 import LogoutButton from './LogoutButton.jsx'
 
+const LogoPng = require('../../static/images/logo.png')
+
 const Nav = function Nav (props) {
 
   return (
@@ -20,7 +22,7 @@ const Nav = function Nav (props) {
             <span className='icon-bar'></span>
           </button>
           <a href='/'>
-            <img alt='iQueue' src='/static/images/logo.png' />
+            <img alt='iQueue' src={LogoPng} />
           </a>
         </div>
 

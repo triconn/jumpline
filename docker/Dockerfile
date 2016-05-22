@@ -22,11 +22,14 @@ WORKDIR /usr/src/app
 # Install app
 ADD package.json /usr/src/app/
 ARG NODE_ENV
-RUN npm install
+RUN npm install --production
 
 
 # Add and build assets
 ADD . /usr/src/app
+ARG AWS_BUCKET
+ARG AWS_ACCESS_KEY
+ARG AWS_SECRET_KEY
 ARG IQUEUE_API_URL
 RUN npm run build
 

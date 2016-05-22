@@ -7,9 +7,14 @@ import { Router, browserHistory } from 'react-router'
 import routes from './config/routes.browser.js'
 import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './lib/configureStore.js'
+import $ from 'jquery'
 
 // Global styles
 import './index.css'
+
+// Global variables
+window.jQuery = $
+window.$ = $
 
 if (module.hot) {
 

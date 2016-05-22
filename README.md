@@ -35,6 +35,32 @@ For client-side component debugging, install [React DevTools](https://fb.me/reac
 
 For client-side state debugging, install the [Redux DevTools Chrome Extension](https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd) ([source](https://github.com/zalmoxisus/redux-devtools-extension))
 
+#### Deployment
+
+Ensure the Docker staging environment is currently selected
+
+```
+docker-machine ls
+```
+
+Build staging
+
+```
+npm run build-staging
+```
+
+Deploy to service A
+
+```
+npm run up-a
+```
+
+Deploy to service B
+
+```
+npm run up-b
+```
+
 #### API Docs
 
 iQueue uses swagger for automatic API documentation in development.  Start the app with `NODE_ENV=development`, and visit the `/docs` route.

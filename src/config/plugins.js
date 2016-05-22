@@ -1,9 +1,7 @@
-const Fs = require('fs');
-const Good = require('good');
-const GoodConsole = require('good-console');
-const Inert = require('inert');
-const Path = require('path');
-const Vision = require('vision');
+import Good from 'good'
+import GoodConsole from 'good-console'
+import Inert from 'inert'
+import Vision from 'vision'
 
 const plugins = [
   {
@@ -24,34 +22,23 @@ const plugins = [
       ],
     },
   },
-];
+]
 
 
 // Register development plugins
 if (process.env.NODE_ENV === 'development') {
 
-  const HapiSwagger = require('hapi-swagger');
-  const Webpack = require('webpack');
-  const WebpackConfig = require('./webpack.js');
-  const WebpackPlugin = require('hapi-webpack-plugin');
+  const HapiSwagger = require('hapi-swagger')
 
-  plugins.push({
-    register: HapiSwagger,
-    options: {
-      documentationPath: '/docs',
-    },
-  },
-  {
-    register: WebpackPlugin,
-    options: {
-      assets: {
-        noInfo: true,
-        publicPath: WebpackConfig.output.publicPath,
+  plugins.push(
+    {
+      register: HapiSwagger,
+      options: {
+        documentationPath: '/docs',
       },
-      compiler: new Webpack(WebpackConfig),
-      hot: {},
-    },
-  });
+    }
+  )
+
 }
 
-export default plugins;
+export default plugins

@@ -1,33 +1,80 @@
-require('babel-register')({})
+'use strict'
+// require('babel-register')({})
+require('dotenv').config()
 // Webpack config file
 const Path = require('path')
 // Webpack and plugins
 const Webpack = require('webpack')
 // PostCSS Plugins
+const AssetsPlugin = require('assets-webpack-plugin')
 const Autoprefixer = require('autoprefixer')
 const PreCSS = require('precss')
+const S3Plugin = require('webpack-s3-plugin')
 
-const ENV = process.env.NODE_ENV
-const getJsBundle = require('../lib/utils.js').getJsBundle
+const ENV = process.env.NODE_ENV || 'development'
 
-// const NpmInstallPlugin = require('npm-install-webpack-plugin')
 
-// Dev and Prod plugins
+// Dev and Prod plugins and settings
+let publicPath = '/static/dist/'
+
+const entry = {
+  // 'build/server': './src/index.bootstrap.server.js',
+  // 'static/dist/bundle': './src/index.browser.js',
+  bundle: './src/index.browser.js',
+  vendor: [
+    'immutable',
+    'jquery',
+    'react',
+    'react-dom',
+    'react-redux',
+    'react-router',
+    'react-router-redux',
+    'redux',
+    'redux-thunk',
+  ],
+}
 const plugins = [
+  new AssetsPlugin({
+    filename: '/src/config/assets.json',
+  }),
   new Webpack.DefinePlugin({
     'process.env': {
-      GOOGLE_CLIENT_ID: JSON.stringify(process.env.GOOGLE_CLIENT_ID),
-      GOOGLE_CLIENT_SECRET: JSON.stringify(process.env.GOOGLE_CLIENT_SECRET),
-      GOOGLE_REDIRECT_URL: JSON.stringify(process.env.GOOGLE_REDIRECT_URL),
-      IQUEUE_API_URL: JSON.stringify(process.env.IQUEUE_API_URL),
       NODE_ENV: JSON.stringify(ENV || 'development'),
     },
   }),
+  new Webpack.EnvironmentPlugin([
+    'GOOGLE_CLIENT_ID',
+    'GOOGLE_REDIRECT_URL',
+    'IQUEUE_API_URL',
+  ]),
+  new Webpack.optimize.CommonsChunkPlugin({
+    name: 'vendor',
+  }),
+  // new Webpack.IgnorePlugin(/./, /^lab$/),
 ]
 
 // Prod-only plugins
 if (ENV === 'production') {
 
+  publicPath = 'https://assets-prod.jumpline.me/'
+  plugins.push(
+    new S3Plugin({
+      // Exclude uploading of html
+      exclude: /.*\.html$/,
+      // s3Options are required
+      s3Options: {
+        accessKeyId: process.env.AWS_ACCESS_KEY,
+        secretAccessKey: process.env.AWS_SECRET_KEY,
+        region: 'us-east-1',
+      },
+      s3UploadOptions: {
+        Bucket: process.env.AWS_BUCKET,
+      },
+      // cdnizerOptions: {
+      //   defaultCDNBase: 'http://asdf.ca',
+      // },
+    })
+  )
   plugins.push(
     new Webpack.optimize.OccurenceOrderPlugin()
   )
@@ -41,10 +88,25 @@ if (ENV === 'production') {
 
 }
 
+if (/staging/.test(process.env.AWS_BUCKET)) {
+
+  publicPath = 'https://assets-staging.jumpline.me/'
+
+}
+
 // Dev-only plugins
 if (ENV === 'development') {
 
   const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+  const WebpackShellPlugin = require('webpack-shell-plugin')
+  // const NpmInstallPlugin = require('npm-install-webpack-plugin')
+  plugins.push(
+    new WebpackShellPlugin({
+      dev: false,
+      verbose: true,
+      onBuildStart: ['npm start > server.log'],
+    })
+  )
   plugins.push(
     new BrowserSyncPlugin({
       proxy: 'localhost:8000',
@@ -60,13 +122,13 @@ if (ENV === 'development') {
 
 module.exports = {
   devtool: 'source-map',
-  entry: [
-    './src/index.browser.js',
-  ],
+  entry,
   output: {
-    filename: getJsBundle(),
-    path: Path.resolve(__dirname, '../../static/js'),
-    publicPath: '/static/js/',
+    chunkFilename: '[name]-[chunkhash].js',
+    filename: '[name]-[chunkhash].js',
+    // path: Path.resolve(__dirname, '../../static/dist'),
+    path: './static/dist/',
+    publicPath,
   },
   plugins,
   module: {
@@ -95,6 +157,14 @@ module.exports = {
       },
       // Configure loading font files, svg, etc
       {
+        test: /\.json$/,
+        loader: 'json-loader',
+      },
+      {
+        test: /\.(jpeg|jpg|png|svg)$/,
+        loader: 'file-loader',
+      },
+      {
         test: /\.woff(\?v=\d+\.\d+\.\d+)?$/,
         loader: 'url-loader?limit=10000&mimetype=application/font-woff',
       },
@@ -116,6 +186,14 @@ module.exports = {
       },
     ],
   },
+  // node: {
+  //   child_process: 'empty',
+  //   dns: 'empty',
+  //   fs: 'empty',
+  //   net: 'empty',
+  //   tap: 'empty',
+  //   tls: 'empty',
+  // },
   postcss: function postcss () {
 
     return [
@@ -132,4 +210,5 @@ module.exports = {
   sassConfig: {
     precision: 8,
   },
+  // target: 'node',
 }

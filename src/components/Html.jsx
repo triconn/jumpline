@@ -1,11 +1,10 @@
 // Default layout template
 import React from 'react'
-import { getJsBundle } from '../../src/lib/utils.js'
+import Assets from '../config/assets.json'
 
 const Html = function Html (props) {
 
   const title = props.title || 'Jumpline'
-  const jsBundlePath = `/static/js/${getJsBundle()}`
   return (
 
     <html>
@@ -43,13 +42,13 @@ const Html = function Html (props) {
         <component id='App'>
         </component>
         <script
-          src='https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js'
+          src={Assets.vendor.js}
+        ></script>
+        <script
+          src={Assets.bundle.js}
         ></script>
         <script
           src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
-        ></script>
-        <script
-          src={jsBundlePath}
         ></script>
 
       </body>
