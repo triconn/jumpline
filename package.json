@@ -1,6 +1,6 @@
 {
   "name": "iqueue",
-  "version": "4.0.1",
+  "version": "4.0.2",
   "description": "An SMS paging API and web client",
   "engines": {
     "node": ">=4.4.4 <4",
@@ -13,8 +13,8 @@
   ],
   "dependencies": {
     "babel-polyfill": "^6.3.14",
-    "babel-preset-es2015": "^6.3.13",
-    "babel-preset-react": "^6.3.13",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-react": "^6.5.0",
     "babel-register": "^6.4.3",
     "boom": "^3.1.1",
     "dateformat": "^1.0.11",
@@ -45,8 +45,6 @@
     "babel-core": "^6.4.0",
     "babel-eslint": "^6.0.3",
     "babel-loader": "^6.2.1",
-    "babel-preset-es2015": "^6.6.0",
-    "babel-preset-react": "^6.5.0",
     "css-loader": "^0.23.1",
     "dotenv": "^2.0.0",
     "eventsource-polyfill": "^0.9.6",
