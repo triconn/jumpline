@@ -8,7 +8,7 @@ services:
     build:
       args:
         NODE_ENV: production
-        IQUEUE_API_URL: https://api-staging.jumpline.me/graphql
+        IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
     environment:
       NODE_ENV: production
       LOADERIO_TOKEN: loaderio-2d1918d75ca5246201ff93f37f2604ed

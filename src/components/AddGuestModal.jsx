@@ -165,7 +165,7 @@ class AddGuestModal extends React.Component {
 }
 
 AddGuestModal.propTypes = {
-  addGuest: React.PropTypes.funct,
+  addGuest: React.PropTypes.func,
 }
 
 export default AddGuestModal
