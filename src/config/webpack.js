@@ -5,11 +5,12 @@ require('dotenv').config()
 const Path = require('path')
 // Webpack and plugins
 const Webpack = require('webpack')
-// PostCSS Plugins
 const AssetsPlugin = require('assets-webpack-plugin')
+// const OfflinePlugin = require('offline-plugin')
+const S3Plugin = require('webpack-s3-plugin')
+// PostCSS Plugins
 const Autoprefixer = require('autoprefixer')
 const PreCSS = require('precss')
-const S3Plugin = require('webpack-s3-plugin')
 
 const ENV = process.env.NODE_ENV || 'development'
 
@@ -88,7 +89,7 @@ if (ENV === 'production') {
 
 }
 
-if (/staging/.test(process.env.AWS_BUCKET)) {
+if (ENV === 'production' && /staging/.test(process.env.AWS_BUCKET)) {
 
   publicPath = 'https://assets-staging.jumpline.me/'
 
@@ -119,6 +120,13 @@ if (ENV === 'development') {
 
 }
 
+// Keep OfflinePlugin last
+// plugins.push(
+//   new OfflinePlugin({
+//     publicPath,
+//     relativePaths: false,
+//   })
+// )
 
 module.exports = {
   devtool: 'source-map',

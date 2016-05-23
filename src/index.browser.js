@@ -26,6 +26,9 @@ if (module.hot) {
 // https://stackoverflow.com/a/34015469/988941
 InjectTapEventPlugin()
 
+// Offline plugin
+// require('offline-plugin/runtime').install()
+
 const log = {
   jl: Debug('jl'),
   store: Debug('jl:store'),

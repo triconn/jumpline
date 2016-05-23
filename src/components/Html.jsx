@@ -42,12 +42,15 @@ const Html = function Html (props) {
         <component id='App'>
         </component>
         <script
+          type='application/javascript'
           src={Assets.vendor.js}
         ></script>
         <script
+          type='application/javascript'
           src={Assets.bundle.js}
         ></script>
         <script
+          type='application/javascript'
           src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
         ></script>
 
