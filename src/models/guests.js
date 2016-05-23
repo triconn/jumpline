@@ -1,5 +1,5 @@
 // Guests that fill the queue
-const DbConfig = require('../config/env.js').getDb();
+const DbConfig = require('../config/env.js').getDb()
 
 module.exports = {
 
@@ -14,7 +14,9 @@ module.exports = {
     estimate: {
       type: 'integer',
       defaultsTo: () => {
-        return 15;
+
+        return 15
+
       },
     },
     phone: 'string',
@@ -33,8 +35,10 @@ module.exports = {
     estimatedAt: {
       type: 'datetime',
       defaultsTo: () => {
-        return new Date();
+
+        return new Date()
+
       },
     },
   },
-};
+}

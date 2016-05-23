@@ -1,22 +1,19 @@
-import Debug from 'debug';
-import React from 'react';
+import React from 'react'
+import Nav from '../components/Nav.jsx'
 
-import Nav from '../components/Nav.jsx';
+const App = (props) => {
 
-const log = Debug('jl:App');
+  return (
+    <div>
+      <Nav />
+      {props.children}
+    </div>
+  )
 
-class App extends React.Component {
-
-  render() {
-    return (
-
-      <div>
-        <Nav />
-        {this.props.children}
-      </div>
-
-    );
-  }
 }
 
-export default App;
+App.propTypes = {
+  children: React.PropTypes.node,
+}
+
+export default App

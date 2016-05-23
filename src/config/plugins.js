@@ -24,21 +24,4 @@ const plugins = [
   },
 ]
 
-
-// Register development plugins
-if (process.env.NODE_ENV === 'development') {
-
-  const HapiSwagger = require('hapi-swagger')
-
-  plugins.push(
-    {
-      register: HapiSwagger,
-      options: {
-        documentationPath: '/docs',
-      },
-    }
-  )
-
-}
-
 export default plugins

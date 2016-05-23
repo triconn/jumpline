@@ -1,46 +1,54 @@
-import Debug from 'debug';
-import { Actions } from '../lib/constants.js';
-import iQueue from '../helpers/iqueue.js';
+import Debug from 'debug'
+import { Actions } from '../lib/constants.js'
+import Jumpline from '../helpers/iqueue.js'
 
-const log = Debug('jl:authActions');
+const log = Debug('jl:authActions')
 
-export function loginRequest() {
+export function loginRequest () {
+
   return {
     type: Actions.LOGIN_REQUEST,
-  };
+  }
+
 }
 
-export function loginSuccess(token) {
+export function loginSuccess (token) {
+
   return {
     type: Actions.LOGIN_SUCCESS,
     token,
-  };
+  }
+
 }
 
-export function loginFailure(error) {
+export function loginFailure (error) {
+
   return {
     type: Actions.LOGIN_FAILURE,
     error,
-  };
+  }
+
 }
 
-export function login(loginQuery) {
+export function login (loginQuery) {
 
   return (dispatch) => {
 
-    dispatch(loginRequest());
+    dispatch(loginRequest())
 
-    return new iQueue().query(loginQuery)
+    return new Jumpline().query(loginQuery)
     .then((body) => {
 
-      dispatch(loginSuccess(body.data.token));
+      log('new login token:', body.data.token)
+      dispatch(loginSuccess(body.data.token))
 
     })
     .catch((error) => {
 
-      dispatch(loginFailure(error));
+      dispatch(loginFailure(error))
 
-    });
+    })
+
   }
-}
 
+}

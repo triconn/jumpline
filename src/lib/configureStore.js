@@ -17,7 +17,7 @@ export default function configureStore (initialState) {
     typeof window === 'object'
       && typeof window.devToolsExtension !== 'undefined'
       ? window.devToolsExtension()
-      : (f) => f
+      : (f) => f // eslint-disable-line arrow-body-style
   ))
 
   // Enable Webpack hot module replacement for reducers

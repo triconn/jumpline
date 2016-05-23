@@ -1,24 +1,27 @@
-import Debug from 'debug';
-import React from 'react';
-import { Link } from 'react-router';
-import iQueue from '../helpers/iqueue.js';
+import React from 'react'
+import Jumpline from '../helpers/iqueue.js'
 
-const log = Debug('jl:oauth');
 
 class Oauth extends React.Component {
 
-  constructor() {
-    super();
-    this._handleCallback = this._handleCallback.bind(this);
+  constructor () {
+
+    super()
+    this._handleCallback = this._handleCallback.bind(this)
+
   }
 
-  componentDidMount() {
-    this._handleCallback();
+  componentDidMount () {
+
+    this._handleCallback()
+
   }
 
-  _handleCallback() {
-    const { query } = this.props.location;
+  _handleCallback () {
+
+    const { query } = this.props.location
     if (query.code) {
+
       // Google Oauth2 callback
       const googleLoginQuery = `
         mutation M {
@@ -29,34 +32,43 @@ class Oauth extends React.Component {
             accessCode,
           }
         }
-      `;
-      return new iQueue().query(googleLoginQuery)
+      `
+      return new Jumpline().query(googleLoginQuery)
       .then((data) => {
 
       })
       .catch((error) => {
-        console.error(error);
-      });
+
+        console.error(error)
+
+      })
+
     }
+
   }
 
-  render() {
-    return (
+  render () {
 
+    return (
       <div>
         Login page
         <div
-          className="btn btn-primary"
+          className='btn btn-primary'
           onClick={this._handleGoogle}
         >
           Login with Google
         </div>
       </div>
+    )
 
-    );
   }
 
 }
 
-export default Oauth;
+Oauth.propTypes = {
+  location: {
+    query: React.PropTypes.object,
+  },
+}
 
+export default Oauth
