@@ -1,5 +1,4 @@
 import Good from 'good'
-import GoodConsole from 'good-console'
 import Inert from 'inert'
 import Vision from 'vision'
 
@@ -13,13 +12,18 @@ const plugins = [
   {
     register: Good,
     options: {
-      opsInterval: 5000,
-      reporters: [
-        {
-          reporter: GoodConsole,
-          events: { log: '*', request: '*', response: '*', error: '*' },
-        },
-      ],
+      ops: {
+        interval: 5000,
+      },
+      reporters: {
+        console: [{
+          module: 'good-squeeze',
+          name: 'Squeeze',
+          args: [{ log: '*', request: '*', response: '*', error: '*' }],
+        }, {
+          module: 'good-console',
+        }, 'stdout'],
+      },
     },
   },
 ]
