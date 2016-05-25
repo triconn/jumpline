@@ -13,6 +13,20 @@ import reducer from './authReducer.js'
 
 describe('auth reducer', () => {
 
+  it('returns the given state by default', (done) => {
+
+    const state = { state: 'mystate' }
+    expect(
+
+      reducer(state, {
+        type: 'SOME_OTHER_ACTION',
+      })
+
+    ).to.equal(state)
+    done()
+
+  })
+
   it('inits with expected initial state', (done) => {
 
     expect(
