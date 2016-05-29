@@ -15,6 +15,8 @@ services:
     environment:
       NODE_ENV: production
       LOADERIO_TOKEN: loaderio-2d1918d75ca5246201ff93f37f2604ed
+      SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+    image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}
     restart: always
 
   lb:
@@ -36,9 +38,7 @@ services:
     command: syslog://logs4.papertrailapp.com:52334
 
   jumpline-a:
-    extends:
-      service: jumpline
+    image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}
 
   jumpline-b:
-    extends:
-      service: jumpline
+    image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}

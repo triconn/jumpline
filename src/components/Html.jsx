@@ -31,7 +31,7 @@ const Html = function Html (props) {
         >
         </link>
         <link
-          href='/static/images/favicon.ico'
+          href='/static/favicon.ico'
           rel='icon'
         >
         </link>
@@ -41,6 +41,7 @@ const Html = function Html (props) {
 
         <component id='App'>
         </component>
+
         <script
           type='application/javascript'
           src={Assets.vendor.js}

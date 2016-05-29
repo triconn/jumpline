@@ -1,43 +1,44 @@
-'use strict'
-// require('babel-register')({})
-require('dotenv').config()
-// Webpack config file
-const Path = require('path')
+import Dotenv from 'dotenv'
+import Path from 'path'
 // Webpack and plugins
-const Webpack = require('webpack')
-const AssetsPlugin = require('assets-webpack-plugin')
-// const OfflinePlugin = require('offline-plugin')
-const S3Plugin = require('webpack-s3-plugin')
+import Webpack from 'webpack'
+import AssetsPlugin from 'assets-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
+import CopyWebpackPlugin from 'copy-webpack-plugin'
+// import OfflinePlugin from 'offline-plugin'
 // PostCSS Plugins
-const Autoprefixer = require('autoprefixer')
-const PreCSS = require('precss')
+import Autoprefixer from 'autoprefixer'
+import PreCSS from 'precss'
+
+Dotenv.config()
 
 const ENV = process.env.NODE_ENV || 'development'
 
-
 // Dev and Prod plugins and settings
-let publicPath = '/static/dist/'
+const publicPath = '/static/'
 
 const entry = {
   // 'build/server': './src/index.bootstrap.server.js',
   // 'static/dist/bundle': './src/index.browser.js',
   bundle: './src/index.browser.js',
   vendor: [
+    'debug',
     'immutable',
     'jquery',
+    'key-mirror',
     'react',
     'react-dom',
     'react-redux',
     'react-router',
     'react-router-redux',
+    'react-tap-event-plugin',
     'redux',
     'redux-thunk',
+    'superagent',
   ],
 }
 const plugins = [
-  new AssetsPlugin({
-    filename: '/src/config/assets.json',
-  }),
+  // In case NODE_ENV is not defined, have default
   new Webpack.DefinePlugin({
     'process.env': {
       NODE_ENV: JSON.stringify(ENV || 'development'),
@@ -48,8 +49,23 @@ const plugins = [
     'GOOGLE_REDIRECT_URL',
     'IQUEUE_API_URL',
   ]),
+  new CompressionPlugin({
+    asset: '[path].gz[query]',
+    algorithm: 'gzip',
+    test: /\.(js|css|json|ico|map|xml|txt|svg|eot|ttf|woff|woff2)$/,
+    threshold: 10240,
+    minRatio: 0.8,
+  }),
+  new CopyWebpackPlugin([
+    { from: 'static/images/favicon.ico' },
+    { from: 'static/robots.txt' },
+  ]),
   new Webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
+    names: ['vendor'],
+    minChunks: Infinity,
+  }),
+  new AssetsPlugin({
+    filename: '/src/config/assets.json',
   }),
   // new Webpack.IgnorePlugin(/./, /^lab$/),
 ]
@@ -57,25 +73,25 @@ const plugins = [
 // Prod-only plugins
 if (ENV === 'production') {
 
-  publicPath = 'https://assets-prod.jumpline.me/'
-  plugins.push(
-    new S3Plugin({
-      // Exclude uploading of html
-      exclude: /.*\.html$/,
-      // s3Options are required
-      s3Options: {
-        accessKeyId: process.env.AWS_ACCESS_KEY,
-        secretAccessKey: process.env.AWS_SECRET_KEY,
-        region: 'us-east-1',
-      },
-      s3UploadOptions: {
-        Bucket: process.env.AWS_BUCKET,
-      },
-      // cdnizerOptions: {
-      //   defaultCDNBase: 'http://asdf.ca',
-      // },
-    })
-  )
+  // publicPath = 'https://assets-prod.jumpline.me/'
+  // plugins.push(
+  //   new S3Plugin({
+  //     // Exclude uploading of html
+  //     exclude: /.*\.html$/,
+  //     // s3Options are required
+  //     s3Options: {
+  //       accessKeyId: process.env.AWS_ACCESS_KEY,
+  //       secretAccessKey: process.env.AWS_SECRET_KEY,
+  //       region: 'us-east-1',
+  //     },
+  //     s3UploadOptions: {
+  //       Bucket: process.env.AWS_BUCKET,
+  //     },
+  //     // cdnizerOptions: {
+  //     //   defaultCDNBase: 'http://asdf.ca',
+  //     // },
+  //   })
+  // )
   plugins.push(
     new Webpack.optimize.OccurenceOrderPlugin()
   )
@@ -86,12 +102,6 @@ if (ENV === 'production') {
       },
     })
   )
-
-}
-
-if (ENV === 'production' && /staging/.test(process.env.AWS_BUCKET)) {
-
-  publicPath = 'https://assets-staging.jumpline.me/'
 
 }
 
@@ -135,7 +145,7 @@ module.exports = {
     chunkFilename: '[name]-[chunkhash].js',
     filename: '[name]-[chunkhash].js',
     // path: Path.resolve(__dirname, '../../static/dist'),
-    path: './static/dist/',
+    path: './build/',
     publicPath,
   },
   plugins,

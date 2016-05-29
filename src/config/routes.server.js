@@ -106,7 +106,8 @@ const routes = [
     path: '/static/{param*}',
     handler: {
       directory: {
-        path: 'static',
+        path: 'build',
+        lookupCompressed: true,
       },
     },
   },
