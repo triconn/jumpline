@@ -76,6 +76,7 @@
     "deploy-dev": "docker-compose -f docker/development.yml build && docker-compose -f docker/development.yml up",
     "deploy-staging": "npm run build-staging && npm run compose-staging -- up -d lb logspout jumpline-a jumpline-b",
     "dev": "NODE_ENV=development npm run start-dev",
+    "docker-build": "npm run build-staging && npm run docker-tag && npm run docker-login && npm run docker-push",
     "docker-tag": ". .env && docker tag jumpline:$(npm run --silent echo-version) us.gcr.io/${GOOGLE_PROJECT_ID}/jumpline:$(npm run --silent echo-version)",
     "docker-login": "docker login -e none -u oauth2accesstoken -p \"$(gcloud auth print-access-token)\" https://us.gcr.io",
     "docker-push": ". .env && gcloud docker push us.gcr.io/${GOOGLE_PROJECT_ID}/jumpline:$(npm run --silent echo-version)",
