@@ -7,9 +7,6 @@ services:
       service: jumpline
     build:
       args:
-        AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
-        AWS_SECRET_KEY: ${AWS_SECRET_KEY}
-        AWS_BUCKET: jumpline-assets-staging
         IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
         NODE_ENV: production
     environment:
@@ -38,7 +35,9 @@ services:
     command: syslog://logs4.papertrailapp.com:52334
 
   jumpline-a:
-    image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}
+    image: us.gcr.io/${GOOGLE_PROJECT_ID}/jumpline:${npm_config_tag_version_prefix}${npm_package_version}
+    restart: always
 
   jumpline-b:
-    image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}
+    image: us.gcr.io/${GOOGLE_PROJECT_ID}/jumpline:${npm_config_tag_version_prefix}${npm_package_version}
+    restart: always

@@ -27,9 +27,6 @@ RUN npm install --production
 
 # Add and build assets
 ADD . /usr/src/app
-ARG AWS_BUCKET
-ARG AWS_ACCESS_KEY
-ARG AWS_SECRET_KEY
 ARG IQUEUE_API_URL
 RUN npm run build
 
