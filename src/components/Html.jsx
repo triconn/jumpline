@@ -1,6 +1,5 @@
 // Default layout template
 import React from 'react'
-import Assets from '../config/assets.json'
 
 const Html = function Html (props) {
 
@@ -44,11 +43,15 @@ const Html = function Html (props) {
 
         <script
           type='application/javascript'
-          src={Assets.vendor.js}
+          dangerouslySetInnerHTML={{ __html: props.initialState }}
         ></script>
         <script
           type='application/javascript'
-          src={Assets.bundle.js}
+          src={props.assets.vendor.js}
+        ></script>
+        <script
+          type='application/javascript'
+          src={props.assets.bundle.js}
         ></script>
         <script
           type='application/javascript'
@@ -64,6 +67,8 @@ const Html = function Html (props) {
 
 Html.propTypes = {
   title: React.PropTypes.string,
+  assets: React.PropTypes.object,
+  initialState: React.PropTypes.object,
 }
 
 export default Html

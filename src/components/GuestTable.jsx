@@ -4,11 +4,11 @@ import styles from './GuestTable.css'
 
 const GuestTable = (props) => {
 
-  const rows = props.queue.map((guest, index) => {
+  const rows = props.queue.map((guest) => {
 
     return (
       <GuestTableEntry
-        key={index}
+        key={guest.get('guestId')}
         guest={guest}
         pollInterval={props.pollInterval}
       />

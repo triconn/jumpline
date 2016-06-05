@@ -3,6 +3,10 @@ import Server from '../index.server.js'
 import Request from 'superagent'
 import Boom from 'boom'
 import Promise from 'bluebird'
+import Fs from 'fs'
+import Path from 'path'
+
+const FsPromise = Promise.promisifyAll(Fs)
 
 const defaultRenderOptions = {
   runtimeOptions: {
@@ -13,29 +17,43 @@ const defaultRenderOptions = {
 
 const htmlHandler = (request, reply) => {
 
-  const htmlProps = {
-    title: 'Jumpline',
-  }
+  Promise.join(
+    FsPromise.readFileAsync(Path.resolve(__dirname, './assets.json'), 'utf-8')
+  )
+  .then((assetsFile) => {
 
-  Server.log(['info'], htmlProps)
+    const htmlProps = {
+      title: 'Jumpline',
+      assets: JSON.parse(assetsFile),
+    }
 
-  return Server.render(
-    'Html',
-    htmlProps,
-    defaultRenderOptions,
-    (error, output) => {
+    Server.log(['info'], htmlProps)
 
-      if (error) {
+    return Server.render(
+      'Html',
+      htmlProps,
+      defaultRenderOptions,
+      (error, output) => {
 
-        Server.log(['error'], error)
-        reply(error).code(500)
+        if (error) {
+
+          Server.log(['error'], error)
+          return reply(Boom.serverTimeout(error))
+
+        }
+
+        return reply(output)
 
       }
+    )
 
-      return reply(output)
+  })
+  .catch((error) => {
 
-    }
-  )
+    Server.log(['error', 'htmlHandler'], error)
+    return reply(Boom.serverTimeout(error))
+
+  })
 
 }
 

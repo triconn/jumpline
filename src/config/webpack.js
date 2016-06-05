@@ -109,15 +109,7 @@ if (ENV === 'production') {
 if (ENV === 'development') {
 
   const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
-  const WebpackShellPlugin = require('webpack-shell-plugin')
   // const NpmInstallPlugin = require('npm-install-webpack-plugin')
-  plugins.push(
-    new WebpackShellPlugin({
-      dev: false,
-      verbose: true,
-      onBuildStart: ['npm start > server.log'],
-    })
-  )
   plugins.push(
     new BrowserSyncPlugin({
       proxy: 'localhost:8000',
