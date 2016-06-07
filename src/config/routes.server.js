@@ -18,7 +18,10 @@ const defaultRenderOptions = {
 const htmlHandler = (request, reply) => {
 
   Promise.join(
-    FsPromise.readFileAsync(Path.resolve(__dirname, './assets.json'), 'utf-8')
+    FsPromise.readFileAsync(
+      Path.resolve(__dirname, '../../build/assets.json'),
+      'utf-8'
+    )
   )
   .then((assetsFile) => {
 
@@ -118,6 +121,13 @@ const routes = [
     method: 'GET',
     path: '/',
     handler: htmlHandler,
+  },
+  {
+    method: 'GET',
+    path: '/sw.js',
+    handler: {
+      file: 'build/sw.js',
+    },
   },
   {
     method: 'GET',

@@ -7,6 +7,10 @@ An SMS paging API and web client
 #### Quick Start
 
 ```bash
+git clone https://github.com/triconn/iqueue.git
+cd iqueue
+
+# Add env vars
 echo 'IQUEUE_API_URL=https://api.example.com/graphql
 GOOGLE_CLIENT_ID=xxx-xxx.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=xxxxxx
@@ -15,10 +19,10 @@ GCLOUD_AUTH_EMAIL=myemail@example.com
 GCLOUD_PROJECT_ID=my-project-id
 DOCKER_MACHINE_NAME=my-docker-machine
 SLACK_WEBHOOK=https://hooks.slack.com/services/xxx/xxx/xxxx' > .env
-
 . .env
-git clone https://github.com/triconn/iqueue.git
-cd iqueue
+# Also add .env-staging and .env-prod if building those environments
+
+# Install, build, and run
 npm install
 npm run build
 npm start
@@ -26,12 +30,12 @@ npm start
 
 #### Development
 
-```
-# For most dev including client components and styling, just run:
+```bash
+# For most dev, just run:
 npm run dev
 
-# If you're editing server assets and need auto-reloading:
-npm run watch
+# For testing and auto-reloading:
+npm run watch-test
 ```
 
 ###### Debugging

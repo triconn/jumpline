@@ -27,7 +27,7 @@ if (module.hot) {
 InjectTapEventPlugin()
 
 // Offline plugin
-// require('offline-plugin/runtime').install()
+require('offline-plugin/runtime').install()
 
 const log = {
   jl: Debug('jl'),

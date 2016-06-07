@@ -8,11 +8,8 @@ services:
     build:
       args:
         IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
-        NODE_ENV: production
-    environment:
-      NODE_ENV: production
-      LOADERIO_TOKEN: loaderio-2d1918d75ca5246201ff93f37f2604ed
-      SLACK_WEBHOOK: ${SLACK_WEBHOOK}
+        NODE_ENV: staging
+    env_file: .env-staging
     image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}
     restart: always
 

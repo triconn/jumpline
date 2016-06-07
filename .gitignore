@@ -107,8 +107,6 @@ nbproject
 .tmp
 coverage/
 *.swp
-.env
+.env*
 *.map
-src/config/assets.json
-static/dist/*
 build/*

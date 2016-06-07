@@ -20,16 +20,6 @@ const Html = function Html (props) {
           {title}
         </title>
         <link
-          href='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css'
-          rel='stylesheet'
-        ></link>
-        <link
-          href='https://fonts.googleapis.com/css?family=Varela+Round'
-          rel='stylesheet'
-          type='text/css'
-        >
-        </link>
-        <link
           href='/static/favicon.ico'
           rel='icon'
         >
@@ -51,11 +41,11 @@ const Html = function Html (props) {
         ></script>
         <script
           type='application/javascript'
-          src={props.assets.bundle.js}
+          src={props.assets.bootstrap.js}
         ></script>
         <script
           type='application/javascript'
-          src='https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js'
+          src={props.assets.bundle.js}
         ></script>
 
       </body>

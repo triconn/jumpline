@@ -1,16 +1,16 @@
-import Dotenv from 'dotenv'
 import Path from 'path'
+import { loadDotEnv } from '../lib/utils.js'
 // Webpack and plugins
 import Webpack from 'webpack'
 import AssetsPlugin from 'assets-webpack-plugin'
 import CompressionPlugin from 'compression-webpack-plugin'
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-// import OfflinePlugin from 'offline-plugin'
+import OfflinePlugin from 'offline-plugin'
 // PostCSS Plugins
 import Autoprefixer from 'autoprefixer'
 import PreCSS from 'precss'
 
-Dotenv.config()
+loadDotEnv()
 
 const ENV = process.env.NODE_ENV || 'development'
 
@@ -19,8 +19,7 @@ const publicPath = '/static/'
 
 const entry = {
   // 'build/server': './src/index.bootstrap.server.js',
-  // 'static/dist/bundle': './src/index.browser.js',
-  bundle: './src/index.browser.js',
+  // 'build/client': './src/index.browser.js',
   vendor: [
     'debug',
     'immutable',
@@ -36,6 +35,8 @@ const entry = {
     'redux-thunk',
     'superagent',
   ],
+  bootstrap: 'bootstrap-loader',
+  bundle: './src/index.browser.js',
 }
 const plugins = [
   // In case NODE_ENV is not defined, have default
@@ -43,6 +44,11 @@ const plugins = [
     'process.env': {
       NODE_ENV: JSON.stringify(ENV || 'development'),
     },
+  }),
+  new Webpack.ProvidePlugin({
+    $: 'jquery',
+    jQuery: 'jquery',
+    'window.jQuery': 'jquery',
   }),
   new Webpack.EnvironmentPlugin([
     'GOOGLE_CLIENT_ID',
@@ -65,7 +71,7 @@ const plugins = [
     minChunks: Infinity,
   }),
   new AssetsPlugin({
-    filename: '/src/config/assets.json',
+    filename: '/build/assets.json',
   }),
   // new Webpack.IgnorePlugin(/./, /^lab$/),
 ]
@@ -123,12 +129,26 @@ if (ENV === 'development') {
 }
 
 // Keep OfflinePlugin last
-// plugins.push(
-//   new OfflinePlugin({
-//     publicPath,
-//     relativePaths: false,
-//   })
-// )
+plugins.push(
+  new OfflinePlugin({
+    publicPath: '/',
+    relativePaths: false,
+    caches: {
+      main: [
+        // '/',
+        ':rest:',
+      ],
+    },
+    externals: [
+      // '/',
+    ],
+    rewrites: (asset) => {
+
+      return asset === '/' ? asset : `/static/${asset}`
+
+    },
+  })
+)
 
 module.exports = {
   devtool: 'source-map',
@@ -136,7 +156,6 @@ module.exports = {
   output: {
     chunkFilename: '[name]-[chunkhash].js',
     filename: '[name]-[chunkhash].js',
-    // path: Path.resolve(__dirname, '../../static/dist'),
     path: './build/',
     publicPath,
   },

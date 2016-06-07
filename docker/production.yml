@@ -7,14 +7,12 @@ services:
       service: jumpline
     build:
       args:
-        AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
-        AWS_SECRET_KEY: ${AWS_SECRET_KEY}
-        AWS_BUCKET: jumpline-assets-prod
+        # AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
+        # AWS_SECRET_KEY: ${AWS_SECRET_KEY}
+        # AWS_BUCKET: jumpline-assets-prod
         IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
         NODE_ENV: production
-    environment:
-      NODE_ENV: production
-      LOADERIO_TOKEN: loaderio-2d1918d75ca5246201ff93f37f2604ed
+    env_file: .env-prod
     restart: always
 
   lb:

@@ -1,14 +1,20 @@
-const Package = require('../../package.json')
-const Assets = require('../config/assets.json')
+import Dotenv from 'dotenv'
 
-export function getJsBundle () {
+export function loadDotEnv (environment = process.env.NODE_ENV) {
 
-  return Assets.bundle.js
+  switch (environment) {
 
-}
+    case 'development':
+      return Dotenv.config({ path: '.env' })
 
-export function getCssBundle () {
+    case 'staging':
+      return Dotenv.config({ path: '.env-staging' })
 
-  return `${Package.version}.css`
+    case 'production':
+      return Dotenv.config({ path: '.env-prod' })
+
+    default:
+      return Dotenv.config({ path: '.env' })
+  }
 
 }
