@@ -104,7 +104,7 @@
   "author": "triconn",
   "license": "Apache-2.0",
   "devDependencies": {
-    "browser-sync": "^2.9.3",
+    "browser-sync": "^2.13.0",
     "browser-sync-webpack-plugin": "^1.0.0",
     "code": "^3.0.0",
     "concurrently": "^2.1.0",
