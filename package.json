@@ -119,7 +119,7 @@
     "flow-bin": "^0.25.0",
     "lab": "^10.6.1",
     "lab-babel": "^1.1.1",
-    "npm-install-webpack-plugin": "^4.0.0",
+    "npm-install-webpack-plugin": "^4.0.1",
     "nodemon": "^1.3.7"
   }
 }
