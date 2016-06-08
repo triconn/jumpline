@@ -136,7 +136,7 @@ plugins.push(
     caches: {
       main: [
         // '/',
-        ':rest:',
+        '*.{css,eot,ico,jpg,jpeg,js,json,png,svg,ttf,txt,woff,woff2,}',
       ],
     },
     externals: [
