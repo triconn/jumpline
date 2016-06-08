@@ -5,11 +5,7 @@ class Login extends React.Component {
 
   _handleGoogle () {
 
-    window.location = 'https://accounts.google.com/o/oauth2/v2/auth'
-      + '?response_type=code&access_type=offline'
-      + `&client_id=${process.env.GOOGLE_CLIENT_ID}`
-      + `&redirect_uri=${escape(process.env.GOOGLE_REDIRECT_URL)}`
-      + `&scope=${escape('email')}`
+    window.location = `${window.location.origin}/auth/google/redirect`
 
   }
 
