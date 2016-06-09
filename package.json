@@ -42,7 +42,7 @@
     "immutable": "^3.7.6",
     "inert": "^4.0.0",
     "joi": "^8.0.1",
-    "jquery": "^2.2.4",
+    "jquery": "^3.0.0",
     "json-loader": "^0.5.4",
     "key-mirror": "^1.0.1",
     "material-ui": "^0.15.0",
