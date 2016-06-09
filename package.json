@@ -47,7 +47,7 @@
     "key-mirror": "^1.0.1",
     "material-ui": "^0.15.0",
     "node-sass": "^3.4.2",
-    "offline-plugin": "^3.2.1",
+    "offline-plugin": "^3.3.1",
     "postcss-loader": "^0.9.1",
     "precss": "^1.4.0",
     "react": "^15.0.2",
