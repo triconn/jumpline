@@ -109,7 +109,7 @@
     "browser-sync-webpack-plugin": "^1.0.0",
     "code": "^3.0.0",
     "concurrently": "^2.1.0",
-    "eslint": "^2.8.0",
+    "eslint": "^2.12.0",
     "eslint-config-airbnb": "^9.0.1",
     "eslint-config-standard": "^5.1.0",
     "eslint-config-tribou": "^1.1.0",
