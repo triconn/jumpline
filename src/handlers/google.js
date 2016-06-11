@@ -16,6 +16,8 @@ export const googleRedirectHandler = (request, reply) => {
   ]
 
   const url = oauth2Client.generateAuthUrl({
+    access_type: 'online',
+    approval_prompt: 'auto',
     scope, // If you only need one scope you can pass it as string
   })
 
@@ -36,7 +38,7 @@ export const googleCallbackHandler = (request, reply) => {
 
     }
 
-    return reply(tokens)
+    return reply(tokens).spaces(2)
 
   })
 
