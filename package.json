@@ -119,7 +119,7 @@
     "eslint-plugin-promise": "^1.1.0",
     "eslint-plugin-react": "^5.0.1",
     "eslint-plugin-standard": "^1.3.2",
-    "flow-bin": "^0.25.0",
+    "flow-bin": "^0.27.0",
     "lab": "^10.6.1",
     "lab-babel": "^1.1.1",
     "npm-install-webpack-plugin": "^4.0.0",
