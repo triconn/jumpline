@@ -10,7 +10,7 @@ services:
         # AWS_ACCESS_KEY: ${AWS_ACCESS_KEY}
         # AWS_SECRET_KEY: ${AWS_SECRET_KEY}
         # AWS_BUCKET: jumpline-assets-prod
-        IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
+        JUMPLINE_API_URL: https://hyz337t43k.execute-api.us-east-1.amazonaws.com/staging/graphql
         NODE_ENV: production
     env_file: .env-prod
     restart: always

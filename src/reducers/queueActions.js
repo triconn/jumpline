@@ -1,6 +1,6 @@
 import Debug from 'debug'
 import { Actions } from '../lib/constants.js'
-import Jumpline from '../helpers/iqueue.js'
+import Jumpline from '../helpers/jumpline.js'
 
 const log = Debug('jl:queueActions')
 

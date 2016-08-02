@@ -22,7 +22,7 @@ const Nav = function Nav (props) {
             <span className='icon-bar'></span>
           </button>
           <a href='/'>
-            <img alt='iQueue' src={LogoPng} />
+            <img alt='Jumpline' src={LogoPng} />
           </a>
         </div>
 
@@ -31,7 +31,7 @@ const Nav = function Nav (props) {
           id='bs-example-navbar-collapse-1'
         >
           <button type='button' className='btn btn-default navbar-btn'>
-            <span className='greyText'>iQueue</span>
+            <span className='greyText'>Jumpline</span>
           </button>
           <button type='button' className='btn btn-default navbar-btn'>
             <span className='greyText'>Edit Text Message</span>

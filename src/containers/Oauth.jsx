@@ -1,5 +1,5 @@
 import React from 'react'
-import Jumpline from '../helpers/iqueue.js'
+import Jumpline from '../helpers/jumpline.js'
 
 
 class Oauth extends React.Component {

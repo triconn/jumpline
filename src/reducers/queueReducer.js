@@ -42,7 +42,7 @@ export default function queueReducer (state = initialState, action) {
         }),
         (guest) => {
 
-          // Replace it entirely with response guest from iQueue API
+          // Replace it entirely with response guest from Jumpline API
           return fromJS(action.guest)
 
         }
@@ -60,7 +60,7 @@ export default function queueReducer (state = initialState, action) {
         }),
         (guest) => {
 
-          // Replace it entirely with response guest from iQueue API
+          // Replace it entirely with response guest from Jumpline API
           return fromJS(action.guest)
 
         }

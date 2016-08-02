@@ -1,17 +1,17 @@
 import Debug from 'debug'
 import request from 'superagent'
 
-const log = Debug('jl:iqueue')
+const log = Debug('jl:jumpline')
 
-export default class iQueue {
+export default class Jumpline {
 
   constructor () {
 
     // Set API URL
-    this.url = process.env.IQUEUE_API_URL
+    this.url = process.env.JUMPLINE_API_URL
       || 'https://api.jumpline.me/graphql'
 
-    log('IQUEUE_API_URL:', this.url)
+    log('JUMPLINE_API_URL:', this.url)
 
     this.token = 'abc123token'
 

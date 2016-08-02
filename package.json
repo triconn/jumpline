@@ -1,5 +1,5 @@
 {
-  "name": "iqueue",
+  "name": "jumpline",
   "version": "4.4.0",
   "description": "An SMS paging API and web client",
   "engines": {
@@ -100,7 +100,7 @@
   "main": "src/index.server.babel.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/triconn/iqueue.git"
+    "url": "https://github.com/triconn/jumpline.git"
   },
   "author": "triconn",
   "license": "Apache-2.0",

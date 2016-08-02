@@ -53,7 +53,7 @@ const plugins = [
   new Webpack.EnvironmentPlugin([
     'GOOGLE_CLIENT_ID',
     'GOOGLE_REDIRECT_URL',
-    'IQUEUE_API_URL',
+    'JUMPLINE_API_URL',
   ]),
   new CompressionPlugin({
     asset: '[path].gz[query]',

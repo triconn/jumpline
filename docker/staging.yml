@@ -7,7 +7,7 @@ services:
       service: jumpline
     build:
       args:
-        IQUEUE_API_URL: https://l38fle032c.execute-api.us-east-1.amazonaws.com/staging/graphql
+        JUMPLINE_API_URL: https://api-staging.jumpline.me/graphql
         NODE_ENV: staging
     env_file: .env-staging
     image: jumpline:${npm_config_tag_version_prefix}${npm_package_version}

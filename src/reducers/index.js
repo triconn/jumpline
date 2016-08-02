@@ -2,7 +2,7 @@
 import { combineReducers } from 'redux'
 import { routerReducer } from 'react-router-redux'
 
-// iQueue reducers
+// Jumpline reducers
 import auth from './authReducer.js'
 import queue from './queueReducer.js'
 import queueFilter from './queueFilterReducer.js'

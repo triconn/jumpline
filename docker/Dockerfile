@@ -27,7 +27,7 @@ RUN npm install --production
 
 # Add and build assets
 ADD . /usr/src/app
-ARG IQUEUE_API_URL
+ARG JUMPLINE_API_URL
 RUN npm run build
 
 EXPOSE 8000

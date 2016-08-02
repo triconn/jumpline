@@ -1,17 +1,17 @@
-![iQueue](https://raw.githubusercontent.com/wiki/triconn/iqueue/iQueue-logo.png)
-[![Build Status](https://travis-ci.org/triconn/iqueue.svg?branch=master)](https://travis-ci.org/triconn/iqueue)
-[![bitHound Score](https://www.bithound.io/github/triconn/iqueue/badges/score.svg)](https://www.bithound.io/github/triconn/iqueue)
+![Jumpline](https://raw.githubusercontent.com/wiki/triconn/jumpline/iQueue-logo.png)
+[![Build Status](https://travis-ci.org/triconn/jumpline.svg?branch=master)](https://travis-ci.org/triconn/jumpline)
+[![bitHound Score](https://www.bithound.io/github/triconn/jumpline/badges/score.svg)](https://www.bithound.io/github/triconn/jumpline)
 
 An SMS paging API and web client
 
 #### Quick Start
 
 ```bash
-git clone https://github.com/triconn/iqueue.git
-cd iqueue
+git clone https://github.com/triconn/jumpline.git
+cd jumpline
 
 # Add env vars
-echo 'IQUEUE_API_URL=https://api.example.com/graphql
+echo 'JUMPLINE_API_URL=https://api.example.com/graphql
 GOOGLE_CLIENT_ID=xxx-xxx.apps.googleusercontent.com
 GOOGLE_CLIENT_SECRET=xxxxxx
 GOOGLE_REDIRECT_URL=http://localhost:3000/login
@@ -91,4 +91,4 @@ docker login -e none -u oauth2accesstoken -p "$(gcloud auth print-access-token)"
 
 #### API Docs
 
-iQueue uses swagger for automatic API documentation in development.  Start the app with `NODE_ENV=development`, and visit the `/docs` route.
+Jumpline uses swagger for automatic API documentation in development.  Start the app with `NODE_ENV=development`, and visit the `/docs` route.
