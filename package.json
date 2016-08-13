@@ -87,6 +87,7 @@
     "flow": "flow",
     "lint": "eslint --ignore-pattern **/bundle-*.js --ext .js,.jsx src/**",
     "logs": "npm run compose-staging -- logs -f --tail=20",
+    "postinstall": "npm run build",
     "start": "node src/index.server.babel.js",
     "start-dev": "concurrently 'npm run build-dev -- --watch' 'nodemon -w src/handlers/ -w src/config/ -w src/index.server.js -x npm run --silent start'",
     "test": "lab -v -P '_test' -T node_modules/lab-babel -I __core-js_shared__ -t 97 src",

@@ -1,5 +1,4 @@
 import Path from 'path'
-import { loadDotEnv } from '../lib/utils.js'
 // Webpack and plugins
 import Webpack from 'webpack'
 import AssetsPlugin from 'assets-webpack-plugin'
@@ -9,8 +8,6 @@ import OfflinePlugin from 'offline-plugin'
 // PostCSS Plugins
 import Autoprefixer from 'autoprefixer'
 import PreCSS from 'precss'
-
-loadDotEnv()
 
 const ENV = process.env.NODE_ENV || 'development'
 
